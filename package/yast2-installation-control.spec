@@ -17,7 +17,7 @@
 
 
 Name:           yast2-installation-control
-Version:        3.1.3
+Version:        3.1.4
 Release:        0
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
@@ -30,17 +30,10 @@ Url:            https://github.com/yast/yast-installation-control
 
 BuildRequires:  yast2-devtools >= 3.1.10
 
-# xmllint for validation
-BuildRequires:  libxml2-tools
-
-# xsltproc for generating some XML files
-BuildRequires:  libxslt-tools
-
 BuildArch:      noarch
 
 %description
 This package contains RNG schema for validating the installation control files.
-Also the control files for some base products and a language add-on is present.
 
 %prep
 %setup -n %{name}-%{version}
@@ -53,9 +46,9 @@ Also the control files for some base products and a language add-on is present.
 
 %files
 %defattr(-,root,root)
-%dir /usr/share/YaST2/control
-/usr/share/YaST2/control/*.rng
-/usr/share/YaST2/control/*.rnc
+%dir %{yast_controldir}
+%{yast_controldir}/*.rng
+%{yast_controldir}/*.rnc
 
 %doc %{yast_docdir}
 

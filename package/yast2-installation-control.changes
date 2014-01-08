@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Tue Jan  7 07:29:31 UTC 2014 - lslezak@suse.cz
+
+- move the control files to separate packages
+  (yast2-installation-control-openSUSE* and
+   yast2-installation-control-SLE*)
+- 3.1.4
+
+-------------------------------------------------------------------
 Mon Dec 16 12:13:46 UTC 2013 - lslezak@suse.cz
 
 - added libxslt-tools (providing xsltproc) to BuildRequires
