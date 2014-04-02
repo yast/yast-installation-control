@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Apr  2 13:38:56 UTC 2014 - jreidinger@suse.com
+
+- add element for separate ssh service enablement (bnc#865056)
+- 3.1.5
+
+-------------------------------------------------------------------
 Tue Jan  7 07:29:31 UTC 2014 - lslezak@suse.cz
 
 - move the control files to separate packages
