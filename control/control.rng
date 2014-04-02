@@ -67,7 +67,7 @@
       <ref name="enable_autologin"/>
       <ref name="enable_firewall"/>
       <ref name="firewall_enable_ssh"/>
-      <ref name="firewall_enable_ssh"/>
+      <ref name="enable_sshd"/>
       <ref name="write_hostname_to_hosts"/>
       <ref name="run_init_scripts_in_parallel"/>
       <ref name="inform_about_suboptimal_distribution"/>
@@ -196,8 +196,14 @@ more detailed log entries</a:documentation>
     </element>
   </define>
   <define name="firewall_enable_ssh">
-    <a:documentation>Default value for SSHD in firewall (open port)</a:documentation>
+    <a:documentation>Default value for opening port for SSH in firewall</a:documentation>
     <element name="firewall_enable_ssh">
+      <ref name="BOOLEAN"/>
+    </element>
+  </define>
+  <define name="enable_sshd">
+    <a:documentation>Default value for SSHD service</a:documentation>
+    <element name="enable_sshd">
       <ref name="BOOLEAN"/>
     </element>
   </define>

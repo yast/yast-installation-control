@@ -58,7 +58,7 @@ globals_elements =
     | enable_autologin
     | enable_firewall
     | firewall_enable_ssh
-    | firewall_enable_ssh
+    | enable_sshd
     | write_hostname_to_hosts
     | run_init_scripts_in_parallel
     | inform_about_suboptimal_distribution
@@ -131,8 +131,10 @@ debug_workflow =			element debug_workflow { BOOLEAN }
 enable_autologin =			element enable_autologin { BOOLEAN }
 ## Default value for firewall
 enable_firewall =			element enable_firewall { BOOLEAN }
-## Default value for SSHD in firewall (open port)
+## Default value for opening port for SSH in firewall
 firewall_enable_ssh =			element firewall_enable_ssh { BOOLEAN }
+## Default value for SSHD service
+enable_sshd =			        element enable_sshd { BOOLEAN }
 ## Default value whether to write a system hostname to /etc/hosts
 write_hostname_to_hosts =		element write_hostname_to_hosts { BOOLEAN }
 ## Defines whether startup scripts should run in a parallel mode.
