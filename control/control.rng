@@ -496,6 +496,7 @@ Absolut path is required.</a:documentation>
       <ref name="software_packages"/>
       <ref name="kernel_packages"/>
       <ref name="packages_transmogrify"/>
+      <ref name="default_patterns"/>
     </choice>
   </define>
   <define name="delete_old_packages">
@@ -768,6 +769,12 @@ Comma and/or space-separated list of packages</a:documentation>
           <text/>
         </element>
       </oneOrMore>
+    </element>
+  </define>
+  <define name="default_patterns">
+    <a:documentation>Comma and/or space-separated list of default patterns selected for installation</a:documentation>
+    <element name="default_patterns">
+      <text/>
     </element>
   </define>
   <define name="software">
