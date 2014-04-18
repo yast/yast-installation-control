@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Apr 18 10:17:58 CEST 2014 - locilka@suse.com
+
+- Added software->default_patterns - patterns selected for
+  installation by default (bnc#873923)
+- 3.1.6
+
+-------------------------------------------------------------------
 Wed Apr  2 13:38:56 UTC 2014 - jreidinger@suse.com
 
 - add element for separate ssh service enablement (bnc#865056)
