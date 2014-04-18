@@ -259,6 +259,7 @@ software_elements =
     | software_packages
     | kernel_packages
     | packages_transmogrify
+    | default_patterns
 
 ## Whether it is allowed to delete a package during upgrade
 delete_old_packages = element delete_old_packages { BOOLEAN }
@@ -367,6 +368,9 @@ packages_affecting_pkg_manager = element packages_affecting_pkg_manager {
     LIST,
     element package { text }+
 }
+
+## Comma and/or space-separated list of default patterns selected for installation
+default_patterns = element default_patterns { text }
 
 ## Software / Package-manager related variables
 software = element software {
