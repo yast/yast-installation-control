@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu May 15 10:40:04 CEST 2014 - locilka@suse.com
+
+- Added software->upgrade->window_managers to handle upgrading
+  the system based on the default windowmanager (bnc#874116)
+- 3.1.7
+
+-------------------------------------------------------------------
 Fri Apr 18 10:17:58 CEST 2014 - locilka@suse.com
 
 - Added software->default_patterns - patterns selected for
