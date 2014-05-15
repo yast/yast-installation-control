@@ -497,6 +497,7 @@ Absolut path is required.</a:documentation>
       <ref name="kernel_packages"/>
       <ref name="packages_transmogrify"/>
       <ref name="default_patterns"/>
+      <ref name="upgrade"/>
     </choice>
   </define>
   <define name="delete_old_packages">
@@ -775,6 +776,51 @@ Comma and/or space-separated list of packages</a:documentation>
     <a:documentation>Comma and/or space-separated list of default patterns selected for installation</a:documentation>
     <element name="default_patterns">
       <text/>
+    </element>
+  </define>
+  <define name="upgrade">
+    <a:documentation>Defines behavior during upgrade</a:documentation>
+    <element name="upgrade">
+      <optional>
+        <element name="window_managers">
+          <a:documentation>Optional list of upgrade paths for default window manager set
+in /etc/sysconfig/windowmanager:DEFAULT_WM (not all cases need to be handled)</a:documentation>
+          <ref name="LIST"/>
+          <zeroOrMore>
+            <element name="window_manager">
+              <interleave>
+                <element name="sysconfig_wm">
+                  <a:documentation>Windowmanager as found in /etc/sysconfig/windowmanager:DEFAULT_WM
+This entry is mandatory</a:documentation>
+                  <text/>
+                </element>
+                <optional>
+                  <element name="check_packages">
+                    <a:documentation>Space-separated list of packages to check whether the selected desktop
+is really installed on the system</a:documentation>
+                    <text/>
+                  </element>
+                </optional>
+                <oneOrMore>
+                  <choice>
+                    <a:documentation>Either install_patterns or install_packages must be defined or both</a:documentation>
+                    <element name="install_patterns">
+                      <a:documentation>Optional list of space-separated patterns that should be
+selected for installation</a:documentation>
+                      <text/>
+                    </element>
+                    <element name="install_packages">
+                      <a:documentation>Optional list of space-separated packages that should be
+selected for installation</a:documentation>
+                      <text/>
+                    </element>
+                  </choice>
+                </oneOrMore>
+              </interleave>
+            </element>
+          </zeroOrMore>
+        </element>
+      </optional>
     </element>
   </define>
   <define name="software">
