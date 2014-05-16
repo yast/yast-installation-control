@@ -2,8 +2,8 @@
 Fri May 16 15:51:37 CEST 2014 - locilka@suse.com
 
 - Added software->optional_default_patterns - optional patterns
-  selected for installation that do not cause reporting an error
-  if they are missing (bnc#876760)
+  selected for installation by default that do not cause reporting
+  an error if they are missing (bnc#876760)
 - 3.1.8
 
 -------------------------------------------------------------------
