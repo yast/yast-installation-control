@@ -260,6 +260,7 @@ software_elements =
     | kernel_packages
     | packages_transmogrify
     | default_patterns
+    | optional_default_patterns
     | upgrade
 
 ## Whether it is allowed to delete a package during upgrade
@@ -370,8 +371,18 @@ packages_affecting_pkg_manager = element packages_affecting_pkg_manager {
     element package { text }+
 }
 
-## Comma and/or space-separated list of default patterns selected for installation
+## Space-separated list of default patterns selected for installation.
+## If such a pattern doesn't exist, error is reported. To omit reporting
+## such error, use optional_default_patterns instead.
+## These patterns are not selected in auto-installation.
 default_patterns = element default_patterns { text }
+
+## Space-separated list of (optional) default patterns for installation.
+## These patterns will be selected only if they exist and thus it will
+## never report any error if a pattern is not found. Use default_patterns
+## for mandatory default patterns.
+## These patterns are not selected in auto-installation.
+optional_default_patterns = element optional_default_patterns { text }
 
 ## Defines behavior during upgrade
 upgrade = element upgrade {

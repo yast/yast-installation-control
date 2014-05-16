@@ -497,6 +497,7 @@ Absolut path is required.</a:documentation>
       <ref name="kernel_packages"/>
       <ref name="packages_transmogrify"/>
       <ref name="default_patterns"/>
+      <ref name="optional_default_patterns"/>
       <ref name="upgrade"/>
     </choice>
   </define>
@@ -773,8 +774,21 @@ Comma and/or space-separated list of packages</a:documentation>
     </element>
   </define>
   <define name="default_patterns">
-    <a:documentation>Comma and/or space-separated list of default patterns selected for installation</a:documentation>
+    <a:documentation>Space-separated list of default patterns selected for installation.
+If such a pattern doesn't exist, error is reported. To omit reporting
+such error, use optional_default_patterns instead.
+These patterns are not selected in auto-installation.</a:documentation>
     <element name="default_patterns">
+      <text/>
+    </element>
+  </define>
+  <define name="optional_default_patterns">
+    <a:documentation>Space-separated list of (optional) default patterns for installation.
+These patterns will be selected only if they exist and thus it will
+never report any error if a pattern is not found. Use default_patterns
+for mandatory default patterns.
+These patterns are not selected in auto-installation.</a:documentation>
+    <element name="optional_default_patterns">
       <text/>
     </element>
   </define>
@@ -803,7 +817,7 @@ is really installed on the system</a:documentation>
                 </optional>
                 <oneOrMore>
                   <choice>
-                    <a:documentation>Either install_patterns or install_packages must be defined or both</a:documentation>
+                    <a:documentation>Either install_patterns or install_packages (or both) must be defined</a:documentation>
                     <element name="install_patterns">
                       <a:documentation>Optional list of space-separated patterns that should be
 selected for installation</a:documentation>
