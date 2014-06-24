@@ -66,6 +66,7 @@ globals_elements =
     | enable_clone
     | enable_register_hwdata
     | enable_register_optional
+    | disable_os_probe
     | display_register_forcereg
     | disable_register_w3m
     | register_monthly
@@ -148,6 +149,8 @@ enable_clone =				element enable_clone { BOOLEAN }
 enable_register_hwdata =		element enable_register_hwdata { BOOLEAN }
 ## Default value for 'send optional system data' with registration
 enable_register_optional =		element enable_register_optional { BOOLEAN }
+## Defines if by default os probing should be disabled see (bnc#884007)
+disable_os_probe =			element disable_os_probe { BOOLEAN }
 display_register_forcereg =		element display_register_forcereg { BOOLEAN }
 disable_register_w3m =			element disable_register_w3m { BOOLEAN }
 register_monthly =			element register_monthly { BOOLEAN }
