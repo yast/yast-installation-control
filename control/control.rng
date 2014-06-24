@@ -75,6 +75,7 @@
       <ref name="enable_clone"/>
       <ref name="enable_register_hwdata"/>
       <ref name="enable_register_optional"/>
+      <ref name="disable_os_prober"/>
       <ref name="display_register_forcereg"/>
       <ref name="disable_register_w3m"/>
       <ref name="register_monthly"/>
@@ -245,6 +246,12 @@ This speeds the starting up but it is worse for debugging.</a:documentation>
   <define name="enable_register_optional">
     <a:documentation>Default value for 'send optional system data' with registration</a:documentation>
     <element name="enable_register_optional">
+      <ref name="BOOLEAN"/>
+    </element>
+  </define>
+  <define name="disable_os_prober">
+    <a:documentation>Defines if by default os probing should be disabled see. Default is false. (bnc#884007)</a:documentation>
+    <element name="disable_os_prober">
       <ref name="BOOLEAN"/>
     </element>
   </define>
