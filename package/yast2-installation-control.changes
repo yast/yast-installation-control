@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue Jun 24 13:30:02 UTC 2014 - jreidinger@suse.com
+
+- add elemenent to set default for os_probing per product
+  (bnc#884007)
+- 3.1.9
+
+-------------------------------------------------------------------
 Fri May 16 15:51:37 CEST 2014 - locilka@suse.com
 
 - Added software->optional_default_patterns - optional patterns
