@@ -331,7 +331,7 @@ supported_desktops = element supported_desktops {
 	element label_id { text }? &
 	element logon { text } &
 	element cursor { text } &
-	element packages { text } &
+	element packages { text }? &
 	element order { INTEGER }? &
 	element patterns { text } &
 	element icon { text }? &

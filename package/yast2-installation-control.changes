@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Aug 28 09:45:07 CEST 2014 - locilka@suse.com
+
+- Element 'packages' in 'one_supported_desktop' has been made
+  optional as it's not required by the handling code (bnc#864298)
+- 3.1.10
+
+-------------------------------------------------------------------
 Tue Jun 24 13:30:02 UTC 2014 - jreidinger@suse.com
 
 - add elemenent to set default for os_probing per product
