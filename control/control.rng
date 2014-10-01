@@ -69,6 +69,7 @@
       <ref name="firewall_enable_ssh"/>
       <ref name="enable_sshd"/>
       <ref name="write_hostname_to_hosts"/>
+      <ref name="dhclient_set_hostname"/>
       <ref name="run_init_scripts_in_parallel"/>
       <ref name="inform_about_suboptimal_distribution"/>
       <ref name="skip_language_dialog"/>
@@ -211,6 +212,12 @@ more detailed log entries</a:documentation>
   <define name="write_hostname_to_hosts">
     <a:documentation>Default value whether to write a system hostname to /etc/hosts</a:documentation>
     <element name="write_hostname_to_hosts">
+      <ref name="BOOLEAN"/>
+    </element>
+  </define>
+  <define name="dhclient_set_hostname">
+    <a:documentation>Default value whether to change hostname via DHCP</a:documentation>
+    <element name="dhclient_set_hostname">
       <ref name="BOOLEAN"/>
     </element>
   </define>
