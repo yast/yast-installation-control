@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Oct  1 14:14:06 UTC 2014 - ancor@suse.com
+
+- Added globals->dhclient_set_hostname (bnc#870896)
+- 3.1.11
+
+-------------------------------------------------------------------
 Thu Aug 28 09:45:07 CEST 2014 - locilka@suse.com
 
 - Element 'packages' in 'one_supported_desktop' has been made

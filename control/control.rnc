@@ -60,6 +60,7 @@ globals_elements =
     | firewall_enable_ssh
     | enable_sshd
     | write_hostname_to_hosts
+    | dhclient_set_hostname
     | run_init_scripts_in_parallel
     | inform_about_suboptimal_distribution
     | skip_language_dialog
@@ -138,6 +139,8 @@ firewall_enable_ssh =			element firewall_enable_ssh { BOOLEAN }
 enable_sshd =			        element enable_sshd { BOOLEAN }
 ## Default value whether to write a system hostname to /etc/hosts
 write_hostname_to_hosts =		element write_hostname_to_hosts { BOOLEAN }
+## Default value whether to change hostname via DHCP
+dhclient_set_hostname =		element dhclient_set_hostname { BOOLEAN }
 ## Defines whether startup scripts should run in a parallel mode.
 ## This speeds the starting up but it is worse for debugging.
 run_init_scripts_in_parallel =		element run_init_scripts_in_parallel { BOOLEAN }
