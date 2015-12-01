@@ -569,8 +569,8 @@ proposal = element proposal {
     }? &
     ## Defines how/whether tabs are used in proposal, e.g.,
     ## Simple tab vs. Expert tab.
-    ## If tabs are used, do not define 'proposal_modules' directly
-    ## in 'proposal'
+    ## If tabs are used, 'proposal_modules' above is still used
+    ## but its presentation_order ignored.
     element proposal_tabs {
 	LIST,
 	## Defines one tab in a proposal

@@ -1150,8 +1150,8 @@ Valid for all stages if not explicitely defined.</a:documentation>
           <element name="proposal_tabs">
             <a:documentation>Defines how/whether tabs are used in proposal, e.g.,
 Simple tab vs. Expert tab.
-If tabs are used, do not define 'proposal_modules' directly
-in 'proposal'</a:documentation>
+If tabs are used, 'proposal_modules' above is still used
+but its presentation_order ignored.</a:documentation>
             <ref name="LIST"/>
             <oneOrMore>
               <element name="proposal_tab">
