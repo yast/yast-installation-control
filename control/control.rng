@@ -880,6 +880,7 @@ selected for installation</a:documentation>
       <ref name="partitions"/>
       <ref name="btrfs_increase_percentage"/>
       <ref name="btrfs_default_subvolume"/>
+      <ref name="propose_swap"/>
     </choice>
   </define>
   <define name="try_separate_home">
@@ -951,6 +952,12 @@ selected for installation</a:documentation>
   <define name="btrfs_default_subvolume">
     <element name="btrfs_default_subvolume">
       <text/>
+    </element>
+  </define>
+  <!-- the default is true, can be optionally disabled (see FATE#319997) -->
+  <define name="propose_swap">
+    <element name="propose_swap">
+      <ref name="BOOLEAN"/>
     </element>
   </define>
   <!-- these have to be defined by Storage -->
