@@ -1020,6 +1020,45 @@ selected for installation</a:documentation>
     </element>
   </define>
   <!-- network -->
+  <!-- system_roles -->
+  <define name="system_roles">
+    <a:documentation>System Roles, FATE#317481</a:documentation>
+    <element name="system_roles">
+      <ref name="LIST"/>
+      <zeroOrMore>
+        <ref name="system_role">
+          <a:documentation>The first one is preselected in the dialog.
+If empty, the dialog is skipped.</a:documentation>
+        </ref>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="system_role">
+    <element name="system_role">
+      <interleave>
+        <element name="id">
+          <a:documentation>An identifier not visible to the user.
+Used to identify the translated user visible strings in the
+texts section: ${id} and ${id}_description.</a:documentation>
+          <text/>
+        </element>
+        <optional>
+          <ref name="partitioning">
+            <a:documentation>Role specific overrides for Partitioning</a:documentation>
+          </ref>
+        </optional>
+        <optional>
+          <ref name="software">
+            <a:documentation>Role specific overrides for Software</a:documentation>
+          </ref>
+        </optional>
+      </interleave>
+      <!--
+        'globals? & network?' would also make sense here
+        but that has not been requested and tested.
+      -->
+    </element>
+  </define>
   <!-- clone_modules -->
   <define name="clone_modules">
     <a:documentation>List of modules used by AutoYaST for cloning the configuration</a:documentation>
@@ -1644,6 +1683,7 @@ Valid for all stages if not explicitely defined.</a:documentation>
       <ref name="texts"/>
       <ref name="inst_finish_stages"/>
       <ref name="update"/>
+      <ref name="system_roles"/>
     </choice>
   </define>
   <start>

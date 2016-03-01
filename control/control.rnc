@@ -494,6 +494,33 @@ network = element network {
 
 # network
 
+# system_roles
+
+## System Roles, FATE#317481
+system_roles = element system_roles {
+    LIST,
+    ## The first one is preselected in the dialog.
+    ## If empty, the dialog is skipped.
+    system_role*
+}
+
+system_role = element system_role {
+    ## An identifier not visible to the user.
+    ## Used to identify the translated user visible strings in the
+    ## texts section: ${id} and ${id}_description.
+    element id { text } &
+
+    ## Role specific overrides for Partitioning
+    partitioning? &
+
+    ## Role specific overrides for Software
+    software?
+
+    # 'globals? & network?' would also make sense here
+    # but that has not been requested and tested.
+}
+
+
 # clone_modules
 
 ## List of modules used by AutoYaST for cloning the configuration
@@ -818,6 +845,7 @@ productDefines_elements =
     | texts
     | inst_finish_stages
     | update
+    | system_roles
 
 start = element productDefines {
     productDefines_elements*
