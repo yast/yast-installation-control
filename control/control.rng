@@ -106,6 +106,7 @@
       <ref name="services_proposal"/>
       <ref name="debug_deploying"/>
       <ref name="show_drivers_info"/>
+      <ref name="self_update_url"/>
     </choice>
   </define>
   <define name="additional_kernel_parameters">
@@ -344,6 +345,12 @@ between the first and the second stage of installation</a:documentation>
   <define name="show_drivers_info">
     <element name="show_drivers_info">
       <ref name="BOOLEAN"/>
+    </element>
+  </define>
+  <!-- Self-update (FATE#319716). -->
+  <define name="self_update_url">
+    <element name="self_update_url">
+      <text/>
     </element>
   </define>
   <define name="save_instsys_content">
