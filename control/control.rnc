@@ -558,6 +558,9 @@ proposal_module = element proposal_module {
     ## Presentation order in the current proposal (integer).
     ## Lower numbers first.
     element presentation_order { text }? &
+    ## Read only flag - if true the proposal cannot be changed (clicked) by user,
+    ## the default is false
+    element read_only { BOOLEAN }? &
     ## Inexplicit proposal name if not explicitely defined by 'name' and 'presentation_order'
     text?
 }

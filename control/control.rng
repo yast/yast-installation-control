@@ -1116,6 +1116,13 @@ Lower numbers first.</a:documentation>
           </element>
         </optional>
         <optional>
+          <element name="read_only">
+            <a:documentation>Read only flag - if true the proposal cannot be changed (clicked) by user,
+the default is false</a:documentation>
+            <ref name="BOOLEAN"/>
+          </element>
+        </optional>
+        <optional>
           <text>
             <a:documentation>Inexplicit proposal name if not explicitely defined by 'name' and 'presentation_order'</a:documentation>
           </text>
