@@ -887,6 +887,7 @@ selected for installation</a:documentation>
       <ref name="partitions"/>
       <ref name="btrfs_increase_percentage"/>
       <ref name="btrfs_default_subvolume"/>
+      <ref name="subvolumes"/>
     </choice>
   </define>
   <define name="try_separate_home">
@@ -958,6 +959,44 @@ selected for installation</a:documentation>
   <define name="btrfs_default_subvolume">
     <element name="btrfs_default_subvolume">
       <text/>
+    </element>
+  </define>
+  <define name="subvolumes">
+    <a:documentation>Optional, but if this element appears (even if it's empty),
+the internal fallback list is not used</a:documentation>
+    <optional>
+      <element name="subvolumes">
+        <ref name="LIST"/>
+        <zeroOrMore>
+          <ref name="subvolume"/>
+        </zeroOrMore>
+      </element>
+    </optional>
+  </define>
+  <define name="subvolume">
+    <element name="subvolume">
+      <interleave>
+        <element name="path">
+          <a:documentation>subvolume path without leading /</a:documentation>
+          <text/>
+        </element>
+        <optional>
+          <element name="copy_on_write">
+            <a:documentation>Optional: COW; default: true</a:documentation>
+            <ref name="BOOLEAN"/>
+          </element>
+        </optional>
+        <optional>
+          <element name="archs">
+            <a:documentation>Optional: comma-separated architectures (default: all)
+Prepend ! to negate
+Example 1: i386,x86_64
+Example 2: ppc,!board_powernv
+(i.e. on PPC, but not if it's a board_powernv machine</a:documentation>
+            <text/>
+          </element>
+        </optional>
+      </interleave>
     </element>
   </define>
   <!-- these have to be defined by Storage -->
