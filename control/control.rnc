@@ -444,6 +444,7 @@ partitioning_elements =
     | partitions
     | btrfs_increase_percentage
     | btrfs_default_subvolume
+    | subvolumes
 
 try_separate_home =		element try_separate_home { BOOLEAN }
 limit_try_home =		element limit_try_home { text }
@@ -460,6 +461,28 @@ vm_keep_unpartitioned_region =	element vm_keep_unpartitioned_region { BOOLEAN }
 use_separate_multipath_module =	element use_separate_multipath_module { BOOLEAN }
 btrfs_increase_percentage =	element btrfs_increase_percentage { INTEGER }
 btrfs_default_subvolume =	element btrfs_default_subvolume { text }
+
+## Optional, but if this element appears (even if it's empty),
+## the internal fallback list is not used
+subvolumes = element subvolumes {
+    LIST,
+    subvolume*
+}?
+
+subvolume = element subvolume {
+    ## subvolume path without leading /
+    element path { text } &
+
+    ## Optional: COW; default: true
+    element copy_on_write { BOOLEAN }? &
+
+    ## Optional: comma-separated architectures (default: all)
+    ## Prepend ! to negate
+    ## Example 1: i386,x86_64
+    ## Example 2: ppc,!board_powernv
+    ## (i.e. on PPC, but not if it's a board_powernv machine
+    element archs { text }?
+}
 
 # these have to be defined by Storage
 partitions = element partitions {
@@ -558,6 +581,9 @@ proposal_module = element proposal_module {
     ## Presentation order in the current proposal (integer).
     ## Lower numbers first.
     element presentation_order { text }? &
+    ## Read only flag - if true the proposal cannot be changed (clicked) by user,
+    ## the default is false
+    element read_only { BOOLEAN }? &
     ## Inexplicit proposal name if not explicitely defined by 'name' and 'presentation_order'
     text?
 }
@@ -569,7 +595,7 @@ proposal_module = element proposal_module {
 proposal = element proposal {
     ## Unique ID of the proposal
     element unique_id { text } &
-    ## 
+    ##
     element label { text }? &
     ## Defines for which architectures is this proposal used.
     ## Comma-separated list of architectures as seen in
