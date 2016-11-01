@@ -2,7 +2,7 @@
 Mon Oct 31 09:41:57 UTC 2016 - lslezak@suse.cz
 
 - Added support for read-only proposal modules (fate#321739)
-- 3.1.13.2
+- 3.2.0
 
 -------------------------------------------------------------------
 Thu Oct 27 14:51:19 CEST 2016 - shundhammer@suse.de
