@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Thu Nov 17 12:02:19 CET 2016 - shundhammer@suse.de
+
+- Added new storage-related parameters for CASP workflow:
+  proposal_settings_editable and expert_partitioner_warning
+  (Fate#321736)
+- 3.1.13.2
+
+-------------------------------------------------------------------
 Mon Oct 31 09:41:57 UTC 2016 - lslezak@suse.cz
 
 - Added support for read-only proposal modules (fate#321739)

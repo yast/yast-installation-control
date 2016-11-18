@@ -887,6 +887,8 @@ selected for installation</a:documentation>
       <ref name="partitions"/>
       <ref name="btrfs_increase_percentage"/>
       <ref name="btrfs_default_subvolume"/>
+      <ref name="proposal_settings_editable"/>
+      <ref name="expert_partitioner_warning"/>
       <ref name="subvolumes"/>
     </choice>
   </define>
@@ -959,6 +961,16 @@ selected for installation</a:documentation>
   <define name="btrfs_default_subvolume">
     <element name="btrfs_default_subvolume">
       <text/>
+    </element>
+  </define>
+  <define name="proposal_settings_editable">
+    <element name="proposal_settings_editable">
+      <ref name="BOOLEAN"/>
+    </element>
+  </define>
+  <define name="expert_partitioner_warning">
+    <element name="expert_partitioner_warning">
+      <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="subvolumes">
