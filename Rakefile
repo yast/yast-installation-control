@@ -1,14 +1,10 @@
 require "yast/rake"
 
-Yast::Tasks.configuration do |conf|
-  #lets ignore license check for now
-  conf.skip_license_check << /.*/
+Yast::Tasks.submit_to :casp10
 
-  # submit to CASP
-  conf.obs_api = "https://api.suse.de/"
-  conf.obs_project = "Devel:YaST:CASP:1.0"
-  conf.obs_target = "CASP_1.0"
-  conf.obs_sr_project = "Devel:CASP:1.0"
+Yast::Tasks.configuration do |conf|
+  # lets ignore license check for now
+  conf.skip_license_check << /.*/
 end
 
 # safety check - make sure the RNG file is up to date
@@ -23,5 +19,4 @@ task :check_rng_status do
   end
 end
 
-task :tarball => :check_rng_status
-
+task tarball: :check_rng_status
