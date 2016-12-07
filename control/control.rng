@@ -1110,6 +1110,12 @@ texts section: ${id} and ${id}_description.</a:documentation>
             <a:documentation>Role specific overrides for Software</a:documentation>
           </ref>
         </optional>
+        <optional>
+          <element name="additional_dialogs">
+            <a:documentation>Additional dialogs that are runned when given role is selected, comma separated</a:documentation>
+            <text/>
+          </element>
+        </optional>
       </interleave>
       <!--
         'globals? & network?' would also make sense here
