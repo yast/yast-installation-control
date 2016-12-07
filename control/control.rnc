@@ -544,7 +544,10 @@ system_role = element system_role {
     partitioning? &
 
     ## Role specific overrides for Software
-    software?
+    software? &
+
+    ## Additional dialogs that are runned when given role is selected, comma separated
+    element additional_dialogs { text }?
 
     # 'globals? & network?' would also make sense here
     # but that has not been requested and tested.
