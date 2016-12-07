@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Wed Dec  7 11:14:48 UTC 2016 - jreidinger@suse.com
+
+- Added new option for roles to specify its own additional dialogs
+  (FATE#321754)
+- 3.1.13.3
+
+-------------------------------------------------------------------
 Thu Nov 17 12:02:19 CET 2016 - shundhammer@suse.de
 
 - Added new storage-related parameters for CASP workflow:
