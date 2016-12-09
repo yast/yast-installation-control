@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Fri Dec  9 14:00:43 CET 2016 - schubi@suse.de
+
+- Added new options:
+  -- readonly_timezone : Timezone cannot be changed by the user.
+     (Fate#321754)
+  -- clone_install_recommended_default : Default value in cloned
+     AutoYaST configuration files. (Fate#321764)
+- 3.1.13.5
+
+-------------------------------------------------------------------
 Wed Dec  7 11:14:48 UTC 2016 - jreidinger@suse.com
 
 - Added new option for roles to specify its own additional dialogs
