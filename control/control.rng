@@ -100,6 +100,7 @@
       <ref name="default_subworkflow"/>
       <ref name="language"/>
       <ref name="timezone"/>
+      <ref name="readonly_timezone"/>
       <ref name="enable_autologin"/>
       <ref name="default_target"/>
       <ref name="require_registration"/>
@@ -171,6 +172,12 @@ Used by Wagon.</a:documentation>
     <a:documentation>Default timezone</a:documentation>
     <element name="timezone">
       <text/>
+    </element>
+  </define>
+  <define name="readonly_timezone">
+    <a:documentation>Timezone cannot be changed by the user</a:documentation>
+    <element name="readonly_timezone">
+      <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="default_target">
@@ -506,6 +513,7 @@ Absolut path is required.</a:documentation>
       <ref name="supported_desktops"/>
       <ref name="default_desktop"/>
       <ref name="display_support_status"/>
+      <ref name="clone_install_recommended_default"/>
       <ref name="online_repos_preselected"/>
       <ref name="external_sources_link"/>
       <ref name="dropped_packages"/>
@@ -548,6 +556,11 @@ Used in inst_scenarios client.</a:documentation>
   </define>
   <define name="display_support_status">
     <element name="display_support_status">
+      <ref name="BOOLEAN"/>
+    </element>
+  </define>
+  <define name="clone_install_recommended_default">
+    <element name="clone_install_recommended_default">
       <ref name="BOOLEAN"/>
     </element>
   </define>
