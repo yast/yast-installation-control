@@ -451,6 +451,7 @@ partitioning_elements =
     | btrfs_default_subvolume
     | proposal_settings_editable
     | expert_partitioner_warning
+    | root_subvolume_read_only
     | subvolumes
 
 try_separate_home =		element try_separate_home { BOOLEAN }
@@ -470,6 +471,7 @@ btrfs_increase_percentage =	element btrfs_increase_percentage { INTEGER }
 btrfs_default_subvolume =	element btrfs_default_subvolume { text }
 proposal_settings_editable =    element proposal_settings_editable { BOOLEAN }
 expert_partitioner_warning =    element expert_partitioner_warning { BOOLEAN }
+root_subvolume_read_only =      element root_subvolume_read_only { BOOLEAN }
 
 ## Optional, but if this element appears (even if it's empty),
 ## the internal fallback list is not used
