@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Wed Dec 14 08:40:48 UTC 2016 - mfilka@suse.com
+
+- Added new "readonly_selection" parameter for CASP workflow. It
+  makes software proposal readonly
+- 3.2.2 
+
+-------------------------------------------------------------------
 Thu Nov 17 12:02:19 CET 2016 - shundhammer@suse.de
 
 - Added new storage-related parameters for CASP workflow:
