@@ -252,6 +252,7 @@ software_elements =
     | only_update_selected_reverse_list
     | products_supported_for_upgrade
     | selection_type
+    | readonly_selection
     | system_scenarios
     | default_system_scenario
     | supported_desktops
@@ -275,6 +276,7 @@ software_elements =
 ## Whether it is allowed to delete a package during upgrade
 delete_old_packages = element delete_old_packages { BOOLEAN }
 selection_type = element selection_type { SYMBOL }
+readonly_selection = element readonly_selection { BOOLEAN }
 ## System scenario selected by default.
 ## Used in inst_scenarios client.
 default_system_scenario = element default_system_scenario { text }

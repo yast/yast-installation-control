@@ -501,6 +501,7 @@ Absolut path is required.</a:documentation>
       <ref name="only_update_selected_reverse_list"/>
       <ref name="products_supported_for_upgrade"/>
       <ref name="selection_type"/>
+      <ref name="readonly_selection"/>
       <ref name="system_scenarios"/>
       <ref name="default_system_scenario"/>
       <ref name="supported_desktops"/>
@@ -531,6 +532,11 @@ Absolut path is required.</a:documentation>
   <define name="selection_type">
     <element name="selection_type">
       <ref name="SYMBOL"/>
+    </element>
+  </define>
+  <define name="readonly_selection">
+    <element name="readonly_selection">
+      <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="default_system_scenario">
