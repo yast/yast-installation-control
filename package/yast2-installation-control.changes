@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Wed Dec 14 12:24:52 CET 2016 - shundhammer@suse.de
+
+- Added new parameter for CASP read-only Btrfs root subvolume
+ (Fate#321755)
+- 3.1.13.6
+
+-------------------------------------------------------------------
 Fri Dec  9 14:00:43 CET 2016 - schubi@suse.de
 
 - Added new options:

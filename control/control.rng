@@ -902,6 +902,7 @@ selected for installation</a:documentation>
       <ref name="btrfs_default_subvolume"/>
       <ref name="proposal_settings_editable"/>
       <ref name="expert_partitioner_warning"/>
+      <ref name="root_subvolume_read_only"/>
       <ref name="subvolumes"/>
     </choice>
   </define>
@@ -983,6 +984,11 @@ selected for installation</a:documentation>
   </define>
   <define name="expert_partitioner_warning">
     <element name="expert_partitioner_warning">
+      <ref name="BOOLEAN"/>
+    </element>
+  </define>
+  <define name="root_subvolume_read_only">
+    <element name="root_subvolume_read_only">
       <ref name="BOOLEAN"/>
     </element>
   </define>
