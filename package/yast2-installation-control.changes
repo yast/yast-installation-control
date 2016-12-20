@@ -4,7 +4,14 @@ Tue Dec 20 09:25:40 UTC 2016 - mfilka@suse.com
 - fate#321739
   - proposal's read_only node can be "hard" or "soft" to enable
     editing in case of failure.
-- 3.1.13.6 
+- 3.1.13.7
+
+-------------------------------------------------------------------
+Wed Dec 14 12:24:52 CET 2016 - shundhammer@suse.de
+
+- Added new parameter for CASP read-only Btrfs root subvolume
+ (Fate#321755)
+- 3.1.13.6
 
 -------------------------------------------------------------------
 Fri Dec  9 14:00:43 CET 2016 - schubi@suse.de
