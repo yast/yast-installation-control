@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Tue Dec 20 09:25:40 UTC 2016 - mfilka@suse.com
+
+- fate#321739
+  - proposal's read_only node can be "hard" or "soft" to enable
+    editing in case of failure.
+- 3.1.13.6 
+
+-------------------------------------------------------------------
 Fri Dec  9 14:00:43 CET 2016 - schubi@suse.de
 
 - Added new options:
