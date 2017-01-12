@@ -275,6 +275,7 @@ software_elements =
     | default_patterns
     | optional_default_patterns
     | upgrade
+    | minimalistic_libzypp_config
 
 ## Whether it is allowed to delete a package during upgrade
 delete_old_packages = element delete_old_packages { BOOLEAN }
@@ -428,6 +429,9 @@ upgrade = element upgrade {
 software = element software {
     software_elements*
 }
+
+## Minimalistic libzypp configuration (only requires, no documentation and no multiversion)
+minimalistic_libzypp_config = element minimalistic_libzypp_config { BOOLEAN }
 
 # software
 

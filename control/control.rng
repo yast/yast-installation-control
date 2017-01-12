@@ -528,6 +528,7 @@ Absolut path is required.</a:documentation>
       <ref name="default_patterns"/>
       <ref name="optional_default_patterns"/>
       <ref name="upgrade"/>
+      <ref name="minimalistic_libzypp_config"/>
     </choice>
   </define>
   <define name="delete_old_packages">
@@ -879,6 +880,12 @@ selected for installation</a:documentation>
       <zeroOrMore>
         <ref name="software_elements"/>
       </zeroOrMore>
+    </element>
+  </define>
+  <define name="minimalistic_libzypp_config">
+    <a:documentation>Minimalistic libzypp configuration (only requires, no documentation and no multiversion)</a:documentation>
+    <element name="minimalistic_libzypp_config">
+      <ref name="BOOLEAN"/>
     </element>
   </define>
   <!-- software -->
