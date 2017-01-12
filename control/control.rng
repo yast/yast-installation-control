@@ -1135,11 +1135,33 @@ texts section: ${id} and ${id}_description.</a:documentation>
             <text/>
           </element>
         </optional>
+        <optional>
+          <ref name="role_services">
+            <a:documentation>Additional services configuration for given role</a:documentation>
+          </ref>
+        </optional>
       </interleave>
       <!--
         'globals? & network?' would also make sense here
         but that has not been requested and tested.
       -->
+    </element>
+  </define>
+  <define name="role_services">
+    <element name="services">
+      <ref name="LIST"/>
+      <zeroOrMore>
+        <ref name="role_service">
+          <a:documentation>specification of one service for given role</a:documentation>
+        </ref>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="role_service">
+    <element name="service">
+      <element name="name">
+        <ref name="TEXT"/>
+      </element>
     </element>
   </define>
   <!-- clone_modules -->

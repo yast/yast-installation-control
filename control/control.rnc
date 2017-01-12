@@ -554,12 +554,24 @@ system_role = element system_role {
     software? &
 
     ## Additional dialogs that are runned when given role is selected, comma separated
-    element additional_dialogs { text }?
+    element additional_dialogs { text }? &
+
+    ## Additional services configuration for given role
+    role_services?
 
     # 'globals? & network?' would also make sense here
     # but that has not been requested and tested.
 }
 
+role_services = element services {
+    LIST,
+    ## specification of one service for given role
+    role_service*
+}
+
+role_service = element service {
+    element name { TEXT }
+}
 
 # clone_modules
 
