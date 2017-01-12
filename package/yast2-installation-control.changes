@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Jan 12 08:35:49 UTC 2017 - jreidinger@suse.com
+
+- Added new option for roles to specify additional enabled services
+  (FATE#321754)
+- 3.1.13.7
+
+-------------------------------------------------------------------
 Wed Dec 14 12:24:52 CET 2016 - shundhammer@suse.de
 
 - Added new parameter for CASP read-only Btrfs root subvolume
