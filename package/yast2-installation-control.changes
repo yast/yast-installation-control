@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Fri Jan 13 15:36:15 UTC 2017 - igonzalezsosa@suse.com
+
+- Added new option to configure libzypp in a minimalistic way
+  (only required packages, no documentation and no multiversion)
+  (FATE#321764)
+- 3.1.13.9
+
+-------------------------------------------------------------------
 Fri Jan 13 09:09:44 UTC 2017 - jreidinger@suse.com
 
 - fix typo in last change breaking build of skelcd (bsc#1019659)
