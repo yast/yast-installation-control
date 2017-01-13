@@ -570,7 +570,7 @@ role_services = element services {
 }
 
 role_service = element service {
-    element name { TEXT }
+    element name { text }
 }
 
 # clone_modules
