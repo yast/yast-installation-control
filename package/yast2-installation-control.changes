@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Jan 13 09:09:44 UTC 2017 - jreidinger@suse.com
+
+- fix typo in last change breaking build of skelcd (bsc#1019659)
+- 3.1.13.8
+
+-------------------------------------------------------------------
 Thu Jan 12 08:35:49 UTC 2017 - jreidinger@suse.com
 
 - Added new option for roles to specify additional enabled services
