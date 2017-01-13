@@ -1160,7 +1160,7 @@ texts section: ${id} and ${id}_description.</a:documentation>
   <define name="role_service">
     <element name="service">
       <element name="name">
-        <ref name="TEXT"/>
+        <text/>
       </element>
     </element>
   </define>
