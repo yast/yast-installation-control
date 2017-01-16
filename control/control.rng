@@ -1221,10 +1221,11 @@ Lower numbers first.</a:documentation>
           </element>
         </optional>
         <optional>
+          <!-- proposal writable -->
           <element name="read_only">
-            <a:documentation>Read only flag - if true the proposal cannot be changed (clicked) by user,
-the default is false</a:documentation>
-            <ref name="BOOLEAN"/>
+            <a:documentation>Read only flag - if "hard" the proposal cannot be changed (clicked) by user,
+if "soft" the proposal can be changed in case of error. By default is every</a:documentation>
+            <text/>
           </element>
         </optional>
         <optional>
