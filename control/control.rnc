@@ -275,6 +275,7 @@ software_elements =
     | default_patterns
     | optional_default_patterns
     | upgrade
+    | minimalistic_libzypp_config
 
 ## Whether it is allowed to delete a package during upgrade
 delete_old_packages = element delete_old_packages { BOOLEAN }
@@ -429,6 +430,9 @@ software = element software {
     software_elements*
 }
 
+## Minimalistic libzypp configuration (only requires, no documentation and no multiversion)
+minimalistic_libzypp_config = element minimalistic_libzypp_config { BOOLEAN }
+
 # software
 
 # partitioning
@@ -554,12 +558,24 @@ system_role = element system_role {
     software? &
 
     ## Additional dialogs that are runned when given role is selected, comma separated
-    element additional_dialogs { text }?
+    element additional_dialogs { text }? &
+
+    ## Additional services configuration for given role
+    role_services?
 
     # 'globals? & network?' would also make sense here
     # but that has not been requested and tested.
 }
 
+role_services = element services {
+    LIST,
+    ## specification of one service for given role
+    role_service*
+}
+
+role_service = element service {
+    element name { text }
+}
 
 # clone_modules
 
