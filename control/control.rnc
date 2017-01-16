@@ -91,6 +91,7 @@ globals_elements =
     | default_subworkflow
     | language
     | timezone
+    | readonly_timezone
     | enable_autologin
     | default_target
     | require_registration
@@ -124,6 +125,8 @@ default_subworkflow =			element default_subworkflow { text }
 language =				element language { text }
 ## Default timezone
 timezone =				element timezone { text }
+## Timezone cannot be changed by the user
+readonly_timezone =			element readonly_timezone { BOOLEAN }
 ## Default runlevel
 default_target =				element default_target { text }
 
@@ -257,6 +260,7 @@ software_elements =
     | supported_desktops
     | default_desktop
     | display_support_status
+    | clone_install_recommended_default
     | online_repos_preselected
     | external_sources_link
     | dropped_packages
@@ -271,6 +275,7 @@ software_elements =
     | default_patterns
     | optional_default_patterns
     | upgrade
+    | minimalistic_libzypp_config
 
 ## Whether it is allowed to delete a package during upgrade
 delete_old_packages = element delete_old_packages { BOOLEAN }
@@ -281,6 +286,7 @@ default_system_scenario = element default_system_scenario { text }
 ## Desktop selected by default
 default_desktop = element default_desktop { text }
 display_support_status = element display_support_status { BOOLEAN }
+clone_install_recommended_default = element clone_install_recommended_default { BOOLEAN }
 silently_downgrade_packages = element silently_downgrade_packages { BOOLEAN }
 only_update_selected = element only_update_selected { BOOLEAN }
 online_repos_preselected = element online_repos_preselected { BOOLEAN }
@@ -424,6 +430,9 @@ software = element software {
     software_elements*
 }
 
+## Minimalistic libzypp configuration (only requires, no documentation and no multiversion)
+minimalistic_libzypp_config = element minimalistic_libzypp_config { BOOLEAN }
+
 # software
 
 # partitioning
@@ -446,6 +455,7 @@ partitioning_elements =
     | btrfs_default_subvolume
     | proposal_settings_editable
     | expert_partitioner_warning
+    | root_subvolume_read_only
     | subvolumes
 
 try_separate_home =		element try_separate_home { BOOLEAN }
@@ -465,6 +475,7 @@ btrfs_increase_percentage =	element btrfs_increase_percentage { INTEGER }
 btrfs_default_subvolume =	element btrfs_default_subvolume { text }
 proposal_settings_editable =    element proposal_settings_editable { BOOLEAN }
 expert_partitioner_warning =    element expert_partitioner_warning { BOOLEAN }
+root_subvolume_read_only =      element root_subvolume_read_only { BOOLEAN }
 
 ## Optional, but if this element appears (even if it's empty),
 ## the internal fallback list is not used
@@ -544,12 +555,27 @@ system_role = element system_role {
     partitioning? &
 
     ## Role specific overrides for Software
-    software?
+    software? &
+
+    ## Additional dialogs that are runned when given role is selected, comma separated
+    element additional_dialogs { text }? &
+
+    ## Additional services configuration for given role
+    role_services?
 
     # 'globals? & network?' would also make sense here
     # but that has not been requested and tested.
 }
 
+role_services = element services {
+    LIST,
+    ## specification of one service for given role
+    role_service*
+}
+
+role_service = element service {
+    element name { text }
+}
 
 # clone_modules
 
@@ -585,9 +611,10 @@ proposal_module = element proposal_module {
     ## Presentation order in the current proposal (integer).
     ## Lower numbers first.
     element presentation_order { text }? &
-    ## Read only flag - if true the proposal cannot be changed (clicked) by user,
-    ## the default is false
-    element read_only { BOOLEAN }? &
+    ## Read only flag - if "hard" the proposal cannot be changed (clicked) by user,
+    ## if "soft" the proposal can be changed in case of error. By default is every
+    # proposal writable
+    element read_only { text }? &
     ## Inexplicit proposal name if not explicitely defined by 'name' and 'presentation_order'
     text?
 }
