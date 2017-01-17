@@ -1,4 +1,51 @@
 -------------------------------------------------------------------
+Mon Jan 16 09:22:37 UTC 2017 - mfilka@suse.com
+
+- fate#321739
+  - proposal's read_only node can be "hard" or "soft" to enable
+    editing in case of failure.
+- 3.2.2
+
+-------------------------------------------------------------------
+Fri Jan 13 15:36:15 UTC 2017 - igonzalezsosa@suse.com
+
+- Added new option to configure libzypp in a minimalistic way
+  (only required packages, no documentation and no multiversion)
+  (FATE#321764)
+
+-------------------------------------------------------------------
+Fri Jan 13 09:09:44 UTC 2017 - jreidinger@suse.com
+
+- fix typo in last change breaking build of skelcd (bsc#1019659)
+
+-------------------------------------------------------------------
+Thu Jan 12 08:35:49 UTC 2017 - jreidinger@suse.com
+
+- Added new option for roles to specify additional enabled services
+  (FATE#321754)
+
+-------------------------------------------------------------------
+Wed Dec 14 12:24:52 CET 2016 - shundhammer@suse.de
+
+- Added new parameter for CASP read-only Btrfs root subvolume
+ (Fate#321755)
+
+-------------------------------------------------------------------
+Fri Dec  9 14:00:43 CET 2016 - schubi@suse.de
+
+- Added new options:
+  -- readonly_timezone : Timezone cannot be changed by the user.
+     (Fate#321754)
+  -- clone_install_recommended_default : Default value in cloned
+     AutoYaST configuration files. (Fate#321764)
+
+-------------------------------------------------------------------
+Wed Dec  7 11:14:48 UTC 2016 - jreidinger@suse.com
+
+- Added new option for roles to specify its own additional dialogs
+  (FATE#321754)
+
+-------------------------------------------------------------------
 Thu Nov 17 12:02:19 CET 2016 - shundhammer@suse.de
 
 - Added new storage-related parameters for CASP workflow:

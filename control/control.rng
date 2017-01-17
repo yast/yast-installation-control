@@ -100,6 +100,7 @@
       <ref name="default_subworkflow"/>
       <ref name="language"/>
       <ref name="timezone"/>
+      <ref name="readonly_timezone"/>
       <ref name="enable_autologin"/>
       <ref name="default_target"/>
       <ref name="require_registration"/>
@@ -171,6 +172,12 @@ Used by Wagon.</a:documentation>
     <a:documentation>Default timezone</a:documentation>
     <element name="timezone">
       <text/>
+    </element>
+  </define>
+  <define name="readonly_timezone">
+    <a:documentation>Timezone cannot be changed by the user</a:documentation>
+    <element name="readonly_timezone">
+      <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="default_target">
@@ -506,6 +513,7 @@ Absolut path is required.</a:documentation>
       <ref name="supported_desktops"/>
       <ref name="default_desktop"/>
       <ref name="display_support_status"/>
+      <ref name="clone_install_recommended_default"/>
       <ref name="online_repos_preselected"/>
       <ref name="external_sources_link"/>
       <ref name="dropped_packages"/>
@@ -520,6 +528,7 @@ Absolut path is required.</a:documentation>
       <ref name="default_patterns"/>
       <ref name="optional_default_patterns"/>
       <ref name="upgrade"/>
+      <ref name="minimalistic_libzypp_config"/>
     </choice>
   </define>
   <define name="delete_old_packages">
@@ -548,6 +557,11 @@ Used in inst_scenarios client.</a:documentation>
   </define>
   <define name="display_support_status">
     <element name="display_support_status">
+      <ref name="BOOLEAN"/>
+    </element>
+  </define>
+  <define name="clone_install_recommended_default">
+    <element name="clone_install_recommended_default">
       <ref name="BOOLEAN"/>
     </element>
   </define>
@@ -868,6 +882,12 @@ selected for installation</a:documentation>
       </zeroOrMore>
     </element>
   </define>
+  <define name="minimalistic_libzypp_config">
+    <a:documentation>Minimalistic libzypp configuration (only requires, no documentation and no multiversion)</a:documentation>
+    <element name="minimalistic_libzypp_config">
+      <ref name="BOOLEAN"/>
+    </element>
+  </define>
   <!-- software -->
   <!-- partitioning -->
   <define name="partitioning_elements">
@@ -889,6 +909,7 @@ selected for installation</a:documentation>
       <ref name="btrfs_default_subvolume"/>
       <ref name="proposal_settings_editable"/>
       <ref name="expert_partitioner_warning"/>
+      <ref name="root_subvolume_read_only"/>
       <ref name="subvolumes"/>
     </choice>
   </define>
@@ -970,6 +991,11 @@ selected for installation</a:documentation>
   </define>
   <define name="expert_partitioner_warning">
     <element name="expert_partitioner_warning">
+      <ref name="BOOLEAN"/>
+    </element>
+  </define>
+  <define name="root_subvolume_read_only">
+    <element name="root_subvolume_read_only">
       <ref name="BOOLEAN"/>
     </element>
   </define>
@@ -1110,11 +1136,39 @@ texts section: ${id} and ${id}_description.</a:documentation>
             <a:documentation>Role specific overrides for Software</a:documentation>
           </ref>
         </optional>
+        <optional>
+          <element name="additional_dialogs">
+            <a:documentation>Additional dialogs that are runned when given role is selected, comma separated</a:documentation>
+            <text/>
+          </element>
+        </optional>
+        <optional>
+          <ref name="role_services">
+            <a:documentation>Additional services configuration for given role</a:documentation>
+          </ref>
+        </optional>
       </interleave>
       <!--
         'globals? & network?' would also make sense here
         but that has not been requested and tested.
       -->
+    </element>
+  </define>
+  <define name="role_services">
+    <element name="services">
+      <ref name="LIST"/>
+      <zeroOrMore>
+        <ref name="role_service">
+          <a:documentation>specification of one service for given role</a:documentation>
+        </ref>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="role_service">
+    <element name="service">
+      <element name="name">
+        <text/>
+      </element>
     </element>
   </define>
   <!-- clone_modules -->
@@ -1167,10 +1221,11 @@ Lower numbers first.</a:documentation>
           </element>
         </optional>
         <optional>
+          <!-- proposal writable -->
           <element name="read_only">
-            <a:documentation>Read only flag - if true the proposal cannot be changed (clicked) by user,
-the default is false</a:documentation>
-            <ref name="BOOLEAN"/>
+            <a:documentation>Read only flag - if "hard" the proposal cannot be changed (clicked) by user,
+if "soft" the proposal can be changed in case of error. By default is every</a:documentation>
+            <text/>
           </element>
         </optional>
         <optional>
