@@ -1126,10 +1126,12 @@ Used to identify the translated user visible strings in the
 texts section: ${id} and ${id}_description.</a:documentation>
           <text/>
         </element>
-        <element name="no_default">
-          <a:documentation>option to not preselect any role, by default first one is preselected</a:documentation>
-          <ref name="BOOLEAN"/>
-        </element>
+        <optional>
+          <element name="no_default">
+            <a:documentation>option to not preselect any role, by default first one is preselected</a:documentation>
+            <ref name="BOOLEAN"/>
+          </element>
+        </optional>
         <optional>
           <ref name="partitioning">
             <a:documentation>Role specific overrides for Partitioning</a:documentation>
@@ -1667,14 +1669,6 @@ Valid for all stages if not explicitely defined.</a:documentation>
             </oneOrMore>
           </element>
         </optional>
-        <optional>
-          <element name="insert_system_roles">
-            <ref name="LIST"/>
-            <element name="insert_system_role">
-              <ref name="system_roles"/>
-            </element>
-          </element>
-        </optional>
       </interleave>
     </element>
   </define>
@@ -1743,6 +1737,20 @@ Valid for all stages if not explicitely defined.</a:documentation>
       </interleave>
     </element>
   </define>
+  <define name="update_system_roles">
+    <element name="system_roles">
+      <optional>
+        <element name="insert_system_roles">
+          <ref name="LIST"/>
+          <oneOrMore>
+            <element name="insert_system_role">
+              <ref name="system_roles"/>
+            </element>
+          </oneOrMore>
+        </element>
+      </optional>
+    </element>
+  </define>
   <define name="update">
     <element name="update">
       <interleave>
@@ -1797,6 +1805,9 @@ Valid for all stages if not explicitely defined.</a:documentation>
               </optional>
             </interleave>
           </element>
+        </optional>
+        <optional>
+          <ref name="update_system_roles"/>
         </optional>
       </interleave>
     </element>
