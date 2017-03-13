@@ -552,7 +552,7 @@ system_role = element system_role {
     element id { text } &
 
     ## option to not preselect any role, by default first one is preselected
-    element no_default { BOOLEAN } &
+    element no_default { BOOLEAN }? &
 
     ## Role specific overrides for Partitioning
     partitioning? &
