@@ -814,32 +814,36 @@ update_workflow = element workflow {
     element stage { text } &
     element mode { text } &
     element insert_modules {
-	LIST,
-	element insert_module {
-	    element before { text } &
-	    element modules {
-		LIST,
-		module+
-	    }
-	}+
+        LIST,
+        element insert_module {
+            element before { text } &
+            element modules {
+                LIST,
+                module+
+            }
+        }+
     }? &
     element append_modules {
-	LIST,
-	module+
+        LIST,
+        module+
     }? &
     element remove_modules {
-	LIST,
-	element remove_module { text }+
+        LIST,
+        element remove_module { text }+
     }? &
     element replace_modules {
-	LIST,
-	element replace_module {
-	    element replace { text } &
-	    element modules {
-		LIST,
-		module+
-	    }
-	}+
+        LIST,
+        element replace_module {
+            element replace { text } &
+            element modules {
+                LIST,
+                module+
+            }
+        }+
+    }? &
+    element insert_system_roles {
+        LIST,
+        element insert_system_role { system_roles }
     }?
 }
 

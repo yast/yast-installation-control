@@ -1667,6 +1667,14 @@ Valid for all stages if not explicitely defined.</a:documentation>
             </oneOrMore>
           </element>
         </optional>
+        <optional>
+          <element name="insert_system_roles">
+            <ref name="LIST"/>
+            <element name="insert_system_role">
+              <ref name="system_roles"/>
+            </element>
+          </element>
+        </optional>
       </interleave>
     </element>
   </define>
