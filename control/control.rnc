@@ -840,10 +840,6 @@ update_workflow = element workflow {
                 module+
             }
         }+
-    }? &
-    element insert_system_roles {
-        LIST,
-        element insert_system_role { system_roles }
     }?
 }
 
@@ -873,29 +869,37 @@ update_proposal = element proposal {
     }?
 }
 
+update_system_roles = element system_roles {
+    element insert_system_roles {
+        LIST,
+        element insert_system_role { system_roles }+
+    }?
+}
+
 update = element update {
     element proposals {
-	LIST,
-	update_proposal+
+        LIST,
+        update_proposal+
     }? &
     element workflows {
-	LIST,
-	update_workflow+
+        LIST,
+        update_workflow+
     }? &
     element inst_finish {
-	element before_chroot {
-	    LIST,
-	    element module { text }+
-	}? &
-	element after_chroot {
-	    LIST,
-	    element module { text }+
-	}? &
-	element before_umount {
-	    LIST,
-	    element module { text }+
-	}?
-    }?
+        element before_chroot {
+            LIST,
+            element module { text }+
+        }? &
+        element after_chroot {
+            LIST,
+            element module { text }+
+        }? &
+        element before_umount {
+            LIST,
+            element module { text }+
+        }?
+    }? &
+    update_system_roles?
 }
 
 # update

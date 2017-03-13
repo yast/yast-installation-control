@@ -1669,14 +1669,6 @@ Valid for all stages if not explicitely defined.</a:documentation>
             </oneOrMore>
           </element>
         </optional>
-        <optional>
-          <element name="insert_system_roles">
-            <ref name="LIST"/>
-            <element name="insert_system_role">
-              <ref name="system_roles"/>
-            </element>
-          </element>
-        </optional>
       </interleave>
     </element>
   </define>
@@ -1745,6 +1737,20 @@ Valid for all stages if not explicitely defined.</a:documentation>
       </interleave>
     </element>
   </define>
+  <define name="update_system_roles">
+    <element name="system_roles">
+      <optional>
+        <element name="insert_system_roles">
+          <ref name="LIST"/>
+          <oneOrMore>
+            <element name="insert_system_role">
+              <ref name="system_roles"/>
+            </element>
+          </oneOrMore>
+        </element>
+      </optional>
+    </element>
+  </define>
   <define name="update">
     <element name="update">
       <interleave>
@@ -1799,6 +1805,9 @@ Valid for all stages if not explicitely defined.</a:documentation>
               </optional>
             </interleave>
           </element>
+        </optional>
+        <optional>
+          <ref name="update_system_roles"/>
         </optional>
       </interleave>
     </element>
