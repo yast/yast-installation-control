@@ -11,7 +11,7 @@
       <ref name="vm_desired_size"/>
       <ref name="vm_home_max_size"/>
       <ref name="use_separate_multipath_module"/>
-      <ref name="prefer_remove"/>
+      <ref name="control_prefer_remove"/>
       <ref name="vm_keep_unpartitioned_region"/>
       <ref name="remove_special_partitions"/>
       <ref name="control_partitions"/>
@@ -63,7 +63,7 @@
       <text/>
     </element>
   </define>
-  <define name="prefer_remove">
+  <define name="control_prefer_remove">
     <element name="prefer_remove">
       <ref name="BOOLEAN"/>
     </element>
@@ -109,19 +109,19 @@
       <ref name="BOOLEAN"/>
     </element>
   </define>
-  <define name="subvolumes">
+  <define name="control_subvolumes">
     <a:documentation>Optional, but if this element appears (even if it's empty),
 the internal fallback list is not used</a:documentation>
     <optional>
       <element name="subvolumes">
         <ref name="LIST"/>
         <zeroOrMore>
-          <ref name="subvolume"/>
+          <ref name="control_subvolume"/>
         </zeroOrMore>
       </element>
     </optional>
   </define>
-  <define name="subvolume">
+  <define name="control_subvolume">
     <element name="subvolume">
       <interleave>
         <element name="path">
@@ -148,7 +148,7 @@ Example 2: ppc,!board_powernv
     </element>
   </define>
   <!-- these have to be defined by Storage -->
-  <define name="partitions">
+  <define name="control_partitions">
     <element name="partitions">
       <ref name="LIST"/>
       <zeroOrMore>
