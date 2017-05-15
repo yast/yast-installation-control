@@ -14,13 +14,13 @@
       <ref name="prefer_remove"/>
       <ref name="vm_keep_unpartitioned_region"/>
       <ref name="remove_special_partitions"/>
-      <ref name="partitions"/>
+      <ref name="control_partitions"/>
       <ref name="btrfs_increase_percentage"/>
       <ref name="btrfs_default_subvolume"/>
       <ref name="proposal_settings_editable"/>
       <ref name="expert_partitioner_warning"/>
       <ref name="root_subvolume_read_only"/>
-      <ref name="subvolumes"/>
+      <ref name="control_subvolumes"/>
     </choice>
   </define>
   <define name="try_separate_home">

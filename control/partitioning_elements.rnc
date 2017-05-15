@@ -13,16 +13,16 @@ partitioning_elements =
     | vm_desired_size
     | vm_home_max_size
     | use_separate_multipath_module
-    | prefer_remove
+    | control_prefer_remove
     | vm_keep_unpartitioned_region
     | remove_special_partitions
-    | partitions
+    | control_partitions
     | btrfs_increase_percentage
     | btrfs_default_subvolume
     | proposal_settings_editable
     | expert_partitioner_warning
     | root_subvolume_read_only
-    | subvolumes
+    | control_subvolumes
 
 try_separate_home =		element try_separate_home { BOOLEAN }
 limit_try_home =		element limit_try_home { text }
@@ -32,7 +32,7 @@ root_max_size =			element root_max_size { text }
 proposal_lvm =			element proposal_lvm { BOOLEAN }
 vm_desired_size =		element vm_desired_size { text }
 vm_home_max_size =		element vm_home_max_size { text }
-prefer_remove =			element prefer_remove { BOOLEAN }
+control_prefer_remove =	element prefer_remove { BOOLEAN }
 remove_special_partitions =	element remove_special_partitions { BOOLEAN }
 vm_keep_unpartitioned_region =	element vm_keep_unpartitioned_region { BOOLEAN }
 # used by HASI Add-On
@@ -45,12 +45,12 @@ root_subvolume_read_only =      element root_subvolume_read_only { BOOLEAN }
 
 ## Optional, but if this element appears (even if it's empty),
 ## the internal fallback list is not used
-subvolumes = element subvolumes {
+control_subvolumes = element subvolumes {
     LIST,
-    subvolume*
+    control_subvolume*
 }?
 
-subvolume = element subvolume {
+control_subvolume = element subvolume {
     ## subvolume path without leading /
     element path { text } &
 
@@ -66,7 +66,7 @@ subvolume = element subvolume {
 }
 
 # these have to be defined by Storage
-partitions = element partitions {
+control_partitions = element partitions {
     LIST,
     element listentry {
 	element * { ANY }*
