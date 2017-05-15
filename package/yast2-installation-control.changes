@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon May 15 10:49:47 UTC 2017 - igonzalezsosa@suse.com
+
+- Make the partitioning elements section reusable
+- 3.2.6  
+
+-------------------------------------------------------------------
 Mon Mar 13 16:00:38 UTC 2017 - igonzalezsosa@suse.com
 
 - Fix system roles specification in the update section
