@@ -436,7 +436,8 @@ minimalistic_libzypp_config = element minimalistic_libzypp_config { BOOLEAN }
 # software
 
 # partitioning
-
+# partition_elements is extracted to its own file so it can be reused by yast2-schema
+# (under general/storage section).
 include "partitioning_elements.rnc"
 
 ## Partitioning-related variables
