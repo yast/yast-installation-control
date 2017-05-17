@@ -889,7 +889,11 @@ selected for installation</a:documentation>
     </element>
   </define>
   <!-- software -->
-  <!-- partitioning -->
+  <!--
+    partitioning
+    partition_elements is extracted to its own file so it can be reused by yast2-schema
+    (under general/storage section).
+  -->
   <include href="partitioning_elements.rng"/>
   <define name="partitioning">
     <a:documentation>Partitioning-related variables</a:documentation>
