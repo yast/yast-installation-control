@@ -436,79 +436,9 @@ minimalistic_libzypp_config = element minimalistic_libzypp_config { BOOLEAN }
 # software
 
 # partitioning
-
-partitioning_elements =
-    try_separate_home
-    | limit_try_home
-    | root_space_percent
-    | root_base_size
-    | root_max_size
-    | proposal_lvm
-    | vm_desired_size
-    | vm_home_max_size
-    | use_separate_multipath_module
-    | prefer_remove
-    | vm_keep_unpartitioned_region
-    | remove_special_partitions
-    | partitions
-    | btrfs_increase_percentage
-    | btrfs_default_subvolume
-    | proposal_settings_editable
-    | expert_partitioner_warning
-    | root_subvolume_read_only
-    | subvolumes
-
-try_separate_home =		element try_separate_home { BOOLEAN }
-limit_try_home =		element limit_try_home { text }
-root_space_percent =		element root_space_percent { text }
-root_base_size =		element root_base_size { text }
-root_max_size =			element root_max_size { text }
-proposal_lvm =			element proposal_lvm { BOOLEAN }
-vm_desired_size =		element vm_desired_size { text }
-vm_home_max_size =		element vm_home_max_size { text }
-prefer_remove =			element prefer_remove { BOOLEAN }
-remove_special_partitions =	element remove_special_partitions { BOOLEAN }
-vm_keep_unpartitioned_region =	element vm_keep_unpartitioned_region { BOOLEAN }
-# used by HASI Add-On
-use_separate_multipath_module =	element use_separate_multipath_module { BOOLEAN }
-btrfs_increase_percentage =	element btrfs_increase_percentage { INTEGER }
-btrfs_default_subvolume =	element btrfs_default_subvolume { text }
-proposal_settings_editable =    element proposal_settings_editable { BOOLEAN }
-expert_partitioner_warning =    element expert_partitioner_warning { BOOLEAN }
-root_subvolume_read_only =      element root_subvolume_read_only { BOOLEAN }
-
-## Optional, but if this element appears (even if it's empty),
-## the internal fallback list is not used
-subvolumes = element subvolumes {
-    LIST,
-    subvolume*
-}?
-
-subvolume = element subvolume {
-    ## subvolume path without leading /
-    element path { text } &
-
-    ## Optional: COW; default: true
-    element copy_on_write { BOOLEAN }? &
-
-    ## Optional: comma-separated architectures (default: all)
-    ## Prepend ! to negate
-    ## Example 1: i386,x86_64
-    ## Example 2: ppc,!board_powernv
-    ## (i.e. on PPC, but not if it's a board_powernv machine
-    element archs { text }?
-}
-
-# these have to be defined by Storage
-partitions = element partitions {
-    LIST,
-    element listentry {
-	element * { ANY }*
-    }*,
-    element partition {
-	element * { ANY }*
-    }*
-}
+# partition_elements is extracted to its own file so it can be reused by yast2-schema
+# (under general/storage section).
+include "partitioning_elements.rnc"
 
 ## Partitioning-related variables
 partitioning = element partitioning {

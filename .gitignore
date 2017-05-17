@@ -13,6 +13,7 @@ config.sub
 configure
 configure.ac
 depcomp
+doc/
 install-sh
 *.pot
 libtool
@@ -25,3 +26,4 @@ Makefile.am.common
 *.ami
 *.bz2
 .dep
+.yardoc/

@@ -3,7 +3,9 @@
 
 control_DATA = \
        control.rnc \
-       control.rng
+       control.rng \
+       partitioning_elements.rnc \
+       partitioning_elements.rng
 
 # Distribute also the generated control.rng file, the reason is that "trang"
 # is a Java tool which adds huge dependency in OBS.
