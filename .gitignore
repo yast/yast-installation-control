@@ -25,3 +25,5 @@ Makefile.am.common
 *.ami
 *.bz2
 .dep
+/.yardoc
+/doc
