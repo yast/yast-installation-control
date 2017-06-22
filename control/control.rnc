@@ -440,6 +440,7 @@ minimalistic_libzypp_config = element minimalistic_libzypp_config { BOOLEAN }
 partitioning_elements =
     try_separate_home
     | limit_try_home
+    | home_path
     | root_space_percent
     | root_base_size
     | root_max_size
@@ -460,6 +461,7 @@ partitioning_elements =
 
 try_separate_home =		element try_separate_home { BOOLEAN }
 limit_try_home =		element limit_try_home { text }
+home_path =                     element home_path { text }
 root_space_percent =		element root_space_percent { text }
 root_base_size =		element root_base_size { text }
 root_max_size =			element root_max_size { text }
