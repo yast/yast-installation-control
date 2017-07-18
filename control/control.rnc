@@ -147,19 +147,25 @@ write_hostname_to_hosts =		element write_hostname_to_hosts { BOOLEAN }
 dhclient_set_hostname =		element dhclient_set_hostname { BOOLEAN }
 ## Defines whether startup scripts should run in a parallel mode.
 ## This speeds the starting up but it is worse for debugging.
+## *obsolete* without replacement
 run_init_scripts_in_parallel =		element run_init_scripts_in_parallel { BOOLEAN }
 inform_about_suboptimal_distribution =	element inform_about_suboptimal_distribution { BOOLEAN }
 skip_language_dialog =			element skip_language_dialog { BOOLEAN }
 ## Defines whether an AytoYaST cloning feature should be enabled
 enable_clone =				element enable_clone { BOOLEAN }
 ## Default value for 'send hardware data' with registration
+## *obsolete* without replacement
 enable_register_hwdata =		element enable_register_hwdata { BOOLEAN }
 ## Default value for 'send optional system data' with registration
+## *obsolete* without replacement
 enable_register_optional =		element enable_register_optional { BOOLEAN }
 ## Defines if by default os probing should be disabled see. Default is false. (bnc#884007)
 disable_os_prober =			element disable_os_prober { BOOLEAN }
+## *obsolete* without replacement
 display_register_forcereg =		element display_register_forcereg { BOOLEAN }
+## *obsolete* without replacement
 disable_register_w3m =			element disable_register_w3m { BOOLEAN }
+## *obsolete* without replacement
 register_monthly =			element register_monthly { BOOLEAN }
 manual_online_update =			element manual_online_update { BOOLEAN }
 root_password_as_first_user =		element root_password_as_first_user { BOOLEAN }
@@ -172,6 +178,7 @@ addons_default =			element addons_default { BOOLEAN }
 ## between the first and the second stage of installation
 kexec_reboot =				element kexec_reboot { BOOLEAN }
 ## Defines whether a special runlevel 4 should be offered
+## *obsolete* without replacement
 rle_offer_rulevel_4 =			element rle_offer_rulevel_4 { BOOLEAN }
 default_ntp_setup =			element default_ntp_setup { BOOLEAN }
 ## Defines whether kdump is enabled by default
@@ -278,6 +285,7 @@ software_elements =
     | minimalistic_libzypp_config
 
 ## Whether it is allowed to delete a package during upgrade
+## *obsolete* without replacement
 delete_old_packages = element delete_old_packages { BOOLEAN }
 selection_type = element selection_type { SYMBOL }
 ## System scenario selected by default.
@@ -316,6 +324,7 @@ kernel_packages = element kernel_packages {
     element package { text }+
 }
 
+## *obsolete* without replacement
 delete_old_packages_reverse_list = element delete_old_packages_reverse_list {
     LIST,
     element regexp_item { text }+
