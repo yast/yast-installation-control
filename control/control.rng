@@ -231,7 +231,8 @@ more detailed log entries</a:documentation>
   </define>
   <define name="run_init_scripts_in_parallel">
     <a:documentation>Defines whether startup scripts should run in a parallel mode.
-This speeds the starting up but it is worse for debugging.</a:documentation>
+This speeds the starting up but it is worse for debugging.
+*obsolete* without replacement</a:documentation>
     <element name="run_init_scripts_in_parallel">
       <ref name="BOOLEAN"/>
     </element>
@@ -253,13 +254,15 @@ This speeds the starting up but it is worse for debugging.</a:documentation>
     </element>
   </define>
   <define name="enable_register_hwdata">
-    <a:documentation>Default value for 'send hardware data' with registration</a:documentation>
+    <a:documentation>Default value for 'send hardware data' with registration
+*obsolete* without replacement</a:documentation>
     <element name="enable_register_hwdata">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="enable_register_optional">
-    <a:documentation>Default value for 'send optional system data' with registration</a:documentation>
+    <a:documentation>Default value for 'send optional system data' with registration
+*obsolete* without replacement</a:documentation>
     <element name="enable_register_optional">
       <ref name="BOOLEAN"/>
     </element>
@@ -271,16 +274,19 @@ This speeds the starting up but it is worse for debugging.</a:documentation>
     </element>
   </define>
   <define name="display_register_forcereg">
+    <a:documentation>*obsolete* without replacement</a:documentation>
     <element name="display_register_forcereg">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="disable_register_w3m">
+    <a:documentation>*obsolete* without replacement</a:documentation>
     <element name="disable_register_w3m">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="register_monthly">
+    <a:documentation>*obsolete* without replacement</a:documentation>
     <element name="register_monthly">
       <ref name="BOOLEAN"/>
     </element>
@@ -328,7 +334,8 @@ between the first and the second stage of installation</a:documentation>
     </element>
   </define>
   <define name="rle_offer_rulevel_4">
-    <a:documentation>Defines whether a special runlevel 4 should be offered</a:documentation>
+    <a:documentation>Defines whether a special runlevel 4 should be offered
+*obsolete* without replacement</a:documentation>
     <element name="rle_offer_rulevel_4">
       <ref name="BOOLEAN"/>
     </element>
@@ -532,7 +539,8 @@ Absolut path is required.</a:documentation>
     </choice>
   </define>
   <define name="delete_old_packages">
-    <a:documentation>Whether it is allowed to delete a package during upgrade</a:documentation>
+    <a:documentation>Whether it is allowed to delete a package during upgrade
+*obsolete* without replacement</a:documentation>
     <element name="delete_old_packages">
       <ref name="BOOLEAN"/>
     </element>
@@ -639,6 +647,7 @@ Comma and/or space-separated list of packages</a:documentation>
     </element>
   </define>
   <define name="delete_old_packages_reverse_list">
+    <a:documentation>*obsolete* without replacement</a:documentation>
     <element name="delete_old_packages_reverse_list">
       <ref name="LIST"/>
       <oneOrMore>
