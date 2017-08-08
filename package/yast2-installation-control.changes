@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Tue Aug  8 11:32:06 CEST 2017 - shundhammer@suse.de
+
+- Merged SLE-12-SP2-CASP branch to SLE-12-SP3 branch (bsc#1051200)
+- 3.2.6 
+
+-------------------------------------------------------------------
+Mon Jun 26 11:09:53 CEST 2017 - shundhammer@suse.de
+
+- Allow different mount point for home partition (Fate#323532)
+
+-------------------------------------------------------------------
 Mon Mar 13 16:00:38 UTC 2017 - igonzalezsosa@suse.com
 
 - Fix system roles specification in the update section

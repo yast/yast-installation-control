@@ -25,3 +25,7 @@ Makefile.am.common
 *.ami
 *.bz2
 .dep
+.yardoc/
+doc/css/
+doc/js/
+doc/**/*.html
