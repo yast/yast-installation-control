@@ -895,6 +895,8 @@ selected for installation</a:documentation>
       <ref name="try_separate_home"/>
       <ref name="limit_try_home"/>
       <ref name="home_path"/>
+      <ref name="home_fs"/>
+      <ref name="root_fs"/>
       <ref name="root_space_percent"/>
       <ref name="root_base_size"/>
       <ref name="root_max_size"/>
@@ -926,6 +928,16 @@ selected for installation</a:documentation>
   </define>
   <define name="home_path">
     <element name="home_path">
+      <text/>
+    </element>
+  </define>
+  <define name="home_fs">
+    <element name="home_fs">
+      <text/>
+    </element>
+  </define>
+  <define name="root_fs">
+    <element name="root_fs">
       <text/>
     </element>
   </define>
