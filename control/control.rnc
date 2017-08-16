@@ -441,6 +441,8 @@ partitioning_elements =
     try_separate_home
     | limit_try_home
     | home_path
+    | home_fs
+    | root_fs
     | root_space_percent
     | root_base_size
     | root_max_size
@@ -462,6 +464,8 @@ partitioning_elements =
 try_separate_home =		element try_separate_home { BOOLEAN }
 limit_try_home =		element limit_try_home { text }
 home_path =                     element home_path { text }
+home_fs =                       element home_fs { text }
+root_fs =                       element root_fs { text }
 root_space_percent =		element root_space_percent { text }
 root_base_size =		element root_base_size { text }
 root_max_size =			element root_max_size { text }
