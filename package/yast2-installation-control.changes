@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Tue Aug 22 12:02:29 CEST 2017 - shundhammer@suse.de
+
+- Merged SLE-12-SP3-CASP branch to master
+- 3.3.0
+
+-------------------------------------------------------------------
+Thu Aug 17 15:13:44 CEST 2017 - shundhammer@suse.de
+
+- Make filesystem type for home and root configurable in control.xml
+  (bsc#1051762)
+
+-------------------------------------------------------------------
 Mon Jun 26 11:09:53 CEST 2017 - shundhammer@suse.de
 
 - Allow different mount point for home partition (Fate#323532)
