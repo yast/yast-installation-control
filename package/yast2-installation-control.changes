@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Wed Sep 20 13:55:59 UTC 2017 - jreidinger@suse.com
+
+- Add order element to system roles to allow easier inserting of
+  roles from add ons (bsc#1049297)
+- 4.0.0
+
+-------------------------------------------------------------------
 Tue Aug 22 12:02:29 CEST 2017 - shundhammer@suse.de
 
 - Merged SLE-12-SP3-CASP branch to master
