@@ -1155,10 +1155,16 @@ texts section: ${id} and ${id}_description.</a:documentation>
         </element>
         <optional>
           <element name="no_default">
-            <a:documentation>option to not preselect any role, by default first one is preselected</a:documentation>
+            <a:documentation>option to not preselect any role, by default first one by order is preselected</a:documentation>
             <ref name="BOOLEAN"/>
           </element>
         </optional>
+        <element name="order">
+          <a:documentation>Option for order of role. Roles are sorted by order, the smaller first. It can be negative.
+If not specified default 10 000 is used. If two roles have same order, then the first come
+rule is used, so it is stable sorting.</a:documentation>
+          <ref name="INTEGER"/>
+        </element>
         <optional>
           <ref name="partitioning">
             <a:documentation>Role specific overrides for Partitioning</a:documentation>
