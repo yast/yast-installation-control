@@ -566,8 +566,14 @@ system_role = element system_role {
     ## texts section: ${id} and ${id}_description.
     element id { text } &
 
-    ## option to not preselect any role, by default first one is preselected
+    ## option to not preselect any role, by default,
+    ## the first one (by sort order, see below) is preselected
+    ## Only the first (by sort order, see below) role should have this key, others are ignored.
     element no_default { BOOLEAN }? &
+
+    ## Option for order of role. Roles are sorted by order, the smaller first. It can be negative.
+    ## If two roles have same order, then result is undefined, so try to avoid it.
+    element order { INTEGER } &
 
     ## Role specific overrides for Partitioning
     partitioning? &
