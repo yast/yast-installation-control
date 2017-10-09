@@ -27,8 +27,7 @@ INTEGER =
 
 SYMBOL =
   (
-    attribute config:type { "symbol" },
-    text
+    attribute config:type { "symbol" }
   )
 
 LIST =
@@ -295,7 +294,7 @@ software_elements =
 ## Whether it is allowed to delete a package during upgrade
 ## *obsolete* without replacement
 delete_old_packages = element delete_old_packages { BOOLEAN }
-selection_type = element selection_type { SYMBOL }
+selection_type = element selection_type { SYMBOL, text }
 ## System scenario selected by default.
 ## Used in inst_scenarios client.
 default_system_scenario = element default_system_scenario { text }
@@ -454,7 +453,13 @@ minimalistic_libzypp_config = element minimalistic_libzypp_config { BOOLEAN }
 
 # partitioning
 
-partitioning_elements =
+# ng: one proposal and one volume list
+ng_partitioning_elements =
+    partitioning_proposal
+    & partitioning_volumes
+
+# legacy: the old stuff, mixed together
+legacy_partitioning_elements =
     try_separate_home
     | limit_try_home
     | home_path
@@ -477,6 +482,12 @@ partitioning_elements =
     | expert_partitioner_warning
     | root_subvolume_read_only
     | subvolumes
+
+# you can either have the new ('ng' style elements or the old 'legacy' ones)
+partitioning_elements =
+     ng_partitioning_elements | legacy_partitioning_elements*
+
+# legacy element definitions
 
 try_separate_home =		element try_separate_home { BOOLEAN }
 limit_try_home =		element limit_try_home { text }
@@ -533,9 +544,65 @@ partitions = element partitions {
     }*
 }
 
+# ng element definitions
+
+partitioning_proposal = element proposal { partitioning_proposal_elements* }
+
+partitioning_proposal_elements =
+    ng_lvm
+    | ng_encrypt
+    | ng_windows_delete_mode
+    | ng_linux_delete_mode
+    | ng_other_delete_mode
+    | ng_lvm_vg_strategy
+
+ng_lvm = element lvm { BOOLEAN }
+ng_encrypt = element encrypt { BOOLEAN }
+ng_windows_delete_mode = element windows_delete_mode { SYMBOL, ng_delete_mode_enum }
+ng_linux_delete_mode = element linux_delete_mode { SYMBOL, ng_delete_mode_enum }
+ng_other_delete_mode = element other_delete_mode { SYMBOL, ng_delete_mode_enum }
+ng_lvm_vg_strategy = element lvm_vg_strategy { SYMBOL, ng_lvm_vg_strategy_enum }
+
+ng_delete_mode_enum = "none" | "ondemand" | "all"
+ng_lvm_vg_strategy_enum = "use_available" | "used_needed" | "use_vg_size"
+
+partitioning_volumes =  element volumes {
+  LIST,
+  partitioning_volume+
+}
+
+partitioning_volume = element volume { partitioning_volume_elements* }
+
+partitioning_volume_elements =
+  ng_mount_point
+  | ng_fstype
+  | ng_desired_size
+  | ng_min_size
+  | ng_max_size
+  | ng_weight
+  | ng_snapshots
+  | ng_snapshots_configurable
+  | ng_snapshots_size
+  | ng_disable_order
+  | ng_btrfs_default_subvolume
+  | ng_subvolumes
+
+ng_mount_point = element mount_point { text }
+ng_fstype = element fstype { text }
+ng_desired_size = element desired_size { text }
+ng_min_size = element min_size { text }
+ng_max_size = element max_size { text }
+ng_weight = element weight { text }
+ng_snapshots = element snapshots { BOOLEAN }
+ng_snapshots_configurable = element snapshots_configurable { BOOLEAN }
+ng_snapshots_size = element snapshots_size { text }
+ng_disable_order = element disable_order { text }
+ng_btrfs_default_subvolume = element btrfs_default_subvolume { text }
+ng_subvolumes = subvolumes
+
 ## Partitioning-related variables
 partitioning = element partitioning {
-    partitioning_elements*
+    partitioning_elements
 }
 
 # partitioning

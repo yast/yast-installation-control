@@ -29,7 +29,6 @@
     <attribute name="config:type">
       <value>symbol</value>
     </attribute>
-    <text/>
   </define>
   <define name="LIST">
     <attribute name="config:type">
@@ -560,6 +559,7 @@ Absolut path is required.</a:documentation>
   <define name="selection_type">
     <element name="selection_type">
       <ref name="SYMBOL"/>
+      <text/>
     </element>
   </define>
   <define name="default_system_scenario">
@@ -911,7 +911,15 @@ selected for installation</a:documentation>
   </define>
   <!-- software -->
   <!-- partitioning -->
-  <define name="partitioning_elements">
+  <!-- ng: one proposal and one volume list -->
+  <define name="ng_partitioning_elements">
+    <interleave>
+      <ref name="partitioning_proposal"/>
+      <ref name="partitioning_volumes"/>
+    </interleave>
+  </define>
+  <!-- legacy: the old stuff, mixed together -->
+  <define name="legacy_partitioning_elements">
     <choice>
       <ref name="try_separate_home"/>
       <ref name="limit_try_home"/>
@@ -937,6 +945,16 @@ selected for installation</a:documentation>
       <ref name="subvolumes"/>
     </choice>
   </define>
+  <!-- you can either have the new ('ng' style elements or the old 'legacy' ones) -->
+  <define name="partitioning_elements">
+    <choice>
+      <ref name="ng_partitioning_elements"/>
+      <zeroOrMore>
+        <ref name="legacy_partitioning_elements"/>
+      </zeroOrMore>
+    </choice>
+  </define>
+  <!-- legacy element definitions -->
   <define name="try_separate_home">
     <element name="try_separate_home">
       <ref name="BOOLEAN"/>
@@ -1102,12 +1120,165 @@ Example 2: ppc,!board_powernv
       </zeroOrMore>
     </element>
   </define>
+  <!-- ng element definitions -->
+  <define name="partitioning_proposal">
+    <element name="proposal">
+      <zeroOrMore>
+        <ref name="partitioning_proposal_elements"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="partitioning_proposal_elements">
+    <choice>
+      <ref name="ng_lvm"/>
+      <ref name="ng_encrypt"/>
+      <ref name="ng_windows_delete_mode"/>
+      <ref name="ng_linux_delete_mode"/>
+      <ref name="ng_other_delete_mode"/>
+      <ref name="ng_lvm_vg_strategy"/>
+    </choice>
+  </define>
+  <define name="ng_lvm">
+    <element name="lvm">
+      <ref name="BOOLEAN"/>
+    </element>
+  </define>
+  <define name="ng_encrypt">
+    <element name="encrypt">
+      <ref name="BOOLEAN"/>
+    </element>
+  </define>
+  <define name="ng_windows_delete_mode">
+    <element name="windows_delete_mode">
+      <ref name="SYMBOL"/>
+      <ref name="ng_delete_mode_enum"/>
+    </element>
+  </define>
+  <define name="ng_linux_delete_mode">
+    <element name="linux_delete_mode">
+      <ref name="SYMBOL"/>
+      <ref name="ng_delete_mode_enum"/>
+    </element>
+  </define>
+  <define name="ng_other_delete_mode">
+    <element name="other_delete_mode">
+      <ref name="SYMBOL"/>
+      <ref name="ng_delete_mode_enum"/>
+    </element>
+  </define>
+  <define name="ng_lvm_vg_strategy">
+    <element name="lvm_vg_strategy">
+      <ref name="SYMBOL"/>
+      <ref name="ng_lvm_vg_strategy_enum"/>
+    </element>
+  </define>
+  <define name="ng_delete_mode_enum">
+    <choice>
+      <value>none</value>
+      <value>ondemand</value>
+      <value>all</value>
+    </choice>
+  </define>
+  <define name="ng_lvm_vg_strategy_enum">
+    <choice>
+      <value>use_available</value>
+      <value>used_needed</value>
+      <value>use_vg_size</value>
+    </choice>
+  </define>
+  <define name="partitioning_volumes">
+    <element name="volumes">
+      <ref name="LIST"/>
+      <oneOrMore>
+        <ref name="partitioning_volume"/>
+      </oneOrMore>
+    </element>
+  </define>
+  <define name="partitioning_volume">
+    <element name="volume">
+      <zeroOrMore>
+        <ref name="partitioning_volume_elements"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="partitioning_volume_elements">
+    <choice>
+      <ref name="ng_mount_point"/>
+      <ref name="ng_fstype"/>
+      <ref name="ng_desired_size"/>
+      <ref name="ng_min_size"/>
+      <ref name="ng_max_size"/>
+      <ref name="ng_weight"/>
+      <ref name="ng_snapshots"/>
+      <ref name="ng_snapshots_configurable"/>
+      <ref name="ng_snapshots_size"/>
+      <ref name="ng_disable_order"/>
+      <ref name="ng_btrfs_default_subvolume"/>
+      <ref name="ng_subvolumes"/>
+    </choice>
+  </define>
+  <define name="ng_mount_point">
+    <element name="mount_point">
+      <text/>
+    </element>
+  </define>
+  <define name="ng_fstype">
+    <element name="fstype">
+      <text/>
+    </element>
+  </define>
+  <define name="ng_desired_size">
+    <element name="desired_size">
+      <text/>
+    </element>
+  </define>
+  <define name="ng_min_size">
+    <element name="min_size">
+      <text/>
+    </element>
+  </define>
+  <define name="ng_max_size">
+    <element name="max_size">
+      <text/>
+    </element>
+  </define>
+  <define name="ng_weight">
+    <element name="weight">
+      <text/>
+    </element>
+  </define>
+  <define name="ng_snapshots">
+    <element name="snapshots">
+      <ref name="BOOLEAN"/>
+    </element>
+  </define>
+  <define name="ng_snapshots_configurable">
+    <element name="snapshots_configurable">
+      <ref name="BOOLEAN"/>
+    </element>
+  </define>
+  <define name="ng_snapshots_size">
+    <element name="snapshots_size">
+      <text/>
+    </element>
+  </define>
+  <define name="ng_disable_order">
+    <element name="disable_order">
+      <text/>
+    </element>
+  </define>
+  <define name="ng_btrfs_default_subvolume">
+    <element name="btrfs_default_subvolume">
+      <text/>
+    </element>
+  </define>
+  <define name="ng_subvolumes">
+    <ref name="subvolumes"/>
+  </define>
   <define name="partitioning">
     <a:documentation>Partitioning-related variables</a:documentation>
     <element name="partitioning">
-      <zeroOrMore>
-        <ref name="partitioning_elements"/>
-      </zeroOrMore>
+      <ref name="partitioning_elements"/>
     </element>
   </define>
   <!-- partitioning -->
