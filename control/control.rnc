@@ -27,12 +27,27 @@ INTEGER =
 
 SYMBOL =
   (
-    attribute config:type { "symbol" },
-    text
+    attribute config:type { "symbol" }
   )
 
 LIST =
   attribute config:type { "list" }
+
+DISKSIZE =
+  (
+    attribute config:type { "disksize" },
+    (
+      "unlimited"
+      | list {
+        xsd:integer,
+        (
+          "B"
+          | "KiB" | "MiB" | "GiB" | "TiB" | "PiB" | "EiB" | "ZiB" | "YiB"
+          | "KB" | "MB" | "GB" | "TB" | "PB" | "EB" | "ZB" | "YB"
+        )
+      }
+    )
+  )
 
 ANY =
   (
@@ -295,7 +310,7 @@ software_elements =
 ## Whether it is allowed to delete a package during upgrade
 ## *obsolete* without replacement
 delete_old_packages = element delete_old_packages { BOOLEAN }
-selection_type = element selection_type { SYMBOL }
+selection_type = element selection_type { SYMBOL, text }
 ## System scenario selected by default.
 ## Used in inst_scenarios client.
 default_system_scenario = element default_system_scenario { text }
@@ -454,7 +469,13 @@ minimalistic_libzypp_config = element minimalistic_libzypp_config { BOOLEAN }
 
 # partitioning
 
-partitioning_elements =
+# ng: one proposal and one volume list
+ng_partitioning_elements =
+    partitioning_proposal
+    & partitioning_volumes
+
+# legacy: the old stuff, mixed together
+legacy_partitioning_elements =
     try_separate_home
     | limit_try_home
     | home_path
@@ -477,6 +498,12 @@ partitioning_elements =
     | expert_partitioner_warning
     | root_subvolume_read_only
     | subvolumes
+
+# you can either have the new 'ng' style elements or the old 'legacy' ones
+partitioning_elements =
+     ng_partitioning_elements | legacy_partitioning_elements*
+
+# legacy element definitions
 
 try_separate_home =		element try_separate_home { BOOLEAN }
 limit_try_home =		element limit_try_home { text }
@@ -533,9 +560,87 @@ partitions = element partitions {
     }*
 }
 
+# ng element definitions
+
+partitioning_proposal = element proposal { partitioning_proposal_elements* }
+
+partitioning_proposal_elements =
+    ng_lvm
+    | ng_resize_windows
+    | ng_windows_delete_mode
+    | ng_linux_delete_mode
+    | ng_other_delete_mode
+    | ng_lvm_vg_strategy
+    | ng_lvm_vg_size
+
+ng_lvm = element lvm { BOOLEAN }
+ng_resize_windows = element resize_windows { BOOLEAN }
+ng_windows_delete_mode = element windows_delete_mode { SYMBOL, ng_delete_mode_enum }
+ng_linux_delete_mode = element linux_delete_mode { SYMBOL, ng_delete_mode_enum }
+ng_other_delete_mode = element other_delete_mode { SYMBOL, ng_delete_mode_enum }
+ng_lvm_vg_strategy = element lvm_vg_strategy { SYMBOL, ng_lvm_vg_strategy_enum }
+ng_lvm_vg_size = element lvm_vg_size { DISKSIZE }
+
+ng_delete_mode_enum = "none" | "ondemand" | "all"
+ng_lvm_vg_strategy_enum = "use_available" | "used_needed" | "use_vg_size"
+
+partitioning_volumes =  element volumes {
+  LIST,
+  partitioning_volume+
+}
+
+partitioning_volume = element volume { partitioning_volume_elements* }
+
+partitioning_volume_elements =
+  ng_mount_point
+  | ng_proposed
+  | ng_proposed_configurable
+  | ng_fs_types
+  | ng_fs_type
+  | ng_desired_size
+  | ng_min_size
+  | ng_max_size
+  | ng_max_size_lvm
+  | ng_weight
+  | ng_adjust_by_ram
+  | ng_adjust_by_ram_configurable
+  | ng_fallback_for_min_size
+  | ng_fallback_for_max_size
+  | ng_fallback_for_max_size_lvm
+  | ng_fallback_for_weight
+  | ng_snapshots
+  | ng_snapshots_configurable
+  | ng_snapshots_size
+  | ng_subvolumes
+  | ng_btrfs_default_subvolume
+  | ng_disable_order
+
+ng_mount_point = element mount_point { text }
+ng_proposed = element proposed { BOOLEAN }
+ng_proposed_configurable = element proposed_configurable { BOOLEAN }
+ng_fs_types = element fs_types { text }
+ng_fs_type = element fs_type { text }
+ng_desired_size = element desired_size { DISKSIZE }
+ng_min_size = element min_size { DISKSIZE }
+ng_max_size = element max_size { DISKSIZE }
+ng_max_size_lvm = element max_size_lvm { DISKSIZE }
+ng_weight = element weight { INTEGER }
+ng_adjust_by_ram = element adjust_by_ram { BOOLEAN }
+ng_adjust_by_ram_configurable = element adjust_by_ram_configurable { BOOLEAN }
+ng_fallback_for_min_size = element fallback_for_min_size { text }
+ng_fallback_for_max_size = element fallback_for_max_size { text }
+ng_fallback_for_max_size_lvm = element fallback_for_max_size_lvm { text }
+ng_fallback_for_weight = element fallback_for_weight { text }
+ng_snapshots = element snapshots { BOOLEAN }
+ng_snapshots_configurable = element snapshots_configurable { BOOLEAN }
+ng_snapshots_size = element snapshots_size { DISKSIZE }
+ng_subvolumes = subvolumes
+ng_btrfs_default_subvolume = element btrfs_default_subvolume { text }
+ng_disable_order = element disable_order { INTEGER }
+
 ## Partitioning-related variables
 partitioning = element partitioning {
-    partitioning_elements*
+    partitioning_elements
 }
 
 # partitioning
@@ -933,22 +1038,23 @@ update = element update {
 
 # update
 
+# not more than one partitioning element
 productDefines_elements =
-    textdomain
-    | globals
-    | software
-    | partitioning
-    | network
-    | proposals
-    | workflows
-    | clone_modules
-    | texts
-    | inst_finish_stages
-    | update
-    | system_roles
+    textdomain*
+    & globals*
+    & software*
+    & partitioning?
+    & network*
+    & proposals*
+    & workflows*
+    & clone_modules*
+    & texts*
+    & inst_finish_stages*
+    & update*
+    & system_roles*
 
 start = element productDefines {
-    productDefines_elements*
+    productDefines_elements
 }
 
 debug_deploying = element debug_deploying { BOOLEAN }

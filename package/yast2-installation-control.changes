@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Tue Oct 10 13:45:06 UTC 2017 - snwint@suse.com
+
+- update control.xml specification to include the new storage-ng
+  partitioning data
+- do no longer allow more than one partitioning element
+- 4.0.2
+
+-------------------------------------------------------------------
 Tue Oct 10 10:29:07 UTC 2017 - jreidinger@suse.com
 
 - add "self_update_id" to allow defining an ID for self update SCC
