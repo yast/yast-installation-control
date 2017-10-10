@@ -186,10 +186,14 @@ default_ntp_setup =			element default_ntp_setup { BOOLEAN }
 enable_kdump =				element enable_kdump { BOOLEAN }
 require_registration =			element require_registration { BOOLEAN }
 show_drivers_info =			element show_drivers_info { BOOLEAN }
-# Self-update (FATE#319716).
+# Self-update URL (FATE#319716).
+## How it works?
+## here are two related keys for self update - URL and ID.
+## The ID is used to ask SCC for update URL.
+## The URL is used as fallback when SCC query failed.
 self_update_url =			element self_update_url { text }
 # Self-update id (bsc#1055556).
-# It is an ID used to query SCC for the self update repo.
+## It is an ID used to query SCC for the self update repo.
 self_update_id =			element self_update_id { text }
 
 ## Defines which pieces of installation system should be copied to

@@ -1,7 +1,7 @@
 -------------------------------------------------------------------
 Tue Oct 10 10:29:07 UTC 2017 - jreidinger@suse.com
 
-- add "self_update_id" to allow defining an id for self update scc
+- add "self_update_id" to allow defining an ID for self update SCC
   query (bsc#1055556)
 - 4.0.1
 

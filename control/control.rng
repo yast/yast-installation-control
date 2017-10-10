@@ -362,17 +362,19 @@ between the first and the second stage of installation</a:documentation>
       <ref name="BOOLEAN"/>
     </element>
   </define>
-  <!-- Self-update (FATE#319716). -->
+  <!-- Self-update URL (FATE#319716). -->
   <define name="self_update_url">
+    <a:documentation>How it works?
+here are two related keys for self update - URL and ID.
+The ID is used to ask SCC for update URL.
+The URL is used as fallback when SCC query failed.</a:documentation>
     <element name="self_update_url">
       <text/>
     </element>
   </define>
-  <!--
-    Self-update id (bsc#1055556).
-    It is an ID used to query SCC for the self update repo.
-  -->
+  <!-- Self-update id (bsc#1055556). -->
   <define name="self_update_id">
+    <a:documentation>It is an ID used to query SCC for the self update repo.</a:documentation>
     <element name="self_update_id">
       <text/>
     </element>
