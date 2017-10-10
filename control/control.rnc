@@ -551,17 +551,21 @@ partitioning_proposal = element proposal { partitioning_proposal_elements* }
 partitioning_proposal_elements =
     ng_lvm
     | ng_encrypt
+    | ng_resize_windows
     | ng_windows_delete_mode
     | ng_linux_delete_mode
     | ng_other_delete_mode
     | ng_lvm_vg_strategy
+    | ng_lvm_vg_size
 
 ng_lvm = element lvm { BOOLEAN }
 ng_encrypt = element encrypt { BOOLEAN }
+ng_resize_windows = element resize_windows { BOOLEAN }
 ng_windows_delete_mode = element windows_delete_mode { SYMBOL, ng_delete_mode_enum }
 ng_linux_delete_mode = element linux_delete_mode { SYMBOL, ng_delete_mode_enum }
 ng_other_delete_mode = element other_delete_mode { SYMBOL, ng_delete_mode_enum }
 ng_lvm_vg_strategy = element lvm_vg_strategy { SYMBOL, ng_lvm_vg_strategy_enum }
+ng_lvm_vg_size = element lvm_vg_size { text }
 
 ng_delete_mode_enum = "none" | "ondemand" | "all"
 ng_lvm_vg_strategy_enum = "use_available" | "used_needed" | "use_vg_size"
@@ -575,30 +579,50 @@ partitioning_volume = element volume { partitioning_volume_elements* }
 
 partitioning_volume_elements =
   ng_mount_point
+  | ng_proposed
+  | ng_proposed_configurable
+  | ng_fstypes
   | ng_fstype
   | ng_desired_size
   | ng_min_size
   | ng_max_size
+  | ng_max_size_lvm
   | ng_weight
+  | ng_adjust_by_ram
+  | ng_adjust_by_ram_configurable
+  | ng_fallback_for_min_size
+  | ng_fallback_for_max_size
+  | ng_fallback_for_max_size_lvm
+  | ng_fallback_for_weight
   | ng_snapshots
   | ng_snapshots_configurable
   | ng_snapshots_size
-  | ng_disable_order
-  | ng_btrfs_default_subvolume
   | ng_subvolumes
+  | ng_btrfs_default_subvolume
+  | ng_disable_order
 
 ng_mount_point = element mount_point { text }
+ng_proposed = element proposed { BOOLEAN }
+ng_proposed_configurable = element proposed_configurable { BOOLEAN }
+ng_fstypes = element fstypes { text }
 ng_fstype = element fstype { text }
 ng_desired_size = element desired_size { text }
 ng_min_size = element min_size { text }
 ng_max_size = element max_size { text }
-ng_weight = element weight { text }
+ng_max_size_lvm = element max_size_lvm { text }
+ng_weight = element weight { INTEGER }
+ng_adjust_by_ram = element adjust_by_ram { BOOLEAN }
+ng_adjust_by_ram_configurable = element adjust_by_ram_configurable { BOOLEAN }
+ng_fallback_for_min_size = element fallback_for_min_size { text }
+ng_fallback_for_max_size = element fallback_for_max_size { text }
+ng_fallback_for_max_size_lvm = element fallback_for_max_size_lvm { text }
+ng_fallback_for_weight = element fallback_for_weight { text }
 ng_snapshots = element snapshots { BOOLEAN }
 ng_snapshots_configurable = element snapshots_configurable { BOOLEAN }
 ng_snapshots_size = element snapshots_size { text }
-ng_disable_order = element disable_order { text }
-ng_btrfs_default_subvolume = element btrfs_default_subvolume { text }
 ng_subvolumes = subvolumes
+ng_btrfs_default_subvolume = element btrfs_default_subvolume { text }
+ng_disable_order = element disable_order { INTEGER }
 
 ## Partitioning-related variables
 partitioning = element partitioning {

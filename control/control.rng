@@ -1132,10 +1132,12 @@ Example 2: ppc,!board_powernv
     <choice>
       <ref name="ng_lvm"/>
       <ref name="ng_encrypt"/>
+      <ref name="ng_resize_windows"/>
       <ref name="ng_windows_delete_mode"/>
       <ref name="ng_linux_delete_mode"/>
       <ref name="ng_other_delete_mode"/>
       <ref name="ng_lvm_vg_strategy"/>
+      <ref name="ng_lvm_vg_size"/>
     </choice>
   </define>
   <define name="ng_lvm">
@@ -1145,6 +1147,11 @@ Example 2: ppc,!board_powernv
   </define>
   <define name="ng_encrypt">
     <element name="encrypt">
+      <ref name="BOOLEAN"/>
+    </element>
+  </define>
+  <define name="ng_resize_windows">
+    <element name="resize_windows">
       <ref name="BOOLEAN"/>
     </element>
   </define>
@@ -1170,6 +1177,11 @@ Example 2: ppc,!board_powernv
     <element name="lvm_vg_strategy">
       <ref name="SYMBOL"/>
       <ref name="ng_lvm_vg_strategy_enum"/>
+    </element>
+  </define>
+  <define name="ng_lvm_vg_size">
+    <element name="lvm_vg_size">
+      <text/>
     </element>
   </define>
   <define name="ng_delete_mode_enum">
@@ -1204,21 +1216,46 @@ Example 2: ppc,!board_powernv
   <define name="partitioning_volume_elements">
     <choice>
       <ref name="ng_mount_point"/>
+      <ref name="ng_proposed"/>
+      <ref name="ng_proposed_configurable"/>
+      <ref name="ng_fstypes"/>
       <ref name="ng_fstype"/>
       <ref name="ng_desired_size"/>
       <ref name="ng_min_size"/>
       <ref name="ng_max_size"/>
+      <ref name="ng_max_size_lvm"/>
       <ref name="ng_weight"/>
+      <ref name="ng_adjust_by_ram"/>
+      <ref name="ng_adjust_by_ram_configurable"/>
+      <ref name="ng_fallback_for_min_size"/>
+      <ref name="ng_fallback_for_max_size"/>
+      <ref name="ng_fallback_for_max_size_lvm"/>
+      <ref name="ng_fallback_for_weight"/>
       <ref name="ng_snapshots"/>
       <ref name="ng_snapshots_configurable"/>
       <ref name="ng_snapshots_size"/>
-      <ref name="ng_disable_order"/>
-      <ref name="ng_btrfs_default_subvolume"/>
       <ref name="ng_subvolumes"/>
+      <ref name="ng_btrfs_default_subvolume"/>
+      <ref name="ng_disable_order"/>
     </choice>
   </define>
   <define name="ng_mount_point">
     <element name="mount_point">
+      <text/>
+    </element>
+  </define>
+  <define name="ng_proposed">
+    <element name="proposed">
+      <ref name="BOOLEAN"/>
+    </element>
+  </define>
+  <define name="ng_proposed_configurable">
+    <element name="proposed_configurable">
+      <ref name="BOOLEAN"/>
+    </element>
+  </define>
+  <define name="ng_fstypes">
+    <element name="fstypes">
       <text/>
     </element>
   </define>
@@ -1242,8 +1279,43 @@ Example 2: ppc,!board_powernv
       <text/>
     </element>
   </define>
+  <define name="ng_max_size_lvm">
+    <element name="max_size_lvm">
+      <text/>
+    </element>
+  </define>
   <define name="ng_weight">
     <element name="weight">
+      <ref name="INTEGER"/>
+    </element>
+  </define>
+  <define name="ng_adjust_by_ram">
+    <element name="adjust_by_ram">
+      <ref name="BOOLEAN"/>
+    </element>
+  </define>
+  <define name="ng_adjust_by_ram_configurable">
+    <element name="adjust_by_ram_configurable">
+      <ref name="BOOLEAN"/>
+    </element>
+  </define>
+  <define name="ng_fallback_for_min_size">
+    <element name="fallback_for_min_size">
+      <text/>
+    </element>
+  </define>
+  <define name="ng_fallback_for_max_size">
+    <element name="fallback_for_max_size">
+      <text/>
+    </element>
+  </define>
+  <define name="ng_fallback_for_max_size_lvm">
+    <element name="fallback_for_max_size_lvm">
+      <text/>
+    </element>
+  </define>
+  <define name="ng_fallback_for_weight">
+    <element name="fallback_for_weight">
       <text/>
     </element>
   </define>
@@ -1262,18 +1334,18 @@ Example 2: ppc,!board_powernv
       <text/>
     </element>
   </define>
-  <define name="ng_disable_order">
-    <element name="disable_order">
-      <text/>
-    </element>
+  <define name="ng_subvolumes">
+    <ref name="subvolumes"/>
   </define>
   <define name="ng_btrfs_default_subvolume">
     <element name="btrfs_default_subvolume">
       <text/>
     </element>
   </define>
-  <define name="ng_subvolumes">
-    <ref name="subvolumes"/>
+  <define name="ng_disable_order">
+    <element name="disable_order">
+      <ref name="INTEGER"/>
+    </element>
   </define>
   <define name="partitioning">
     <a:documentation>Partitioning-related variables</a:documentation>
