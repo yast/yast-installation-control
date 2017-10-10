@@ -35,6 +35,36 @@
       <value>list</value>
     </attribute>
   </define>
+  <define name="DISKSIZE">
+    <attribute name="config:type">
+      <value>disksize</value>
+    </attribute>
+    <choice>
+      <value>unlimited</value>
+      <list>
+        <data type="integer"/>
+        <choice>
+          <value>B</value>
+          <value>KiB</value>
+          <value>MiB</value>
+          <value>GiB</value>
+          <value>TiB</value>
+          <value>PiB</value>
+          <value>EiB</value>
+          <value>ZiB</value>
+          <value>YiB</value>
+          <value>KB</value>
+          <value>MB</value>
+          <value>GB</value>
+          <value>TB</value>
+          <value>PB</value>
+          <value>EB</value>
+          <value>ZB</value>
+          <value>YB</value>
+        </choice>
+      </list>
+    </choice>
+  </define>
   <define name="ANY">
     <choice>
       <ref name="BOOLEAN"/>
@@ -1175,7 +1205,7 @@ Example 2: ppc,!board_powernv
   </define>
   <define name="ng_lvm_vg_size">
     <element name="lvm_vg_size">
-      <text/>
+      <ref name="DISKSIZE"/>
     </element>
   </define>
   <define name="ng_delete_mode_enum">
@@ -1212,8 +1242,8 @@ Example 2: ppc,!board_powernv
       <ref name="ng_mount_point"/>
       <ref name="ng_proposed"/>
       <ref name="ng_proposed_configurable"/>
-      <ref name="ng_fstypes"/>
-      <ref name="ng_fstype"/>
+      <ref name="ng_fs_types"/>
+      <ref name="ng_fs_type"/>
       <ref name="ng_desired_size"/>
       <ref name="ng_min_size"/>
       <ref name="ng_max_size"/>
@@ -1248,34 +1278,34 @@ Example 2: ppc,!board_powernv
       <ref name="BOOLEAN"/>
     </element>
   </define>
-  <define name="ng_fstypes">
-    <element name="fstypes">
+  <define name="ng_fs_types">
+    <element name="fs_types">
       <text/>
     </element>
   </define>
-  <define name="ng_fstype">
-    <element name="fstype">
+  <define name="ng_fs_type">
+    <element name="fs_type">
       <text/>
     </element>
   </define>
   <define name="ng_desired_size">
     <element name="desired_size">
-      <text/>
+      <ref name="DISKSIZE"/>
     </element>
   </define>
   <define name="ng_min_size">
     <element name="min_size">
-      <text/>
+      <ref name="DISKSIZE"/>
     </element>
   </define>
   <define name="ng_max_size">
     <element name="max_size">
-      <text/>
+      <ref name="DISKSIZE"/>
     </element>
   </define>
   <define name="ng_max_size_lvm">
     <element name="max_size_lvm">
-      <text/>
+      <ref name="DISKSIZE"/>
     </element>
   </define>
   <define name="ng_weight">
@@ -1325,7 +1355,7 @@ Example 2: ppc,!board_powernv
   </define>
   <define name="ng_snapshots_size">
     <element name="snapshots_size">
-      <text/>
+      <ref name="DISKSIZE"/>
     </element>
   </define>
   <define name="ng_subvolumes">
