@@ -108,6 +108,7 @@
       <ref name="debug_deploying"/>
       <ref name="show_drivers_info"/>
       <ref name="self_update_url"/>
+      <ref name="self_update_id"/>
     </choice>
   </define>
   <define name="additional_kernel_parameters">
@@ -364,6 +365,15 @@ between the first and the second stage of installation</a:documentation>
   <!-- Self-update (FATE#319716). -->
   <define name="self_update_url">
     <element name="self_update_url">
+      <text/>
+    </element>
+  </define>
+  <!--
+    Self-update id (bsc#1057538).
+    It is id used to query scc for self update repo.
+  -->
+  <define name="self_update_id">
+    <element name="self_update_id">
       <text/>
     </element>
   </define>
