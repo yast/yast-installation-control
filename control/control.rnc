@@ -1038,22 +1038,23 @@ update = element update {
 
 # update
 
+# not more than one partitioning element
 productDefines_elements =
-    textdomain
-    | globals
-    | software
-    | partitioning
-    | network
-    | proposals
-    | workflows
-    | clone_modules
-    | texts
-    | inst_finish_stages
-    | update
-    | system_roles
+    textdomain*
+    & globals*
+    & software*
+    & partitioning?
+    & network*
+    & proposals*
+    & workflows*
+    & clone_modules*
+    & texts*
+    & inst_finish_stages*
+    & update*
+    & system_roles*
 
 start = element productDefines {
-    productDefines_elements*
+    productDefines_elements
 }
 
 debug_deploying = element debug_deploying { BOOLEAN }

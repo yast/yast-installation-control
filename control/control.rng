@@ -975,7 +975,7 @@ selected for installation</a:documentation>
       <ref name="subvolumes"/>
     </choice>
   </define>
-  <!-- you can either have the new ('ng' style elements or the old 'legacy' ones) -->
+  <!-- you can either have the new 'ng' style elements or the old 'legacy' ones -->
   <define name="partitioning_elements">
     <choice>
       <ref name="ng_partitioning_elements"/>
@@ -2126,27 +2126,50 @@ Valid for all stages if not explicitely defined.</a:documentation>
     </element>
   </define>
   <!-- update -->
+  <!-- not more than one partitioning element -->
   <define name="productDefines_elements">
-    <choice>
-      <ref name="textdomain"/>
-      <ref name="globals"/>
-      <ref name="software"/>
-      <ref name="partitioning"/>
-      <ref name="network"/>
-      <ref name="proposals"/>
-      <ref name="workflows"/>
-      <ref name="clone_modules"/>
-      <ref name="texts"/>
-      <ref name="inst_finish_stages"/>
-      <ref name="update"/>
-      <ref name="system_roles"/>
-    </choice>
+    <interleave>
+      <zeroOrMore>
+        <ref name="textdomain"/>
+      </zeroOrMore>
+      <zeroOrMore>
+        <ref name="globals"/>
+      </zeroOrMore>
+      <zeroOrMore>
+        <ref name="software"/>
+      </zeroOrMore>
+      <optional>
+        <ref name="partitioning"/>
+      </optional>
+      <zeroOrMore>
+        <ref name="network"/>
+      </zeroOrMore>
+      <zeroOrMore>
+        <ref name="proposals"/>
+      </zeroOrMore>
+      <zeroOrMore>
+        <ref name="workflows"/>
+      </zeroOrMore>
+      <zeroOrMore>
+        <ref name="clone_modules"/>
+      </zeroOrMore>
+      <zeroOrMore>
+        <ref name="texts"/>
+      </zeroOrMore>
+      <zeroOrMore>
+        <ref name="inst_finish_stages"/>
+      </zeroOrMore>
+      <zeroOrMore>
+        <ref name="update"/>
+      </zeroOrMore>
+      <zeroOrMore>
+        <ref name="system_roles"/>
+      </zeroOrMore>
+    </interleave>
   </define>
   <start>
     <element name="productDefines">
-      <zeroOrMore>
-        <ref name="productDefines_elements"/>
-      </zeroOrMore>
+      <ref name="productDefines_elements"/>
     </element>
   </start>
   <define name="debug_deploying">
