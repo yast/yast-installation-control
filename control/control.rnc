@@ -499,7 +499,7 @@ legacy_partitioning_elements =
     | root_subvolume_read_only
     | subvolumes
 
-# you can either have the new ('ng' style elements or the old 'legacy' ones)
+# you can either have the new 'ng' style elements or the old 'legacy' ones
 partitioning_elements =
      ng_partitioning_elements | legacy_partitioning_elements*
 
