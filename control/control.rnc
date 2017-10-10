@@ -550,7 +550,6 @@ partitioning_proposal = element proposal { partitioning_proposal_elements* }
 
 partitioning_proposal_elements =
     ng_lvm
-    | ng_encrypt
     | ng_resize_windows
     | ng_windows_delete_mode
     | ng_linux_delete_mode
@@ -559,7 +558,6 @@ partitioning_proposal_elements =
     | ng_lvm_vg_size
 
 ng_lvm = element lvm { BOOLEAN }
-ng_encrypt = element encrypt { BOOLEAN }
 ng_resize_windows = element resize_windows { BOOLEAN }
 ng_windows_delete_mode = element windows_delete_mode { SYMBOL, ng_delete_mode_enum }
 ng_linux_delete_mode = element linux_delete_mode { SYMBOL, ng_delete_mode_enum }

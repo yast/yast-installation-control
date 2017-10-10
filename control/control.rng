@@ -1131,7 +1131,6 @@ Example 2: ppc,!board_powernv
   <define name="partitioning_proposal_elements">
     <choice>
       <ref name="ng_lvm"/>
-      <ref name="ng_encrypt"/>
       <ref name="ng_resize_windows"/>
       <ref name="ng_windows_delete_mode"/>
       <ref name="ng_linux_delete_mode"/>
@@ -1142,11 +1141,6 @@ Example 2: ppc,!board_powernv
   </define>
   <define name="ng_lvm">
     <element name="lvm">
-      <ref name="BOOLEAN"/>
-    </element>
-  </define>
-  <define name="ng_encrypt">
-    <element name="encrypt">
       <ref name="BOOLEAN"/>
     </element>
   </define>
