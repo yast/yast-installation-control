@@ -369,8 +369,8 @@ between the first and the second stage of installation</a:documentation>
     </element>
   </define>
   <!--
-    Self-update id (bsc#1057538).
-    It is id used to query scc for self update repo.
+    Self-update id (bsc#1055556).
+    It is an ID used to query SCC for the self update repo.
   -->
   <define name="self_update_id">
     <element name="self_update_id">
