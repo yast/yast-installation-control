@@ -1153,21 +1153,33 @@ Example 2: ppc,!board_powernv
   <!-- ng element definitions -->
   <define name="partitioning_proposal">
     <element name="proposal">
-      <zeroOrMore>
-        <ref name="partitioning_proposal_elements"/>
-      </zeroOrMore>
+      <ref name="partitioning_proposal_elements"/>
     </element>
   </define>
   <define name="partitioning_proposal_elements">
-    <choice>
-      <ref name="ng_lvm"/>
-      <ref name="ng_resize_windows"/>
-      <ref name="ng_windows_delete_mode"/>
-      <ref name="ng_linux_delete_mode"/>
-      <ref name="ng_other_delete_mode"/>
-      <ref name="ng_lvm_vg_strategy"/>
-      <ref name="ng_lvm_vg_size"/>
-    </choice>
+    <interleave>
+      <optional>
+        <ref name="ng_lvm"/>
+      </optional>
+      <optional>
+        <ref name="ng_resize_windows"/>
+      </optional>
+      <optional>
+        <ref name="ng_windows_delete_mode"/>
+      </optional>
+      <optional>
+        <ref name="ng_linux_delete_mode"/>
+      </optional>
+      <optional>
+        <ref name="ng_other_delete_mode"/>
+      </optional>
+      <optional>
+        <ref name="ng_lvm_vg_strategy"/>
+      </optional>
+      <optional>
+        <ref name="ng_lvm_vg_size"/>
+      </optional>
+    </interleave>
   </define>
   <define name="ng_lvm">
     <element name="lvm">
@@ -1232,35 +1244,83 @@ Example 2: ppc,!board_powernv
   </define>
   <define name="partitioning_volume">
     <element name="volume">
-      <zeroOrMore>
-        <ref name="partitioning_volume_elements"/>
-      </zeroOrMore>
+      <ref name="partitioning_volume_elements"/>
     </element>
   </define>
   <define name="partitioning_volume_elements">
+    <interleave>
+      <optional>
+        <ref name="ng_mount_point"/>
+      </optional>
+      <optional>
+        <ref name="ng_proposed"/>
+      </optional>
+      <optional>
+        <ref name="ng_proposed_configurable"/>
+      </optional>
+      <optional>
+        <ref name="ng_fs_types"/>
+      </optional>
+      <optional>
+        <ref name="ng_fs_type"/>
+      </optional>
+      <optional>
+        <ref name="ng_desired_size"/>
+      </optional>
+      <optional>
+        <ref name="ng_min_size"/>
+      </optional>
+      <optional>
+        <ref name="ng_max_size"/>
+      </optional>
+      <optional>
+        <ref name="ng_max_size_lvm"/>
+      </optional>
+      <optional>
+        <ref name="ng_weight"/>
+      </optional>
+      <optional>
+        <ref name="ng_adjust_by_ram"/>
+      </optional>
+      <optional>
+        <ref name="ng_adjust_by_ram_configurable"/>
+      </optional>
+      <optional>
+        <ref name="ng_fallback_for_min_size"/>
+      </optional>
+      <optional>
+        <ref name="ng_fallback_for_max_size"/>
+      </optional>
+      <optional>
+        <ref name="ng_fallback_for_max_size_lvm"/>
+      </optional>
+      <optional>
+        <ref name="ng_fallback_for_weight"/>
+      </optional>
+      <optional>
+        <ref name="ng_snapshots"/>
+      </optional>
+      <optional>
+        <ref name="ng_snapshots_configurable"/>
+      </optional>
+      <optional>
+        <ref name="ng_snapshots_size_or_percentage"/>
+      </optional>
+      <optional>
+        <ref name="ng_subvolumes"/>
+      </optional>
+      <optional>
+        <ref name="ng_btrfs_default_subvolume"/>
+      </optional>
+      <optional>
+        <ref name="ng_disable_order"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="ng_snapshots_size_or_percentage">
     <choice>
-      <ref name="ng_mount_point"/>
-      <ref name="ng_proposed"/>
-      <ref name="ng_proposed_configurable"/>
-      <ref name="ng_fs_types"/>
-      <ref name="ng_fs_type"/>
-      <ref name="ng_desired_size"/>
-      <ref name="ng_min_size"/>
-      <ref name="ng_max_size"/>
-      <ref name="ng_max_size_lvm"/>
-      <ref name="ng_weight"/>
-      <ref name="ng_adjust_by_ram"/>
-      <ref name="ng_adjust_by_ram_configurable"/>
-      <ref name="ng_fallback_for_min_size"/>
-      <ref name="ng_fallback_for_max_size"/>
-      <ref name="ng_fallback_for_max_size_lvm"/>
-      <ref name="ng_fallback_for_weight"/>
-      <ref name="ng_snapshots"/>
-      <ref name="ng_snapshots_configurable"/>
       <ref name="ng_snapshots_size"/>
-      <ref name="ng_subvolumes"/>
-      <ref name="ng_btrfs_default_subvolume"/>
-      <ref name="ng_disable_order"/>
+      <ref name="ng_snapshots_percentage"/>
     </choice>
   </define>
   <define name="ng_mount_point">
@@ -1356,6 +1416,11 @@ Example 2: ppc,!board_powernv
   <define name="ng_snapshots_size">
     <element name="snapshots_size">
       <ref name="DISKSIZE"/>
+    </element>
+  </define>
+  <define name="ng_snapshots_percentage">
+    <element name="snapshots_percentage">
+      <ref name="INTEGER"/>
     </element>
   </define>
   <define name="ng_subvolumes">
