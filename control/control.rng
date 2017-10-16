@@ -1531,11 +1531,27 @@ If two roles have same order, then result is undefined, so try to avoid it.</a:d
             <a:documentation>Additional services configuration for given role</a:documentation>
           </ref>
         </optional>
+        <zeroOrMore>
+          <ref name="globals">
+            <a:documentation>Role specific overrides for Global</a:documentation>
+          </ref>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="network">
+            <a:documentation>Role specific overrides for Network</a:documentation>
+          </ref>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="proposals">
+            <a:documentation>Role specific overrides for Proposals</a:documentation>
+          </ref>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="clone_modules">
+            <a:documentation>Role specific overrides for Cloned modules</a:documentation>
+          </ref>
+        </zeroOrMore>
       </interleave>
-      <!--
-        'globals? & network?' would also make sense here
-        but that has not been requested and tested.
-      -->
     </element>
   </define>
   <define name="role_services">
