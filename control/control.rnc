@@ -701,10 +701,19 @@ system_role = element system_role {
     element additional_dialogs { text }? &
 
     ## Additional services configuration for given role
-    role_services?
+    role_services? &
 
-    # 'globals? & network?' would also make sense here
-    # but that has not been requested and tested.
+    ## Role specific overrides for Global
+    globals* &
+
+    ## Role specific overrides for Network
+    network* &
+
+    ## Role specific overrides for Proposals
+    proposals* &
+
+    ## Role specific overrides for Cloned modules
+    clone_modules*
 }
 
 role_services = element services {
