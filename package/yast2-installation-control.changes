@@ -1,7 +1,7 @@
 -------------------------------------------------------------------
 Tue Oct 17 09:53:22 UTC 2017 - snwint@suse.com
 
-- adjust control.rnc for storage-ng
+- adjust control.rnc for storage-ng (fate#318196)
 - 4.0.5
 
 -------------------------------------------------------------------
