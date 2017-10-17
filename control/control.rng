@@ -1302,6 +1302,9 @@ Example 2: ppc,!board_powernv
         <ref name="ng_adjust_by_ram_configurable"/>
       </optional>
       <optional>
+        <ref name="ng_fallback_for_desired_size"/>
+      </optional>
+      <optional>
         <ref name="ng_fallback_for_min_size"/>
       </optional>
       <optional>
@@ -1397,6 +1400,11 @@ Example 2: ppc,!board_powernv
   <define name="ng_adjust_by_ram_configurable">
     <element name="adjust_by_ram_configurable">
       <ref name="BOOLEAN"/>
+    </element>
+  </define>
+  <define name="ng_fallback_for_desired_size">
+    <element name="fallback_for_desired_size">
+      <text/>
     </element>
   </define>
   <define name="ng_fallback_for_min_size">
