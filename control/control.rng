@@ -941,11 +941,21 @@ selected for installation</a:documentation>
   </define>
   <!-- software -->
   <!-- partitioning -->
+  <!--
+    An overview of partitioning related settings can be found in
+    https://github.com/yast/yast-storage-ng/blob/master/doc/old_and_new_proposal.md
+  -->
   <!-- ng: one proposal and one volume list -->
   <define name="ng_partitioning_elements">
     <interleave>
       <ref name="partitioning_proposal"/>
       <ref name="partitioning_volumes"/>
+      <optional>
+        <ref name="expert_partitioner_warning"/>
+      </optional>
+      <optional>
+        <ref name="use_separate_multipath_module"/>
+      </optional>
     </interleave>
   </define>
   <!-- legacy: the old stuff, mixed together -->
@@ -1178,6 +1188,12 @@ Example 2: ppc,!board_powernv
       </optional>
       <optional>
         <ref name="ng_lvm_vg_size"/>
+      </optional>
+      <optional>
+        <ref name="proposal_settings_editable"/>
+      </optional>
+      <optional>
+        <ref name="root_subvolume_read_only"/>
       </optional>
     </interleave>
   </define>

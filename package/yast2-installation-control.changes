@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Oct 17 09:53:22 UTC 2017 - snwint@suse.com
+
+- adjust control.rnc for storage-ng (fate#318196)
+- 4.0.5
+
+-------------------------------------------------------------------
 Mon Oct 16 08:49:33 UTC 2017 - jreidinger@suse.com
 
 - extend system role capabilities to redefine also globals,

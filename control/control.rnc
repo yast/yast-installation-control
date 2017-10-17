@@ -469,10 +469,15 @@ minimalistic_libzypp_config = element minimalistic_libzypp_config { BOOLEAN }
 
 # partitioning
 
+# An overview of partitioning related settings can be found in
+# https://github.com/yast/yast-storage-ng/blob/master/doc/old_and_new_proposal.md
+
 # ng: one proposal and one volume list
 ng_partitioning_elements =
     partitioning_proposal
     & partitioning_volumes
+    & expert_partitioner_warning?
+    & use_separate_multipath_module?
 
 # legacy: the old stuff, mixed together
 legacy_partitioning_elements =
@@ -572,6 +577,8 @@ partitioning_proposal_elements =
     & ng_other_delete_mode?
     & ng_lvm_vg_strategy?
     & ng_lvm_vg_size?
+    & proposal_settings_editable?
+    & root_subvolume_read_only?
 
 ng_lvm = element lvm { BOOLEAN }
 ng_resize_windows = element resize_windows { BOOLEAN }
