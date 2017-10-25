@@ -1246,7 +1246,7 @@ Example 2: ppc,!board_powernv
   <define name="ng_lvm_vg_strategy_enum">
     <choice>
       <value>use_available</value>
-      <value>used_needed</value>
+      <value>use_needed</value>
       <value>use_vg_size</value>
     </choice>
   </define>

@@ -589,7 +589,7 @@ ng_lvm_vg_strategy = element lvm_vg_strategy { SYMBOL, ng_lvm_vg_strategy_enum }
 ng_lvm_vg_size = element lvm_vg_size { DISKSIZE }
 
 ng_delete_mode_enum = "none" | "ondemand" | "all"
-ng_lvm_vg_strategy_enum = "use_available" | "used_needed" | "use_vg_size"
+ng_lvm_vg_strategy_enum = "use_available" | "use_needed" | "use_vg_size"
 
 partitioning_volumes =  element volumes {
   LIST,
