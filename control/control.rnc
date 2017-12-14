@@ -97,7 +97,6 @@ globals_elements =
     | rle_offer_rulevel_4
     | default_ntp_setup
     | save_instsys_content
-    | copy_to_system
     | displaymanager_shutdown
     | enable_kdump
     | polkit_default_privs
@@ -222,22 +221,6 @@ save_instsys_content = element save_instsys_content {
 	## Which file or directory to copy to installed system
 	## Absolut path is required.
 	element instsys_directory { text }
-    }+
-}
-
-copy_to_system = element copy_to_system {
-    LIST,
-    element copy_to_system_item {
-        element id { text } &
-	element copy_to_dir { text } &
-	element mandatory_files {
-	    LIST,
-	    element file_item { text }+
-	}+ &
-	element optional_files {
-	    LIST,
-	    element file_item { text }+
-	}*
     }+
 }
 

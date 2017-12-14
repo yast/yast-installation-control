@@ -120,7 +120,6 @@
       <ref name="rle_offer_rulevel_4"/>
       <ref name="default_ntp_setup"/>
       <ref name="save_instsys_content"/>
-      <ref name="copy_to_system"/>
       <ref name="displaymanager_shutdown"/>
       <ref name="enable_kdump"/>
       <ref name="polkit_default_privs"/>
@@ -426,43 +425,6 @@ Absolut path is required.</a:documentation>
 Absolut path is required.</a:documentation>
               <text/>
             </element>
-          </interleave>
-        </element>
-      </oneOrMore>
-    </element>
-  </define>
-  <define name="copy_to_system">
-    <element name="copy_to_system">
-      <ref name="LIST"/>
-      <oneOrMore>
-        <element name="copy_to_system_item">
-          <interleave>
-            <element name="id">
-              <text/>
-            </element>
-            <element name="copy_to_dir">
-              <text/>
-            </element>
-            <oneOrMore>
-              <element name="mandatory_files">
-                <ref name="LIST"/>
-                <oneOrMore>
-                  <element name="file_item">
-                    <text/>
-                  </element>
-                </oneOrMore>
-              </element>
-            </oneOrMore>
-            <zeroOrMore>
-              <element name="optional_files">
-                <ref name="LIST"/>
-                <oneOrMore>
-                  <element name="file_item">
-                    <text/>
-                  </element>
-                </oneOrMore>
-              </element>
-            </zeroOrMore>
           </interleave>
         </element>
       </oneOrMore>
