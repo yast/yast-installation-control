@@ -514,8 +514,6 @@ Absolut path is required.</a:documentation>
       <ref name="delete_old_packages_reverse_list"/>
       <ref name="silently_downgrade_packages"/>
       <ref name="silently_downgrade_packages_reverse_list"/>
-      <ref name="only_update_selected"/>
-      <ref name="only_update_selected_reverse_list"/>
       <ref name="products_supported_for_upgrade"/>
       <ref name="selection_type"/>
       <ref name="system_scenarios"/>
@@ -579,11 +577,6 @@ Used in inst_scenarios client.</a:documentation>
   </define>
   <define name="silently_downgrade_packages">
     <element name="silently_downgrade_packages">
-      <ref name="BOOLEAN"/>
-    </element>
-  </define>
-  <define name="only_update_selected">
-    <element name="only_update_selected">
       <ref name="BOOLEAN"/>
     </element>
   </define>
@@ -733,16 +726,6 @@ Comma and/or space-separated list of packages</a:documentation>
               </element>
             </optional>
           </interleave>
-        </element>
-      </oneOrMore>
-    </element>
-  </define>
-  <define name="only_update_selected_reverse_list">
-    <element name="only_update_selected_reverse_list">
-      <ref name="LIST"/>
-      <oneOrMore>
-        <element name="regexp_item">
-          <text/>
         </element>
       </oneOrMore>
     </element>
