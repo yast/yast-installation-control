@@ -1279,6 +1279,9 @@ Example 2: ppc,!board_powernv
       <optional>
         <ref name="ng_disable_order"/>
       </optional>
+      <optional>
+        <ref name="ng_btrfs_read_only"/>
+      </optional>
     </interleave>
   </define>
   <define name="ng_snapshots_size_or_percentage">
@@ -1403,6 +1406,11 @@ Example 2: ppc,!board_powernv
   <define name="ng_disable_order">
     <element name="disable_order">
       <ref name="INTEGER"/>
+    </element>
+  </define>
+  <define name="ng_btrfs_read_only">
+    <element name="btrfs_read_only">
+      <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="partitioning">

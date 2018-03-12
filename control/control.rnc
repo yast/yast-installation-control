@@ -553,7 +553,6 @@ partitioning_proposal_elements =
     & ng_lvm_vg_strategy?
     & ng_lvm_vg_size?
     & proposal_settings_editable?
-    & root_subvolume_read_only?
 
 ng_lvm = element lvm { BOOLEAN }
 ng_resize_windows = element resize_windows { BOOLEAN }
@@ -597,6 +596,7 @@ partitioning_volume_elements =
   & ng_subvolumes?
   & ng_btrfs_default_subvolume?
   & ng_disable_order?
+  & ng_btrfs_read_only?
 
 ng_snapshots_size_or_percentage = ng_snapshots_size | ng_snapshots_percentage
 
@@ -624,6 +624,7 @@ ng_snapshots_percentage = element snapshots_percentage { INTEGER }
 ng_subvolumes = subvolumes
 ng_btrfs_default_subvolume = element btrfs_default_subvolume { text }
 ng_disable_order = element disable_order { INTEGER }
+ng_btrfs_read_only = element btrfs_read_only { BOOLEAN }
 
 ## Partitioning-related variables
 partitioning = element partitioning {
