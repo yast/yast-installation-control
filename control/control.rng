@@ -1137,9 +1137,6 @@ Example 2: ppc,!board_powernv
       <optional>
         <ref name="proposal_settings_editable"/>
       </optional>
-      <optional>
-        <ref name="root_subvolume_read_only"/>
-      </optional>
     </interleave>
   </define>
   <define name="ng_lvm">
