@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon Mar 12 14:59:02 UTC 2018 - igonzalezsosa@suse.com
+
+- Add support for a new btrfs_read_only element in volumes
+  specifications (related to bsc#1079000).
+- 4.0.10
+
+-------------------------------------------------------------------
 Thu Jan 25 12:52:49 UTC 2018 - jsrain@suse.cz
 
 - schema clean-up, only one mode of selecting packages for upgrade
