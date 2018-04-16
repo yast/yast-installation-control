@@ -452,7 +452,6 @@ ng_partitioning_elements =
     partitioning_proposal
     & partitioning_volumes
     & expert_partitioner_warning?
-    & use_separate_multipath_module?
 
 # legacy: the old stuff, mixed together
 legacy_partitioning_elements =
