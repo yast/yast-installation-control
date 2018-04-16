@@ -898,9 +898,6 @@ selected for installation</a:documentation>
       <optional>
         <ref name="expert_partitioner_warning"/>
       </optional>
-      <optional>
-        <ref name="use_separate_multipath_module"/>
-      </optional>
     </interleave>
   </define>
   <!-- legacy: the old stuff, mixed together -->

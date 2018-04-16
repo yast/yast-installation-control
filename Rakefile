@@ -13,7 +13,7 @@ task :check_rng_status do
 
   # RNC must not be newer than RNG
   if rng_commit_time.to_i < rnc_commit_time.to_i
-    raise "Error: control/control.rng is outdated, regenerate it from control/control.rnc file"
+    raise "Error: control/control.rng is outdated, regenerate it from control/control.rnc file (by running \"make\")"
   end
 end
 
