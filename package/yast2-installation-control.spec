@@ -24,7 +24,7 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 Source0:        %{name}-%{version}.tar.bz2
 
 Summary:        YaST2 - RNG schema for installation control files
-License:        GPL-2.0
+License:        GPL-2.0-only
 Group:          System/YaST
 Url:            https://github.com/yast/yast-installation-control
 
