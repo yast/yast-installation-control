@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Aug 22 15:58:13 CEST 2018 - hellcp@opensuse.org
+
+- Add a way to switch to installation ui (boo#1088785)
+- 4.1.0
+
+-------------------------------------------------------------------
 Mon Aug 20 14:00:33 CEST 2018 - schubi@suse.de
 
 - Switched license in spec file from SPDX2 to SPDX3 format.
