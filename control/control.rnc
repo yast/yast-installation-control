@@ -114,6 +114,7 @@ globals_elements =
     | show_drivers_info
     | self_update_url
     | self_update_id
+    | installation_ui
 
 ## Default kernel parameters proposed by bootloader
 additional_kernel_parameters =		element additional_kernel_parameters { text }
@@ -209,6 +210,9 @@ self_update_url =			element self_update_url { text }
 # Self-update id (bsc#1055556).
 ## It is an ID used to query SCC for the self update repo.
 self_update_id =			element self_update_id { text }
+# Installation UI (boo#1088785)
+## Enables alternative look of installation with sidebar
+installation_ui =			element installation_ui { "sidebar" }
 
 ## Defines which pieces of installation system should be copied to
 ## the installed system before rebooting to second stage.
