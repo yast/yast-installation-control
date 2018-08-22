@@ -13,8 +13,16 @@ task :check_rng_status do
 
   # RNC must not be newer than RNG
   if rng_commit_time.to_i < rnc_commit_time.to_i
-    raise "Error: control/control.rng is outdated, regenerate it from control/control.rnc file (by running \"make\")"
+    raise "Error: control/control.rng is outdated, regenerate it running \"rake generate_rng\")"
   end
+end
+
+task :generate_rng do
+  unless system("which trang2 >/dev/null 2>&1")
+    raise "Error: trang package is missing, please install it for proceeding with the conversion."
+  end
+
+  `trang -I rnc -O rng control/control.rnc control/control.rng`
 end
 
 task tarball: :check_rng_status

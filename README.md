@@ -8,13 +8,8 @@
 Distribute also the generated control.rng file, the reason is that "trang"
 is a Java tool which adds huge dependency in OBS.
 
-The conversion needs to be done manually (by running "make")
+The conversion needs to be done manually (by running "rake regenerate_rng")
 and the converted RNG file must be committed to Git.
-
-```
-make -f Makefile.cvs
-make
-```
 
 At build time the RNG file from tarball will have a newer time stamp
 and thus it will not need rebuild/update making "trang" unnecessary.
