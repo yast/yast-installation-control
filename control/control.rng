@@ -137,6 +137,7 @@
       <ref name="show_drivers_info"/>
       <ref name="self_update_url"/>
       <ref name="self_update_id"/>
+      <ref name="installation_ui"/>
     </choice>
   </define>
   <define name="additional_kernel_parameters">
@@ -405,6 +406,13 @@ The URL is used as fallback when SCC query failed.</a:documentation>
     <a:documentation>It is an ID used to query SCC for the self update repo.</a:documentation>
     <element name="self_update_id">
       <text/>
+    </element>
+  </define>
+  <!-- Installation UI (boo#1088785) -->
+  <define name="installation_ui">
+    <a:documentation>Enables alternative look of installation with sidebar</a:documentation>
+    <element name="installation_ui">
+      <value>sidebar</value>
     </element>
   </define>
   <define name="save_instsys_content">
