@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   
-  IMPORTANT!: After editing control.rnc run "make control.rng" to generate the
+  IMPORTANT!: After editing control.rnc run "make" to generate the
   RNG file and commit _both_ files to Git to keep them in sync!
   
   We do not generate the RNG file at build time as it adds huge dependecy (it
@@ -138,6 +138,8 @@
       <ref name="self_update_url"/>
       <ref name="self_update_id"/>
       <ref name="installation_ui"/>
+      <ref name="full_system_media_name"/>
+      <ref name="full_system_download_url"/>
     </choice>
   </define>
   <define name="additional_kernel_parameters">
@@ -413,6 +415,24 @@ The URL is used as fallback when SCC query failed.</a:documentation>
     <a:documentation>Enables alternative look of installation with sidebar</a:documentation>
     <element name="installation_ui">
       <value>sidebar</value>
+    </element>
+  </define>
+  <!--
+    Media name which contains ALL packages for an useful installation
+    full_system_download_url has also to be set in order to display it.
+  -->
+  <define name="full_system_media_name">
+    <element name="full_system_media_name">
+      <text/>
+    </element>
+  </define>
+  <!--
+    URL where the media described in full_system_download_url is located.
+    full_system_media_name has also to be set in order to display it.
+  -->
+  <define name="full_system_download_url">
+    <element name="full_system_download_url">
+      <text/>
     </element>
   </define>
   <define name="save_instsys_content">
