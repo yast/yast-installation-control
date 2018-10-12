@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   
-  IMPORTANT!: After editing control.rnc run "make control.rng" to generate the
+  IMPORTANT!: After editing control.rnc run "make" to generate the
   RNG file and commit _both_ files to Git to keep them in sync!
   
   We do not generate the RNG file at build time as it adds huge dependecy (it
@@ -137,6 +137,8 @@
       <ref name="show_drivers_info"/>
       <ref name="self_update_url"/>
       <ref name="self_update_id"/>
+      <ref name="full_system_media_name"/>
+      <ref name="full_system_download_url"/>
     </choice>
   </define>
   <define name="additional_kernel_parameters">
@@ -404,6 +406,18 @@ The URL is used as fallback when SCC query failed.</a:documentation>
   <define name="self_update_id">
     <a:documentation>It is an ID used to query SCC for the self update repo.</a:documentation>
     <element name="self_update_id">
+      <text/>
+    </element>
+  </define>
+  <!-- Media name which contains ALL packages for an useful installation -->
+  <define name="full_system_media_name">
+    <element name="full_system_media_name">
+      <text/>
+    </element>
+  </define>
+  <!-- URL where the media described in full_system_download_url is located. -->
+  <define name="full_system_download_url">
+    <element name="full_system_download_url">
       <text/>
     </element>
   </define>
