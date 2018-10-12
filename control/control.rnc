@@ -216,8 +216,10 @@ self_update_id =			element self_update_id { text }
 ## Enables alternative look of installation with sidebar
 installation_ui =			element installation_ui { "sidebar" }
 # Media name which contains ALL packages for an useful installation
+# full_system_download_url has also to be set in order to display it.
 full_system_media_name =		element full_system_media_name { text }
 # URL where the media described in full_system_download_url is located.
+# full_system_media_name has also to be set in order to display it.
 full_system_download_url =		element full_system_download_url { text }
 
 ## Defines which pieces of installation system should be copied to
