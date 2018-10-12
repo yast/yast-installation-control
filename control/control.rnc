@@ -211,10 +211,8 @@ self_update_url =			element self_update_url { text }
 # Self-update id (bsc#1055556).
 ## It is an ID used to query SCC for the self update repo.
 self_update_id =			element self_update_id { text }
-# full_system_download_url
 # Media name which contains ALL packages for an useful installation
 full_system_media_name =		element full_system_media_name { text }
-# full_system_download_url
 # URL where the media described in full_system_download_url is located.
 full_system_download_url =		element full_system_download_url { text }
 
