@@ -415,13 +415,21 @@ The URL is used as fallback when SCC query failed.</a:documentation>
     <a:documentation>Enables alternative look of installation with sidebar</a:documentation>
     <element name="installation_ui">
       <value>sidebar</value>
-  <!-- Media name which contains ALL packages for an useful installation -->
+    </element>
+  </define>
+  <!--
+    Media name which contains ALL packages for an useful installation
+    full_system_download_url has also to be set in order to display it.
+  -->
   <define name="full_system_media_name">
     <element name="full_system_media_name">
       <text/>
     </element>
   </define>
-  <!-- URL where the media described in full_system_download_url is located. -->
+  <!--
+    URL where the media described in full_system_download_url is located.
+    full_system_media_name has also to be set in order to display it.
+  -->
   <define name="full_system_download_url">
     <element name="full_system_download_url">
       <text/>
