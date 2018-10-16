@@ -49,6 +49,7 @@ This package contains RNG schema for validating the installation control files.
 %dir %{yast_controldir}
 %{yast_controldir}/*.rng
 %{yast_controldir}/*.rnc
+%license COPYING
 
 %doc %{yast_docdir}
 
