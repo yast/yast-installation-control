@@ -103,6 +103,7 @@
       <ref name="inform_about_suboptimal_distribution"/>
       <ref name="skip_language_dialog"/>
       <ref name="enable_clone"/>
+      <ref name="save_y2logs"/>
       <ref name="enable_register_hwdata"/>
       <ref name="enable_register_optional"/>
       <ref name="disable_os_prober"/>
@@ -282,6 +283,12 @@ This speeds the starting up but it is worse for debugging.
   <define name="enable_clone">
     <a:documentation>Defines whether an AytoYaST cloning feature should be enabled</a:documentation>
     <element name="enable_clone">
+      <ref name="BOOLEAN"/>
+    </element>
+  </define>
+  <define name="save_y2logs">
+    <a:documentation>Defines if YaST logs are collected after finishing the installation/update</a:documentation>
+    <element name="save_y2logs">
       <ref name="BOOLEAN"/>
     </element>
   </define>
