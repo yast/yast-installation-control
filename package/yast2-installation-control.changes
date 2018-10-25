@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Wed Oct 17 15:29:35 CEST 2018 - schubi@suse.de
+
+- Added flag save_y2logs to control.xml file in order to save
+  YaST logs at the end of installation (fate#325737)
+- 4.1.2
+
+-------------------------------------------------------------------
 Tue Oct 16 16:27:43 CEST 2018 - schubi@suse.de
 
 - Added license file to spec.
