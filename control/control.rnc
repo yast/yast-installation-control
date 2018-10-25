@@ -173,6 +173,8 @@ skip_language_dialog =			element skip_language_dialog { BOOLEAN }
 ## Defines whether an AytoYaST cloning feature should be enabled
 enable_clone =				element enable_clone { BOOLEAN }
 ## Defines if YaST logs are collected after finishing the installation/update
+## Default is true.
+## The TAR file will be stored in /var/log/YaST2/yast-installation-logs.tar.xz.
 save_y2logs =				element save_y2logs { BOOLEAN }
 ## Default value for 'send hardware data' with registration
 ## *obsolete* without replacement

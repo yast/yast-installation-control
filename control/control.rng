@@ -287,7 +287,9 @@ This speeds the starting up but it is worse for debugging.
     </element>
   </define>
   <define name="save_y2logs">
-    <a:documentation>Defines if YaST logs are collected after finishing the installation/update</a:documentation>
+    <a:documentation>Defines if YaST logs are collected after finishing the installation/update
+Default is true.
+The TAR file will be stored in /var/log/YaST2/yast-installation-logs.tar.xz.</a:documentation>
     <element name="save_y2logs">
       <ref name="BOOLEAN"/>
     </element>
