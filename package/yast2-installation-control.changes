@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Mon Nov 19 13:03:37 UTC 2018 - mfilka@suse.com
+
+- fate#325541 
+  - added flag disable_media_repo controlling cd / dvd repository
+    disablement when installation is over
+- 4.1.3
+
+-------------------------------------------------------------------
 Wed Oct 17 15:29:35 CEST 2018 - schubi@suse.de
 
 - Added flag save_y2logs to control.xml file in order to save
