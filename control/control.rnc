@@ -309,6 +309,8 @@ software_elements =
 ## Whether it is allowed to delete a package during upgrade
 ## *obsolete* without replacement
 delete_old_packages = element delete_old_packages { BOOLEAN }
+## Used in packager to distinguish whether cd / dvd repositories
+## should be disabled after installation or not.
 disable_media_repo = element disable_media_repo { BOOLEAN }
 selection_type = element selection_type { SYMBOL, text }
 ## System scenario selected by default.
