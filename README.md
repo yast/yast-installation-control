@@ -8,7 +8,7 @@
 Distribute also the generated control.rng file, the reason is that "trang"
 is a Java tool which adds huge dependency in OBS.
 
-The conversion needs to be done manually (by running "rake regenerate_rng")
+The conversion needs to be done manually (by running "rake generate_rng")
 and the converted RNG file must be committed to Git.
 
 At build time the RNG file from tarball will have a newer time stamp

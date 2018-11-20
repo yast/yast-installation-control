@@ -279,6 +279,7 @@ globals = element globals {
 software_elements =
     delete_old_packages
     | delete_old_packages_reverse_list
+    | disable_media_repo
     | silently_downgrade_packages
     | silently_downgrade_packages_reverse_list
     | products_supported_for_upgrade
@@ -308,6 +309,9 @@ software_elements =
 ## Whether it is allowed to delete a package during upgrade
 ## *obsolete* without replacement
 delete_old_packages = element delete_old_packages { BOOLEAN }
+## Used in packager to distinguish whether cd / dvd repositories
+## should be disabled after installation or not.
+disable_media_repo = element disable_media_repo { BOOLEAN }
 selection_type = element selection_type { SYMBOL, text }
 ## System scenario selected by default.
 ## Used in inst_scenarios client.

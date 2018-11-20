@@ -549,6 +549,7 @@ Absolut path is required.</a:documentation>
     <choice>
       <ref name="delete_old_packages"/>
       <ref name="delete_old_packages_reverse_list"/>
+      <ref name="disable_media_repo"/>
       <ref name="silently_downgrade_packages"/>
       <ref name="silently_downgrade_packages_reverse_list"/>
       <ref name="products_supported_for_upgrade"/>
@@ -580,6 +581,13 @@ Absolut path is required.</a:documentation>
     <a:documentation>Whether it is allowed to delete a package during upgrade
 *obsolete* without replacement</a:documentation>
     <element name="delete_old_packages">
+      <ref name="BOOLEAN"/>
+    </element>
+  </define>
+  <define name="disable_media_repo">
+    <a:documentation>Used in packager to distinguish whether cd / dvd repositories
+should be disabled after installation or not.</a:documentation>
+    <element name="disable_media_repo">
       <ref name="BOOLEAN"/>
     </element>
   </define>
