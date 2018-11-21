@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Nov 21 17:41:10 UTC 2018 - Stefan Hundhammer <shundhammer@suse.com>
+
+- Added global parameter enable_local_users (Fate#326447)
+- 4.1.4
+
+-------------------------------------------------------------------
 Mon Nov 19 13:03:37 UTC 2018 - mfilka@suse.com
 
 - fate#325541 
