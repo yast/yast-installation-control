@@ -113,6 +113,7 @@
       <ref name="manual_online_update"/>
       <ref name="root_password_as_first_user"/>
       <ref name="root_password_ca_check"/>
+      <ref name="enable_local_users"/>
       <ref name="show_online_repositories"/>
       <ref name="online_repositories_default"/>
       <ref name="show_addons"/>
@@ -344,6 +345,11 @@ The TAR file will be stored in /var/log/YaST2/yast-installation-logs.tar.xz.</a:
   </define>
   <define name="root_password_ca_check">
     <element name="root_password_ca_check">
+      <ref name="BOOLEAN"/>
+    </element>
+  </define>
+  <define name="enable_local_users">
+    <element name="enable_local_users">
       <ref name="BOOLEAN"/>
     </element>
   </define>

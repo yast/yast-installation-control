@@ -90,6 +90,7 @@ globals_elements =
     | manual_online_update
     | root_password_as_first_user
     | root_password_ca_check
+    | enable_local_users
     | show_online_repositories
     | online_repositories_default
     | show_addons
@@ -193,6 +194,7 @@ register_monthly =			element register_monthly { BOOLEAN }
 manual_online_update =			element manual_online_update { BOOLEAN }
 root_password_as_first_user =		element root_password_as_first_user { BOOLEAN }
 root_password_ca_check =		element root_password_ca_check { BOOLEAN }
+enable_local_users =                    element enable_local_users { BOOLEAN }
 show_online_repositories =		element show_online_repositories { BOOLEAN }
 online_repositories_default =		element online_repositories_default { BOOLEAN }
 show_addons =				element show_addons { BOOLEAN }
