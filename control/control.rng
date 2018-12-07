@@ -139,6 +139,7 @@
       <ref name="show_drivers_info"/>
       <ref name="self_update_url"/>
       <ref name="self_update_id"/>
+      <ref name="self_update_version"/>
       <ref name="installation_ui"/>
       <ref name="full_system_media_name"/>
       <ref name="full_system_download_url"/>
@@ -411,8 +412,8 @@ between the first and the second stage of installation</a:documentation>
   <!-- Self-update URL (FATE#319716). -->
   <define name="self_update_url">
     <a:documentation>How it works?
-here are two related keys for self update - URL and ID.
-The ID is used to ask SCC for update URL.
+here are three related keys for self update - URL, ID, and VERSION.
+The ID and VERSION are used to ask SCC for update URL.
 The URL is used as fallback when SCC query failed.</a:documentation>
     <element name="self_update_url">
       <text/>
@@ -420,8 +421,14 @@ The URL is used as fallback when SCC query failed.</a:documentation>
   </define>
   <!-- Self-update id (bsc#1055556). -->
   <define name="self_update_id">
-    <a:documentation>It is an ID used to query SCC for the self update repo.</a:documentation>
+    <a:documentation>It is the ID used to query SCC for the self update repo.</a:documentation>
     <element name="self_update_id">
+      <text/>
+    </element>
+  </define>
+  <define name="self_update_version">
+    <a:documentation>It is the version used to query SCC for the self update repo.</a:documentation>
+    <element name="self_update_version">
       <text/>
     </element>
   </define>

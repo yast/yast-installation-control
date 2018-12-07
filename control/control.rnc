@@ -116,6 +116,7 @@ globals_elements =
     | show_drivers_info
     | self_update_url
     | self_update_id
+    | self_update_version
     | installation_ui
     | full_system_media_name
     | full_system_download_url
@@ -212,13 +213,15 @@ require_registration =			element require_registration { BOOLEAN }
 show_drivers_info =			element show_drivers_info { BOOLEAN }
 # Self-update URL (FATE#319716).
 ## How it works?
-## here are two related keys for self update - URL and ID.
-## The ID is used to ask SCC for update URL.
+## here are three related keys for self update - URL, ID, and VERSION.
+## The ID and VERSION are used to ask SCC for update URL.
 ## The URL is used as fallback when SCC query failed.
 self_update_url =			element self_update_url { text }
 # Self-update id (bsc#1055556).
-## It is an ID used to query SCC for the self update repo.
+## It is the ID used to query SCC for the self update repo.
 self_update_id =			element self_update_id { text }
+## It is the version used to query SCC for the self update repo.
+self_update_version =			element self_update_version { text }
 # Installation UI (boo#1088785)
 ## Enables alternative look of installation with sidebar
 installation_ui =			element installation_ui { "sidebar" }
