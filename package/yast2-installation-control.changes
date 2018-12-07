@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Dec  7 08:28:54 UTC 2018 - dgonzalez@suse.com
+
+- Add global key self_update_version (fate#325482)
+- 4.1.5
+
+-------------------------------------------------------------------
 Wed Nov 21 17:41:10 UTC 2018 - Stefan Hundhammer <shundhammer@suse.com>
 
 - Added global parameter enable_local_users (Fate#326447)
