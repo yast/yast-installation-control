@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Dec 14 11:50:09 UTC 2018 - dgonzalez@suse.com
+
+- Add macros related to skelcd (fate#325482)
+- 4.1.5
+
+-------------------------------------------------------------------
 Wed Nov 21 17:41:10 UTC 2018 - Stefan Hundhammer <shundhammer@suse.com>
 
 - Added global parameter enable_local_users (Fate#326447)
