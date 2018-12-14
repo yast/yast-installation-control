@@ -17,7 +17,7 @@
 
 
 Name:           yast2-installation-control
-Version:        4.1.4
+Version:        4.1.5
 Release:        0
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
@@ -49,6 +49,8 @@ This package contains RNG schema for validating the installation control files.
 %dir %{yast_controldir}
 %{yast_controldir}/*.rng
 %{yast_controldir}/*.rnc
+%dir /etc/rpm
+/etc/rpm/macros.skelcd
 %license COPYING
 
 %doc %{yast_docdir}
