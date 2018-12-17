@@ -1057,6 +1057,29 @@ update = element update {
 
 # update
 
+configuration_management = element configuration_management {
+    element type { "salt" | "puppet" }? &
+    element master { text }? &
+    element auth_attempts { INTEGER }? &
+    element auth_time_out { INTEGER }? &
+    element keys_url { text }? &
+    element enable_services { BOOLEAN }? &
+
+    # Salt specific
+    element formulas_roots { text }? &
+    element pillar_root { text }? &
+    element pillar_url { text }? &
+    element states_roots { text }? &
+    element states_url { text }? &
+    element enabled_states {
+      LIST,
+      element state { text }+
+    }? &
+
+    # Puppet specific
+    element modules_url { text }?
+}
+
 # not more than one partitioning element
 productDefines_elements =
     textdomain*
@@ -1071,6 +1094,7 @@ productDefines_elements =
     & inst_finish_stages*
     & update*
     & system_roles*
+    & configuration_management?
 
 start = element productDefines {
     productDefines_elements
