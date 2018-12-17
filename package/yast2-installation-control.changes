@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Dec 17 12:08:31 UTC 2018 - igonzalezsosa@suse.com
+
+- Add a configuration_management section (fate#322722).
+- 4.1.6
+
+-------------------------------------------------------------------
 Fri Dec 14 11:50:09 UTC 2018 - dgonzalez@suse.com
 
 - Add macros related to skelcd (fate#325482)
