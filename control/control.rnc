@@ -1058,25 +1058,47 @@ update = element update {
 # update
 
 configuration_management = element configuration_management {
-    element type { "salt" | "puppet" }? &
+    # Configuration managment system to use
+    element type { "salt" | "puppet" } &
+    # Host name or IP address of the master server
     element master { text }? &
+    # Number of attempts when trying to connect to the master server
     element auth_attempts { INTEGER }? &
+    # Time between attempts to connect to the master server
     element auth_time_out { INTEGER }? &
+    # Path to an HTTTP(S) server, hard disk, USB driver or similar containing the
+    # private/public keys to connect to the master server
     element keys_url { text }? &
+    # Enable the configuration management system services after the installation
     element enable_services { BOOLEAN }? &
 
     # Salt specific
-    element formulas_roots { text }? &
+
+    # Path to write Pillar data
     element pillar_root { text }? &
+    # URL to read Pillar data from
     element pillar_url { text }? &
-    element states_roots { text }? &
+    # Paths to search for formulas
+    element formulas_roots {
+      LIST,
+      element formulas_root { text }+
+    }? &
+    # Paths to search for states
+    element states_roots {
+      LIST,
+      element states_root { text }+
+    }? &
+    # URL to get states from
     element states_url { text }? &
+    # List of states/formulas to enable
     element enabled_states {
       LIST,
       element state { text }+
     }? &
 
     # Puppet specific
+
+    # URL to read Puppet modules from
     element modules_url { text }?
 }
 

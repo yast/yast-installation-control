@@ -2232,66 +2232,89 @@ Valid for all stages if not explicitely defined.</a:documentation>
   <define name="configuration_management">
     <element name="configuration_management">
       <interleave>
+        <!-- Configuration managment system to use -->
+        <element name="type">
+          <choice>
+            <value>salt</value>
+            <value>puppet</value>
+          </choice>
+        </element>
         <optional>
-          <element name="type">
-            <choice>
-              <value>salt</value>
-              <value>puppet</value>
-            </choice>
-          </element>
-        </optional>
-        <optional>
+          <!-- Host name or IP address of the master server -->
           <element name="master">
             <text/>
           </element>
         </optional>
         <optional>
+          <!-- Number of attempts when trying to connect to the master server -->
           <element name="auth_attempts">
             <ref name="INTEGER"/>
           </element>
         </optional>
         <optional>
+          <!-- Time between attempts to connect to the master server -->
           <element name="auth_time_out">
             <ref name="INTEGER"/>
           </element>
         </optional>
         <optional>
+          <!--
+            Path to an HTTTP(S) server, hard disk, USB driver or similar containing the
+            private/public keys to connect to the master server
+          -->
           <element name="keys_url">
             <text/>
           </element>
         </optional>
         <optional>
+          <!-- Enable the configuration management system services after the installation -->
           <element name="enable_services">
             <ref name="BOOLEAN"/>
           </element>
         </optional>
         <optional>
           <!-- Salt specific -->
-          <element name="formulas_roots">
-            <text/>
-          </element>
-        </optional>
-        <optional>
+          <!-- Path to write Pillar data -->
           <element name="pillar_root">
             <text/>
           </element>
         </optional>
         <optional>
+          <!-- URL to read Pillar data from -->
           <element name="pillar_url">
             <text/>
           </element>
         </optional>
         <optional>
-          <element name="states_roots">
-            <text/>
+          <!-- Paths to search for formulas -->
+          <element name="formulas_roots">
+            <ref name="LIST"/>
+            <oneOrMore>
+              <element name="formulas_root">
+                <text/>
+              </element>
+            </oneOrMore>
           </element>
         </optional>
         <optional>
+          <!-- Paths to search for states -->
+          <element name="states_roots">
+            <ref name="LIST"/>
+            <oneOrMore>
+              <element name="states_root">
+                <text/>
+              </element>
+            </oneOrMore>
+          </element>
+        </optional>
+        <optional>
+          <!-- URL to get states from -->
           <element name="states_url">
             <text/>
           </element>
         </optional>
         <optional>
+          <!-- List of states/formulas to enable -->
           <element name="enabled_states">
             <ref name="LIST"/>
             <oneOrMore>
@@ -2303,6 +2326,7 @@ Valid for all stages if not explicitely defined.</a:documentation>
         </optional>
         <optional>
           <!-- Puppet specific -->
+          <!-- URL to read Puppet modules from -->
           <element name="modules_url">
             <text/>
           </element>
