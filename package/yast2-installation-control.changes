@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Jan  3 10:50:49 UTC 2019 - jreidinger@suse.com
+
+- Drop system scenarios which were replaced by system roles 
+
+-------------------------------------------------------------------
 Mon Dec 17 12:08:31 UTC 2018 - igonzalezsosa@suse.com
 
 - Add a configuration_management section (fate#322722).
