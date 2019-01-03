@@ -560,7 +560,6 @@ Absolut path is required.</a:documentation>
       <ref name="silently_downgrade_packages_reverse_list"/>
       <ref name="products_supported_for_upgrade"/>
       <ref name="selection_type"/>
-      <ref name="system_scenarios"/>
       <ref name="default_system_scenario"/>
       <ref name="supported_desktops"/>
       <ref name="default_desktop"/>
@@ -701,31 +700,6 @@ Comma and/or space-separated list of packages</a:documentation>
       <oneOrMore>
         <element name="regexp_item">
           <text/>
-        </element>
-      </oneOrMore>
-    </element>
-  </define>
-  <define name="system_scenarios">
-    <a:documentation>Scenarios supported by inst_scenarios client</a:documentation>
-    <element name="system_scenarios">
-      <ref name="LIST"/>
-      <oneOrMore>
-        <element name="system_scenario">
-          <a:documentation>One scenario item</a:documentation>
-          <interleave>
-            <element name="id">
-              <a:documentation>Unique id that points to texts</a:documentation>
-              <text/>
-            </element>
-            <element name="patterns">
-              <a:documentation>Space or tab-separated list of patterns required by a particular scenario</a:documentation>
-              <text/>
-            </element>
-            <element name="icon">
-              <a:documentation>Name of an icon file (without suffix)</a:documentation>
-              <text/>
-            </element>
-          </interleave>
         </element>
       </oneOrMore>
     </element>

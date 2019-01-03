@@ -286,7 +286,6 @@ software_elements =
     | silently_downgrade_packages_reverse_list
     | products_supported_for_upgrade
     | selection_type
-    | system_scenarios
     | default_system_scenario
     | supported_desktops
     | default_desktop
@@ -354,20 +353,6 @@ kernel_packages = element kernel_packages {
 delete_old_packages_reverse_list = element delete_old_packages_reverse_list {
     LIST,
     element regexp_item { text }+
-}
-
-## Scenarios supported by inst_scenarios client
-system_scenarios = element system_scenarios {
-    LIST,
-    ## One scenario item
-    element system_scenario {
-	## Unique id that points to texts
-	element id { text } &
-	## Space or tab-separated list of patterns required by a particular scenario
-	element patterns { text } &
-	## Name of an icon file (without suffix)
-	element icon { text }
-    }+
 }
 
 supported_desktops = element supported_desktops {
