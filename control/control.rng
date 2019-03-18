@@ -130,6 +130,7 @@
       <ref name="default_subworkflow"/>
       <ref name="language"/>
       <ref name="timezone"/>
+      <ref name="readonly_language"/>
       <ref name="readonly_timezone"/>
       <ref name="enable_autologin"/>
       <ref name="default_target"/>
@@ -200,6 +201,12 @@ Used by Wagon.</a:documentation>
     <a:documentation>Default language</a:documentation>
     <element name="language">
       <text/>
+    </element>
+  </define>
+  <define name="readonly_language">
+    <a:documentation>Language cannot be changed by the user</a:documentation>
+    <element name="readonly_language">
+      <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="timezone">

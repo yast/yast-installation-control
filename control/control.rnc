@@ -107,6 +107,7 @@ globals_elements =
     | default_subworkflow
     | language
     | timezone
+    | readonly_language
     | readonly_timezone
     | enable_autologin
     | default_target
@@ -143,6 +144,8 @@ polkit_default_privs =			element polkit_default_privs { text }
 default_subworkflow =			element default_subworkflow { text }
 ## Default language
 language =				element language { text }
+## Language cannot be changed by the user
+readonly_language =			element readonly_language { BOOLEAN }
 ## Default timezone
 timezone =				element timezone { text }
 ## Timezone cannot be changed by the user
