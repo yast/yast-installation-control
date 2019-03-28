@@ -561,6 +561,7 @@ Absolut path is required.</a:documentation>
   <define name="software_elements">
     <choice>
       <ref name="delete_old_packages"/>
+      <ref name="select_product"/>
       <ref name="delete_old_packages_reverse_list"/>
       <ref name="disable_media_repo"/>
       <ref name="silently_downgrade_packages"/>
@@ -588,6 +589,13 @@ Absolut path is required.</a:documentation>
       <ref name="upgrade"/>
       <ref name="minimalistic_libzypp_config"/>
     </choice>
+  </define>
+  <define name="select_product">
+    <a:documentation>The name of the product which should be selected,
+useful to choose it without asking the user (bsc#1124590).</a:documentation>
+    <element name="select_product">
+      <text/>
+    </element>
   </define>
   <define name="delete_old_packages">
     <a:documentation>Whether it is allowed to delete a package during upgrade
