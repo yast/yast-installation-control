@@ -312,8 +312,8 @@ software_elements =
     | minimalistic_libzypp_config
 
 ## The name of the product which should be selected,
-## useful to choose it without asking to the user (bsc#1124590).
-select_product =	element product_name { text }
+## useful to choose it without asking the user (bsc#1124590).
+select_product =	element select_product { text }
 ## Whether it is allowed to delete a package during upgrade
 ## *obsolete* without replacement
 delete_old_packages = element delete_old_packages { BOOLEAN }

@@ -1,7 +1,7 @@
 -------------------------------------------------------------------
 Tue Mar 19 09:52:15 UTC 2019 - David Díaz <dgonzalez@suse.com>
 
-- Add the select_product parameter to the software section,
+- Add the "select_product" parameter to the software section,
   which allows to indicate the product that should be selected
   (bsc#1124590).
 - 4.2.0
