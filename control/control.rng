@@ -141,6 +141,7 @@
       <ref name="self_update_url"/>
       <ref name="self_update_id"/>
       <ref name="installation_ui"/>
+      <ref name="cpu_mitigations"/>
       <ref name="full_system_media_name"/>
       <ref name="full_system_download_url"/>
     </choice>
@@ -437,6 +438,17 @@ The URL is used as fallback when SCC query failed.</a:documentation>
     <a:documentation>Enables alternative look of installation with sidebar</a:documentation>
     <element name="installation_ui">
       <value>sidebar</value>
+    </element>
+  </define>
+  <!-- Default value for CPU Mitigation settings in bootloader -->
+  <define name="cpu_mitigations">
+    <a:documentation>possible values are same as for autoyast and in UI - auto, nosmt, off, manual
+see ::Bootloader::CpuMitigations.from_string</a:documentation>
+    <element name="cpu_mitigations">
+      <value>auto</value>
+      <value>nosmt</value>
+      <value>off</value>
+      <value>manual</value>
     </element>
   </define>
   <!--
