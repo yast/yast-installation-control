@@ -445,10 +445,12 @@ The URL is used as fallback when SCC query failed.</a:documentation>
     <a:documentation>possible values are same as for autoyast and in UI - auto, nosmt, off, manual
 see ::Bootloader::CpuMitigations.from_string</a:documentation>
     <element name="cpu_mitigations">
-      <value>auto</value>
-      <value>nosmt</value>
-      <value>off</value>
-      <value>manual</value>
+      <choice>
+        <value>auto</value>
+        <value>nosmt</value>
+        <value>off</value>
+        <value>manual</value>
+      </choice>
     </element>
   </define>
   <!--
