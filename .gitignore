@@ -27,3 +27,4 @@ Makefile.am.common
 .dep
 .yardoc
 doc
+/test-driver

@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Apr 25 12:02:06 UTC 2019 - Ladislav Slezák <lslezak@suse.cz>
+
+- Added a simple test to check that the validation works
+  (the schema definition is valid) (related to bsc#1098559)
+- 4.2.1
+
+-------------------------------------------------------------------
 Tue Mar 19 09:52:15 UTC 2019 - David Díaz <dgonzalez@suse.com>
 
 - Add the "select_product" parameter to the software section,
