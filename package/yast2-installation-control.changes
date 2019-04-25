@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Apr 25 08:06:12 UTC 2019 - Josef Reidinger <jreidinger@suse.com>
+
+- add option to set default cpu mitigations per product
+  (bsc#1098559)
+- 4.1.8
+
+-------------------------------------------------------------------
 Mon Mar 18 08:38:40 UTC 2019 - David Díaz <dgonzalez@suse.com>
 
 - Add the readonly_language global parameter (bsc#1121256).
