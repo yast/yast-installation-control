@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Thu Apr 25 11:26:09 UTC 2019 - Josef Reidinger <jreidinger@suse.com>
+
+- fix cpu_mitigations to allow selection(bsc#1098559)
+- 4.2.2
+
+-------------------------------------------------------------------
+Thu Apr 25 08:06:12 UTC 2019 - Josef Reidinger <jreidinger@suse.com>
+
+- add option to set default cpu mitigations per product
+  (bsc#1098559)
+
+-------------------------------------------------------------------
 Thu Apr 25 12:02:06 UTC 2019 - Ladislav Slezák <lslezak@suse.cz>
 
 - Added a simple test to check that the validation works

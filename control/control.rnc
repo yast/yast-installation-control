@@ -118,6 +118,7 @@ globals_elements =
     | self_update_url
     | self_update_id
     | installation_ui
+    | cpu_mitigations
     | full_system_media_name
     | full_system_download_url
 
@@ -225,6 +226,10 @@ self_update_id =			element self_update_id { text }
 # Installation UI (boo#1088785)
 ## Enables alternative look of installation with sidebar
 installation_ui =			element installation_ui { "sidebar" }
+# Default value for CPU Mitigation settings in bootloader
+## possible values are same as for autoyast and in UI - auto, nosmt, off, manual
+## see ::Bootloader::CpuMitigations.from_string
+cpu_mitigations =			element cpu_mitigations { "auto" | "nosmt" | "off" | "manual" }
 # Media name which contains ALL packages for an useful installation
 # full_system_download_url has also to be set in order to display it.
 full_system_media_name =		element full_system_media_name { text }
