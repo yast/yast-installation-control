@@ -29,6 +29,8 @@ Group:          System/YaST
 Url:            https://github.com/yast/yast-installation-control
 
 BuildRequires:  yast2-devtools >= 3.1.10
+# smoke test during build
+BuildRequires:  libxml2-tools
 
 BuildArch:      noarch
 
