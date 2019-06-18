@@ -99,6 +99,7 @@ globals_elements =
     | debug_deploying
     | show_drivers_info
     | self_update_url
+    | cpu_mitigations
 
 ## Default kernel parameters proposed by bootloader
 additional_kernel_parameters =		element additional_kernel_parameters { text }
@@ -180,6 +181,10 @@ require_registration =			element require_registration { BOOLEAN }
 show_drivers_info =			element show_drivers_info { BOOLEAN }
 # Self-update (FATE#319716).
 self_update_url =			element self_update_url { text }
+# Default value for CPU Mitigation settings in bootloader
+## possible values are same as for autoyast and in UI - auto, nosmt, off, manual
+## see ::Bootloader::CpuMitigations.from_string
+cpu_mitigations =			element cpu_mitigations { "auto" | "nosmt" | "off" | "manual" }
 
 ## Defines which pieces of installation system should be copied to
 ## the installed system before rebooting to second stage.
