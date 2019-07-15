@@ -623,6 +623,7 @@ partitioning_volume_elements =
   & ng_btrfs_default_subvolume?
   & ng_disable_order?
   & ng_btrfs_read_only?
+  & ng_separate_vg_name?
 
 ng_snapshots_size_or_percentage = ng_snapshots_size | ng_snapshots_percentage
 
@@ -651,6 +652,7 @@ ng_subvolumes = subvolumes
 ng_btrfs_default_subvolume = element btrfs_default_subvolume { text }
 ng_disable_order = element disable_order { INTEGER }
 ng_btrfs_read_only = element btrfs_read_only { BOOLEAN }
+ng_separate_vg_name = element separate_vg_name { text }
 
 ## Partitioning-related variables
 partitioning = element partitioning {
