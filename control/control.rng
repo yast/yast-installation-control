@@ -1186,6 +1186,12 @@ Example 2: ppc,!board_powernv
         <ref name="ng_lvm_vg_size"/>
       </optional>
       <optional>
+        <ref name="ng_delete_resize_configurable"/>
+      </optional>
+      <optional>
+        <ref name="ng_allocate_volume_mode"/>
+      </optional>
+      <optional>
         <ref name="proposal_settings_editable"/>
       </optional>
     </interleave>
@@ -1229,11 +1235,28 @@ Example 2: ppc,!board_powernv
       <ref name="DISKSIZE"/>
     </element>
   </define>
+  <define name="ng_delete_resize_configurable">
+    <element name="delete_resize_configurable">
+      <ref name="BOOLEAN"/>
+    </element>
+  </define>
+  <define name="ng_allocate_volume_mode">
+    <element name="allocate_volume_mode">
+      <ref name="SYMBOL"/>
+      <ref name="ng_allocate_volume_mode_enum"/>
+    </element>
+  </define>
   <define name="ng_delete_mode_enum">
     <choice>
       <value>none</value>
       <value>ondemand</value>
       <value>all</value>
+    </choice>
+  </define>
+  <define name="ng_allocate_volume_mode_enum">
+    <choice>
+      <value>auto</value>
+      <value>device</value>
     </choice>
   </define>
   <define name="ng_lvm_vg_strategy_enum">
