@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon Jul 15 16:08:18 UTC 2019 - David Diaz <dgonzalez@suse.com>
+
+- Add the separate_vgs and separate_vg_name elements
+  (part of jsc#SLE-7238).
+- 4.2.4
+
+-------------------------------------------------------------------
 Fri Jul 12 15:54:21 UTC 2019 - David Diaz <dgonzalez@suse.com>
 
 - Add the delete_resize_configurable and allocate_volume_mode

@@ -1168,6 +1168,9 @@ Example 2: ppc,!board_powernv
         <ref name="ng_lvm"/>
       </optional>
       <optional>
+        <ref name="ng_separate_vgs"/>
+      </optional>
+      <optional>
         <ref name="ng_resize_windows"/>
       </optional>
       <optional>
@@ -1198,6 +1201,11 @@ Example 2: ppc,!board_powernv
   </define>
   <define name="ng_lvm">
     <element name="lvm">
+      <ref name="BOOLEAN"/>
+    </element>
+  </define>
+  <define name="ng_separate_vgs">
+    <element name="separate_vgs">
       <ref name="BOOLEAN"/>
     </element>
   </define>
@@ -1353,6 +1361,9 @@ Example 2: ppc,!board_powernv
       <optional>
         <ref name="ng_btrfs_read_only"/>
       </optional>
+      <optional>
+        <ref name="ng_separate_vg_name"/>
+      </optional>
     </interleave>
   </define>
   <define name="ng_snapshots_size_or_percentage">
@@ -1482,6 +1493,11 @@ Example 2: ppc,!board_powernv
   <define name="ng_btrfs_read_only">
     <element name="btrfs_read_only">
       <ref name="BOOLEAN"/>
+    </element>
+  </define>
+  <define name="ng_separate_vg_name">
+    <element name="separate_vg_name">
+      <text/>
     </element>
   </define>
   <define name="partitioning">

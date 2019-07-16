@@ -565,6 +565,7 @@ partitioning_proposal = element proposal { partitioning_proposal_elements }
 
 partitioning_proposal_elements =
     ng_lvm?
+    & ng_separate_vgs?
     & ng_resize_windows?
     & ng_windows_delete_mode?
     & ng_linux_delete_mode?
@@ -576,6 +577,7 @@ partitioning_proposal_elements =
     & proposal_settings_editable?
 
 ng_lvm = element lvm { BOOLEAN }
+ng_separate_vgs = element separate_vgs { BOOLEAN }
 ng_resize_windows = element resize_windows { BOOLEAN }
 ng_windows_delete_mode = element windows_delete_mode { SYMBOL, ng_delete_mode_enum }
 ng_linux_delete_mode = element linux_delete_mode { SYMBOL, ng_delete_mode_enum }
@@ -621,6 +623,7 @@ partitioning_volume_elements =
   & ng_btrfs_default_subvolume?
   & ng_disable_order?
   & ng_btrfs_read_only?
+  & ng_separate_vg_name?
 
 ng_snapshots_size_or_percentage = ng_snapshots_size | ng_snapshots_percentage
 
@@ -649,6 +652,7 @@ ng_subvolumes = subvolumes
 ng_btrfs_default_subvolume = element btrfs_default_subvolume { text }
 ng_disable_order = element disable_order { INTEGER }
 ng_btrfs_read_only = element btrfs_read_only { BOOLEAN }
+ng_separate_vg_name = element separate_vg_name { text }
 
 ## Partitioning-related variables
 partitioning = element partitioning {
