@@ -574,6 +574,7 @@ partitioning_proposal_elements =
     & ng_lvm_vg_size?
     & ng_delete_resize_configurable?
     & ng_allocate_volume_mode?
+    & ng_multidisk_first?
     & proposal_settings_editable?
 
 ng_lvm = element lvm { BOOLEAN }
@@ -586,6 +587,7 @@ ng_lvm_vg_strategy = element lvm_vg_strategy { SYMBOL, ng_lvm_vg_strategy_enum }
 ng_lvm_vg_size = element lvm_vg_size { DISKSIZE }
 ng_delete_resize_configurable = element delete_resize_configurable { BOOLEAN }
 ng_allocate_volume_mode = element allocate_volume_mode { SYMBOL, ng_allocate_volume_mode_enum }
+ng_multidisk_first = element multidisk_first { BOOLEAN }
 
 ng_delete_mode_enum = "none" | "ondemand" | "all"
 ng_allocate_volume_mode_enum = "auto" | "device"
