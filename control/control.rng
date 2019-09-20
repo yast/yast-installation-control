@@ -602,6 +602,7 @@ Absolut path is required.</a:documentation>
       <ref name="optional_default_patterns"/>
       <ref name="upgrade"/>
       <ref name="minimalistic_libzypp_config"/>
+      <ref name="base_products"/>
     </choice>
   </define>
   <define name="select_product">
@@ -936,6 +937,42 @@ selected for installation</a:documentation>
     <a:documentation>Minimalistic libzypp configuration (only requires, no documentation and no multiversion)</a:documentation>
     <element name="minimalistic_libzypp_config">
       <ref name="BOOLEAN"/>
+    </element>
+  </define>
+  <define name="base_products">
+    <element name="base_products">
+      <ref name="LIST"/>
+      <oneOrMore>
+        <ref name="base_product"/>
+      </oneOrMore>
+    </element>
+  </define>
+  <define name="base_product">
+    <element name="base_product">
+      <interleave>
+        <optional>
+          <element name="special_product">
+            <ref name="BOOLEAN"/>
+          </element>
+        </optional>
+        <element name="label">
+          <text/>
+        </element>
+        <element name="name">
+          <text/>
+        </element>
+        <element name="version">
+          <text/>
+        </element>
+        <element name="register_target">
+          <text/>
+        </element>
+        <optional>
+          <element name="archs">
+            <text/>
+          </element>
+        </optional>
+      </interleave>
     </element>
   </define>
   <!-- software -->
