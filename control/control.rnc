@@ -315,6 +315,7 @@ software_elements =
     | optional_default_patterns
     | upgrade
     | minimalistic_libzypp_config
+    | base_products
 
 ## The name of the product which should be selected,
 ## useful to choose it without asking the user (bsc#1124590).
@@ -459,6 +460,20 @@ software = element software {
 
 ## Minimalistic libzypp configuration (only requires, no documentation and no multiversion)
 minimalistic_libzypp_config = element minimalistic_libzypp_config { BOOLEAN }
+
+base_products = element base_products {
+    LIST,
+    base_product+
+}
+
+base_product = element base_product {
+    element special_product { BOOLEAN }? &
+    element label { text } &
+    element name { text } &
+    element version { text } &
+    element register_target { text } &
+    element archs { text }?
+}
 
 # software
 
