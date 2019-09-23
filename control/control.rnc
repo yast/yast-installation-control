@@ -468,7 +468,7 @@ base_products = element base_products {
 
 base_product = element base_product {
     element special_product { BOOLEAN }? &
-    element label { text } &
+    element display_name { text } &
     element name { text } &
     element version { text } &
     element register_target { text } &
