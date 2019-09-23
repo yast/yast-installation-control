@@ -955,7 +955,7 @@ selected for installation</a:documentation>
             <ref name="BOOLEAN"/>
           </element>
         </optional>
-        <element name="label">
+        <element name="display_name">
           <text/>
         </element>
         <element name="name">
