@@ -121,6 +121,7 @@ globals_elements =
     | cpu_mitigations
     | full_system_media_name
     | full_system_download_url
+    | precise_time
 
 ## Default kernel parameters proposed by bootloader
 additional_kernel_parameters =		element additional_kernel_parameters { text }
@@ -236,6 +237,8 @@ full_system_media_name =		element full_system_media_name { text }
 # URL where the media described in full_system_download_url is located.
 # full_system_media_name has also to be set in order to display it.
 full_system_download_url =		element full_system_download_url { text }
+## Defines if product needs precise time. It is short time workaround for bsc#1145193
+precise_time =		        	element precise_time { BOOLEAN }
 
 ## Defines which pieces of installation system should be copied to
 ## the installed system before rebooting to second stage.
