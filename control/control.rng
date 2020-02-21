@@ -610,6 +610,7 @@ Absolut path is required.</a:documentation>
       <ref name="upgrade"/>
       <ref name="minimalistic_libzypp_config"/>
       <ref name="base_products"/>
+      <ref name="software_default_modules"/>
     </choice>
   </define>
   <define name="select_product">
@@ -718,6 +719,20 @@ Comma and/or space-separated list of packages</a:documentation>
           <text/>
         </element>
       </oneOrMore>
+    </element>
+  </define>
+  <!--
+    the default preselected products (modules) for the base product, used only
+    in Full medium offline installation, see https://jira.suse.com/browse/SLE-8040
+  -->
+  <define name="software_default_modules">
+    <element name="default_modules">
+      <ref name="LIST"/>
+      <zeroOrMore>
+        <element name="default_module">
+          <text/>
+        </element>
+      </zeroOrMore>
     </element>
   </define>
   <define name="kernel_packages">
@@ -946,6 +961,7 @@ selected for installation</a:documentation>
       <ref name="BOOLEAN"/>
     </element>
   </define>
+  <!-- the base products for the SCC (Online medium only) -->
   <define name="base_products">
     <element name="base_products">
       <ref name="LIST"/>
