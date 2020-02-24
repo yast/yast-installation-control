@@ -319,6 +319,7 @@ software_elements =
     | upgrade
     | minimalistic_libzypp_config
     | base_products
+    | software_default_modules
 
 ## The name of the product which should be selected,
 ## useful to choose it without asking the user (bsc#1124590).
@@ -358,6 +359,13 @@ software_addons = element addons {
 software_packages = element packages {
     LIST,
     element package { text }+
+}
+
+# the default preselected products (modules) for the base product, used only
+# in Full medium offline installation, see https://jira.suse.com/browse/SLE-8040
+software_default_modules = element default_modules {
+    LIST,
+    element default_module { text }*
 }
 
 kernel_packages = element kernel_packages {
@@ -464,6 +472,7 @@ software = element software {
 ## Minimalistic libzypp configuration (only requires, no documentation and no multiversion)
 minimalistic_libzypp_config = element minimalistic_libzypp_config { BOOLEAN }
 
+# the base products for the SCC (Online medium only)
 base_products = element base_products {
     LIST,
     base_product+
