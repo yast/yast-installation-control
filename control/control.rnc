@@ -696,8 +696,11 @@ network_elements =
     force_static_ip
     | network_manager
     | startmode
+    | ip_forwarding
 
 force_static_ip =	element force_static_ip { BOOLEAN }
+# Default proposal for ip forwarding. See bsc#1163328
+ip_forwarding   =	element ip_forwarding { BOOLEAN }
 network_manager =	element network_manager { text }
 startmode =		element startmode { text }
 

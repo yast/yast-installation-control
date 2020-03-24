@@ -1581,10 +1581,17 @@ Example 2: ppc,!board_powernv
       <ref name="force_static_ip"/>
       <ref name="network_manager"/>
       <ref name="startmode"/>
+      <ref name="ip_forwarding"/>
     </choice>
   </define>
   <define name="force_static_ip">
     <element name="force_static_ip">
+      <ref name="BOOLEAN"/>
+    </element>
+  </define>
+  <!-- Default proposal for ip forwarding. See bsc#1163328 -->
+  <define name="ip_forwarding">
+    <element name="ip_forwarding">
       <ref name="BOOLEAN"/>
     </element>
   </define>
