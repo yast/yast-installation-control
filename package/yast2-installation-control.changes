@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue Mar 24 12:13:31 UTC 2020 - Josef Reidinger <jreidinger@suse.com>
+
+- Add networking ip_forwarding element to specify default settings
+  for ip forwarding (bsc#1163328)
+- 4.2.10
+
+-------------------------------------------------------------------
 Mon Feb 24 14:52:05 UTC 2020 - Ladislav Slezák <lslezak@suse.cz>
 
 - Allow specifying the default preselected modules in the offline
