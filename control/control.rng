@@ -25,6 +25,14 @@
     </attribute>
     <data type="integer"/>
   </define>
+  <define name="STRING">
+    <optional>
+      <attribute name="config:type">
+        <value>string</value>
+      </attribute>
+    </optional>
+    <text/>
+  </define>
   <define name="SYMBOL">
     <attribute name="config:type">
       <value>symbol</value>
@@ -35,10 +43,19 @@
       <value>list</value>
     </attribute>
   </define>
+  <define name="MAP">
+    <optional>
+      <attribute name="config:type">
+        <value>map</value>
+      </attribute>
+    </optional>
+  </define>
   <define name="DISKSIZE">
-    <attribute name="config:type">
-      <value>disksize</value>
-    </attribute>
+    <optional>
+      <attribute name="config:type">
+        <value>string</value>
+      </attribute>
+    </optional>
     <choice>
       <value>unlimited</value>
       <list>
@@ -71,7 +88,8 @@
       <ref name="INTEGER"/>
       <ref name="SYMBOL"/>
       <ref name="LIST"/>
-      <text/>
+      <ref name="STRING"/>
+      <ref name="MAP"/>
     </choice>
   </define>
   <define name="YES_NO">
@@ -83,7 +101,7 @@
   <!-- types -->
   <define name="textdomain">
     <element name="textdomain">
-      <text/>
+      <ref name="STRING"/>
     </element>
   </define>
   <!-- globals -->
@@ -150,7 +168,7 @@
   <define name="additional_kernel_parameters">
     <a:documentation>Default kernel parameters proposed by bootloader</a:documentation>
     <element name="additional_kernel_parameters">
-      <text/>
+      <ref name="STRING"/>
     </element>
   </define>
   <define name="incomplete_translation_treshold">
@@ -158,13 +176,13 @@
 it being 'complete'. Less are reported if user tries to switch to such
 language during installation / upgrade.</a:documentation>
     <element name="incomplete_translation_treshold">
-      <text/>
+      <ref name="STRING"/>
     </element>
   </define>
   <define name="base_product_license_directory">
     <a:documentation>Directory where the base-product (e.g., SLES) license files are stored</a:documentation>
     <element name="base_product_license_directory">
-      <text/>
+      <ref name="STRING"/>
     </element>
   </define>
   <define name="ui_mode">
@@ -181,14 +199,14 @@ language during installation / upgrade.</a:documentation>
     <a:documentation>Writes DISPLAYMANAGER_SHUTDOWN to /etc/sysconfig/displaymanager
 if set</a:documentation>
     <element name="displaymanager_shutdown">
-      <text/>
+      <ref name="STRING"/>
     </element>
   </define>
   <define name="polkit_default_privs">
     <a:documentation>Writes POLKIT_DEFAULT_PRIVS to /etc/sysconfig/security
 if set</a:documentation>
     <element name="polkit_default_privs">
-      <text/>
+      <ref name="STRING"/>
     </element>
   </define>
   <define name="default_subworkflow">
@@ -196,13 +214,13 @@ if set</a:documentation>
 created from another workflow).
 Used by Wagon.</a:documentation>
     <element name="default_subworkflow">
-      <text/>
+      <ref name="STRING"/>
     </element>
   </define>
   <define name="language">
     <a:documentation>Default language</a:documentation>
     <element name="language">
-      <text/>
+      <ref name="STRING"/>
     </element>
   </define>
   <define name="readonly_language">
@@ -214,7 +232,7 @@ Used by Wagon.</a:documentation>
   <define name="timezone">
     <a:documentation>Default timezone</a:documentation>
     <element name="timezone">
-      <text/>
+      <ref name="STRING"/>
     </element>
   </define>
   <define name="readonly_timezone">
@@ -226,7 +244,7 @@ Used by Wagon.</a:documentation>
   <define name="default_target">
     <a:documentation>Default runlevel</a:documentation>
     <element name="default_target">
-      <text/>
+      <ref name="STRING"/>
     </element>
   </define>
   <define name="debug_workflow">
@@ -424,14 +442,14 @@ here are two related keys for self update - URL and ID.
 The ID is used to ask SCC for update URL.
 The URL is used as fallback when SCC query failed.</a:documentation>
     <element name="self_update_url">
-      <text/>
+      <ref name="STRING"/>
     </element>
   </define>
   <!-- Self-update id (bsc#1055556). -->
   <define name="self_update_id">
     <a:documentation>It is an ID used to query SCC for the self update repo.</a:documentation>
     <element name="self_update_id">
-      <text/>
+      <ref name="STRING"/>
     </element>
   </define>
   <!-- Installation UI (boo#1088785) -->
@@ -460,7 +478,7 @@ see ::Bootloader::CpuMitigations.from_string</a:documentation>
   -->
   <define name="full_system_media_name">
     <element name="full_system_media_name">
-      <text/>
+      <ref name="STRING"/>
     </element>
   </define>
   <!--
@@ -469,7 +487,7 @@ see ::Bootloader::CpuMitigations.from_string</a:documentation>
   -->
   <define name="full_system_download_url">
     <element name="full_system_download_url">
-      <text/>
+      <ref name="STRING"/>
     </element>
   </define>
   <define name="precise_time">
@@ -485,16 +503,17 @@ the installed system before rebooting to second stage.</a:documentation>
       <ref name="LIST"/>
       <oneOrMore>
         <element name="save_instsys_item">
+          <ref name="MAP"/>
           <interleave>
             <element name="system_directory">
               <a:documentation>Where to copy the installation-system file or directory
 Absolut path is required.</a:documentation>
-              <text/>
+              <ref name="STRING"/>
             </element>
             <element name="instsys_directory">
               <a:documentation>Which file or directory to copy to installed system
 Absolut path is required.</a:documentation>
-              <text/>
+              <ref name="STRING"/>
             </element>
           </interleave>
         </element>
@@ -506,18 +525,19 @@ Absolut path is required.</a:documentation>
       <ref name="LIST"/>
       <oneOrMore>
         <element name="service">
+          <ref name="MAP"/>
           <interleave>
             <optional>
               <element name="label_id">
-                <text/>
+                <ref name="STRING"/>
               </element>
             </optional>
             <element name="service_names">
-              <text/>
+              <ref name="STRING"/>
             </element>
             <optional>
               <element name="firewall_plugins">
-                <text/>
+                <ref name="STRING"/>
               </element>
             </optional>
             <optional>
@@ -527,7 +547,7 @@ Absolut path is required.</a:documentation>
             </optional>
             <optional>
               <element name="packages">
-                <text/>
+                <ref name="STRING"/>
               </element>
             </optional>
           </interleave>
@@ -540,16 +560,17 @@ Absolut path is required.</a:documentation>
       <ref name="LIST"/>
       <oneOrMore>
         <element name="subworkflow">
+          <ref name="MAP"/>
           <interleave>
             <element name="name">
-              <text/>
+              <ref name="STRING"/>
             </element>
             <optional>
               <element name="modules">
                 <ref name="LIST"/>
                 <oneOrMore>
                   <element name="module">
-                    <text/>
+                    <ref name="STRING"/>
                   </element>
                 </oneOrMore>
               </element>
@@ -559,7 +580,7 @@ Absolut path is required.</a:documentation>
                 <ref name="LIST"/>
                 <oneOrMore>
                   <element name="proposal">
-                    <text/>
+                    <ref name="STRING"/>
                   </element>
                 </oneOrMore>
               </element>
@@ -572,6 +593,7 @@ Absolut path is required.</a:documentation>
   <define name="globals">
     <a:documentation>Global variables</a:documentation>
     <element name="globals">
+      <ref name="MAP"/>
       <zeroOrMore>
         <ref name="globals_elements"/>
       </zeroOrMore>
@@ -617,7 +639,7 @@ Absolut path is required.</a:documentation>
     <a:documentation>The name of the product which should be selected,
 useful to choose it without asking the user (bsc#1124590).</a:documentation>
     <element name="select_product">
-      <text/>
+      <ref name="STRING"/>
     </element>
   </define>
   <define name="delete_old_packages">
@@ -644,13 +666,13 @@ should be disabled after installation or not.</a:documentation>
     <a:documentation>System scenario selected by default.
 Used in inst_scenarios client.</a:documentation>
     <element name="default_system_scenario">
-      <text/>
+      <ref name="STRING"/>
     </element>
   </define>
   <define name="default_desktop">
     <a:documentation>Desktop selected by default</a:documentation>
     <element name="default_desktop">
-      <text/>
+      <ref name="STRING"/>
     </element>
   </define>
   <define name="display_support_status">
@@ -675,30 +697,30 @@ Used in inst_scenarios client.</a:documentation>
   </define>
   <define name="external_sources_link">
     <element name="external_sources_link">
-      <text/>
+      <ref name="STRING"/>
     </element>
   </define>
   <define name="dropped_packages">
     <a:documentation>Packages that should be removed by the upgrade.
 Comma and/or space-separated list of packages</a:documentation>
     <element name="dropped_packages">
-      <text/>
+      <ref name="STRING"/>
     </element>
   </define>
   <define name="base_selection">
     <element name="base_selection">
-      <text/>
+      <ref name="STRING"/>
     </element>
   </define>
   <define name="software_base">
     <element name="base">
-      <text/>
+      <ref name="STRING"/>
     </element>
   </define>
   <define name="packages_transmogrify">
     <a:documentation>a client that is called to modifiy the list of selected kernel packages</a:documentation>
     <element name="packages_transmogrify">
-      <text/>
+      <ref name="STRING"/>
     </element>
   </define>
   <define name="software_addons">
@@ -706,7 +728,7 @@ Comma and/or space-separated list of packages</a:documentation>
       <ref name="LIST"/>
       <oneOrMore>
         <element name="addon">
-          <text/>
+          <ref name="STRING"/>
         </element>
       </oneOrMore>
     </element>
@@ -716,7 +738,7 @@ Comma and/or space-separated list of packages</a:documentation>
       <ref name="LIST"/>
       <oneOrMore>
         <element name="package">
-          <text/>
+          <ref name="STRING"/>
         </element>
       </oneOrMore>
     </element>
@@ -730,7 +752,7 @@ Comma and/or space-separated list of packages</a:documentation>
       <ref name="LIST"/>
       <zeroOrMore>
         <element name="default_module">
-          <text/>
+          <ref name="STRING"/>
         </element>
       </zeroOrMore>
     </element>
@@ -740,7 +762,7 @@ Comma and/or space-separated list of packages</a:documentation>
       <ref name="LIST"/>
       <oneOrMore>
         <element name="package">
-          <text/>
+          <ref name="STRING"/>
         </element>
       </oneOrMore>
     </element>
@@ -751,7 +773,7 @@ Comma and/or space-separated list of packages</a:documentation>
       <ref name="LIST"/>
       <oneOrMore>
         <element name="regexp_item">
-          <text/>
+          <ref name="STRING"/>
         </element>
       </oneOrMore>
     </element>
@@ -761,27 +783,28 @@ Comma and/or space-separated list of packages</a:documentation>
       <ref name="LIST"/>
       <oneOrMore>
         <element name="one_supported_desktop">
+          <ref name="MAP"/>
           <interleave>
             <element name="name">
-              <text/>
+              <ref name="STRING"/>
             </element>
             <element name="desktop">
-              <text/>
+              <ref name="STRING"/>
             </element>
             <optional>
               <element name="label_id">
-                <text/>
+                <ref name="STRING"/>
               </element>
             </optional>
             <element name="logon">
-              <text/>
+              <ref name="STRING"/>
             </element>
             <element name="cursor">
-              <text/>
+              <ref name="STRING"/>
             </element>
             <optional>
               <element name="packages">
-                <text/>
+                <ref name="STRING"/>
               </element>
             </optional>
             <optional>
@@ -790,16 +813,16 @@ Comma and/or space-separated list of packages</a:documentation>
               </element>
             </optional>
             <element name="patterns">
-              <text/>
+              <ref name="STRING"/>
             </element>
             <optional>
               <element name="icon">
-                <text/>
+                <ref name="STRING"/>
               </element>
             </optional>
             <optional>
               <element name="description_id">
-                <text/>
+                <ref name="STRING"/>
               </element>
             </optional>
           </interleave>
@@ -814,7 +837,7 @@ Comma and/or space-separated list of packages</a:documentation>
       <oneOrMore>
         <element name="regexp_item">
           <a:documentation>One regular expression to match a product to upgrade</a:documentation>
-          <text/>
+          <ref name="STRING"/>
         </element>
       </oneOrMore>
     </element>
@@ -824,7 +847,7 @@ Comma and/or space-separated list of packages</a:documentation>
       <ref name="LIST"/>
       <oneOrMore>
         <element name="regexp_item">
-          <text/>
+          <ref name="STRING"/>
         </element>
       </oneOrMore>
     </element>
@@ -834,23 +857,24 @@ Comma and/or space-separated list of packages</a:documentation>
       <ref name="LIST"/>
       <oneOrMore>
         <element name="extra_url">
+          <ref name="MAP"/>
           <interleave>
             <element name="baseurl">
-              <text/>
+              <ref name="STRING"/>
             </element>
             <optional>
               <element name="name">
-                <text/>
+                <ref name="STRING"/>
               </element>
             </optional>
             <optional>
               <element name="alias">
-                <text/>
+                <ref name="STRING"/>
               </element>
             </optional>
             <optional>
               <element name="prod_dir">
-                <text/>
+                <ref name="STRING"/>
               </element>
             </optional>
             <optional>
@@ -878,7 +902,7 @@ Comma and/or space-separated list of packages</a:documentation>
       <ref name="LIST"/>
       <oneOrMore>
         <element name="package">
-          <text/>
+          <ref name="STRING"/>
         </element>
       </oneOrMore>
     </element>
@@ -889,7 +913,7 @@ If such a pattern doesn't exist, error is reported. To omit reporting
 such error, use optional_default_patterns instead.
 These patterns are not selected in auto-installation.</a:documentation>
     <element name="default_patterns">
-      <text/>
+      <ref name="STRING"/>
     </element>
   </define>
   <define name="optional_default_patterns">
@@ -899,12 +923,13 @@ never report any error if a pattern is not found. Use default_patterns
 for mandatory default patterns.
 These patterns are not selected in auto-installation.</a:documentation>
     <element name="optional_default_patterns">
-      <text/>
+      <ref name="STRING"/>
     </element>
   </define>
   <define name="upgrade">
     <a:documentation>Defines behavior during upgrade</a:documentation>
     <element name="upgrade">
+      <ref name="MAP"/>
       <optional>
         <element name="window_managers">
           <a:documentation>Optional list of upgrade paths for default window manager set
@@ -912,17 +937,18 @@ in /etc/sysconfig/windowmanager:DEFAULT_WM (not all cases need to be handled)</a
           <ref name="LIST"/>
           <zeroOrMore>
             <element name="window_manager">
+              <ref name="MAP"/>
               <interleave>
                 <element name="sysconfig_wm">
                   <a:documentation>Windowmanager as found in /etc/sysconfig/windowmanager:DEFAULT_WM
 This entry is mandatory</a:documentation>
-                  <text/>
+                  <ref name="STRING"/>
                 </element>
                 <optional>
                   <element name="check_packages">
                     <a:documentation>Space-separated list of packages to check whether the selected desktop
 is really installed on the system</a:documentation>
-                    <text/>
+                    <ref name="STRING"/>
                   </element>
                 </optional>
                 <oneOrMore>
@@ -931,12 +957,12 @@ is really installed on the system</a:documentation>
                     <element name="install_patterns">
                       <a:documentation>Optional list of space-separated patterns that should be
 selected for installation</a:documentation>
-                      <text/>
+                      <ref name="STRING"/>
                     </element>
                     <element name="install_packages">
                       <a:documentation>Optional list of space-separated packages that should be
 selected for installation</a:documentation>
-                      <text/>
+                      <ref name="STRING"/>
                     </element>
                   </choice>
                 </oneOrMore>
@@ -950,6 +976,7 @@ selected for installation</a:documentation>
   <define name="software">
     <a:documentation>Software / Package-manager related variables</a:documentation>
     <element name="software">
+      <ref name="MAP"/>
       <zeroOrMore>
         <ref name="software_elements"/>
       </zeroOrMore>
@@ -972,6 +999,7 @@ selected for installation</a:documentation>
   </define>
   <define name="base_product">
     <element name="base_product">
+      <ref name="MAP"/>
       <interleave>
         <optional>
           <element name="special_product">
@@ -979,20 +1007,20 @@ selected for installation</a:documentation>
           </element>
         </optional>
         <element name="display_name">
-          <text/>
+          <ref name="STRING"/>
         </element>
         <element name="name">
-          <text/>
+          <ref name="STRING"/>
         </element>
         <element name="version">
-          <text/>
+          <ref name="STRING"/>
         </element>
         <element name="register_target">
-          <text/>
+          <ref name="STRING"/>
         </element>
         <optional>
           <element name="archs">
-            <text/>
+            <ref name="STRING"/>
           </element>
         </optional>
       </interleave>
@@ -1058,37 +1086,37 @@ selected for installation</a:documentation>
   </define>
   <define name="limit_try_home">
     <element name="limit_try_home">
-      <text/>
+      <ref name="STRING"/>
     </element>
   </define>
   <define name="home_path">
     <element name="home_path">
-      <text/>
+      <ref name="STRING"/>
     </element>
   </define>
   <define name="home_fs">
     <element name="home_fs">
-      <text/>
+      <ref name="STRING"/>
     </element>
   </define>
   <define name="root_fs">
     <element name="root_fs">
-      <text/>
+      <ref name="STRING"/>
     </element>
   </define>
   <define name="root_space_percent">
     <element name="root_space_percent">
-      <text/>
+      <ref name="STRING"/>
     </element>
   </define>
   <define name="root_base_size">
     <element name="root_base_size">
-      <text/>
+      <ref name="STRING"/>
     </element>
   </define>
   <define name="root_max_size">
     <element name="root_max_size">
-      <text/>
+      <ref name="STRING"/>
     </element>
   </define>
   <define name="proposal_lvm">
@@ -1098,12 +1126,12 @@ selected for installation</a:documentation>
   </define>
   <define name="vm_desired_size">
     <element name="vm_desired_size">
-      <text/>
+      <ref name="STRING"/>
     </element>
   </define>
   <define name="vm_home_max_size">
     <element name="vm_home_max_size">
-      <text/>
+      <ref name="STRING"/>
     </element>
   </define>
   <define name="prefer_remove">
@@ -1134,7 +1162,7 @@ selected for installation</a:documentation>
   </define>
   <define name="btrfs_default_subvolume">
     <element name="btrfs_default_subvolume">
-      <text/>
+      <ref name="STRING"/>
     </element>
   </define>
   <define name="proposal_settings_editable">
@@ -1166,10 +1194,11 @@ the internal fallback list is not used</a:documentation>
   </define>
   <define name="subvolume">
     <element name="subvolume">
+      <ref name="MAP"/>
       <interleave>
         <element name="path">
           <a:documentation>subvolume path without leading /</a:documentation>
-          <text/>
+          <ref name="STRING"/>
         </element>
         <optional>
           <element name="copy_on_write">
@@ -1184,7 +1213,7 @@ Prepend ! to negate
 Example 1: i386,x86_64
 Example 2: ppc,!board_powernv
 (i.e. on PPC, but not if it's a board_powernv machine</a:documentation>
-            <text/>
+            <ref name="STRING"/>
           </element>
         </optional>
       </interleave>
@@ -1219,6 +1248,7 @@ Example 2: ppc,!board_powernv
   <!-- ng element definitions -->
   <define name="partitioning_proposal">
     <element name="proposal">
+      <ref name="MAP"/>
       <ref name="partitioning_proposal_elements"/>
     </element>
   </define>
@@ -1352,6 +1382,7 @@ Example 2: ppc,!board_powernv
   </define>
   <define name="partitioning_volume">
     <element name="volume">
+      <ref name="MAP"/>
       <ref name="partitioning_volume_elements"/>
     </element>
   </define>
@@ -1442,7 +1473,7 @@ Example 2: ppc,!board_powernv
   </define>
   <define name="ng_mount_point">
     <element name="mount_point">
-      <text/>
+      <ref name="STRING"/>
     </element>
   </define>
   <define name="ng_proposed">
@@ -1457,12 +1488,12 @@ Example 2: ppc,!board_powernv
   </define>
   <define name="ng_fs_types">
     <element name="fs_types">
-      <text/>
+      <ref name="STRING"/>
     </element>
   </define>
   <define name="ng_fs_type">
     <element name="fs_type">
-      <text/>
+      <ref name="STRING"/>
     </element>
   </define>
   <define name="ng_desired_size">
@@ -1502,27 +1533,27 @@ Example 2: ppc,!board_powernv
   </define>
   <define name="ng_fallback_for_desired_size">
     <element name="fallback_for_desired_size">
-      <text/>
+      <ref name="STRING"/>
     </element>
   </define>
   <define name="ng_fallback_for_min_size">
     <element name="fallback_for_min_size">
-      <text/>
+      <ref name="STRING"/>
     </element>
   </define>
   <define name="ng_fallback_for_max_size">
     <element name="fallback_for_max_size">
-      <text/>
+      <ref name="STRING"/>
     </element>
   </define>
   <define name="ng_fallback_for_max_size_lvm">
     <element name="fallback_for_max_size_lvm">
-      <text/>
+      <ref name="STRING"/>
     </element>
   </define>
   <define name="ng_fallback_for_weight">
     <element name="fallback_for_weight">
-      <text/>
+      <ref name="STRING"/>
     </element>
   </define>
   <define name="ng_snapshots">
@@ -1550,7 +1581,7 @@ Example 2: ppc,!board_powernv
   </define>
   <define name="ng_btrfs_default_subvolume">
     <element name="btrfs_default_subvolume">
-      <text/>
+      <ref name="STRING"/>
     </element>
   </define>
   <define name="ng_disable_order">
@@ -1565,12 +1596,13 @@ Example 2: ppc,!board_powernv
   </define>
   <define name="ng_separate_vg_name">
     <element name="separate_vg_name">
-      <text/>
+      <ref name="STRING"/>
     </element>
   </define>
   <define name="partitioning">
     <a:documentation>Partitioning-related variables</a:documentation>
     <element name="partitioning">
+      <ref name="MAP"/>
       <ref name="partitioning_elements"/>
     </element>
   </define>
@@ -1590,17 +1622,18 @@ Example 2: ppc,!board_powernv
   </define>
   <define name="network_manager">
     <element name="network_manager">
-      <text/>
+      <ref name="STRING"/>
     </element>
   </define>
   <define name="startmode">
     <element name="startmode">
-      <text/>
+      <ref name="STRING"/>
     </element>
   </define>
   <define name="network">
     <a:documentation>Network configuration-related variables</a:documentation>
     <element name="network">
+      <ref name="MAP"/>
       <zeroOrMore>
         <ref name="network_elements"/>
       </zeroOrMore>
@@ -1622,12 +1655,13 @@ If empty, the dialog is skipped.</a:documentation>
   </define>
   <define name="system_role">
     <element name="system_role">
+      <ref name="MAP"/>
       <interleave>
         <element name="id">
           <a:documentation>An identifier not visible to the user.
 Used to identify the translated user visible strings in the
 texts section: ${id} and ${id}_description.</a:documentation>
-          <text/>
+          <ref name="STRING"/>
         </element>
         <optional>
           <element name="no_default">
@@ -1655,7 +1689,7 @@ If two roles have same order, then result is undefined, so try to avoid it.</a:d
         <optional>
           <element name="additional_dialogs">
             <a:documentation>Additional dialogs that are runned when given role is selected, comma separated</a:documentation>
-            <text/>
+            <ref name="STRING"/>
           </element>
         </optional>
         <optional>
@@ -1698,8 +1732,9 @@ If two roles have same order, then result is undefined, so try to avoid it.</a:d
   </define>
   <define name="role_service">
     <element name="service">
+      <ref name="MAP"/>
       <element name="name">
-        <text/>
+        <ref name="STRING"/>
       </element>
     </element>
   </define>
@@ -1710,7 +1745,7 @@ If two roles have same order, then result is undefined, so try to avoid it.</a:d
       <ref name="LIST"/>
       <oneOrMore>
         <element name="clone_module">
-          <text/>
+          <ref name="STRING"/>
         </element>
       </oneOrMore>
     </element>
@@ -1720,11 +1755,13 @@ If two roles have same order, then result is undefined, so try to avoid it.</a:d
   <define name="texts">
     <a:documentation>Control-file texts marked for translation</a:documentation>
     <element name="texts">
+      <ref name="MAP"/>
       <oneOrMore>
         <element>
           <anyName/>
+          <ref name="MAP"/>
           <element name="label">
-            <text/>
+            <ref name="STRING"/>
           </element>
         </element>
       </oneOrMore>
@@ -1738,34 +1775,37 @@ If two roles have same order, then result is undefined, so try to avoid it.</a:d
  2.) proposal_modules with inexplicit 'name'</a:documentation>
     <a:documentation>Proposal module with 'name' and 'presentation_order'</a:documentation>
     <element name="proposal_module">
-      <interleave>
-        <optional>
-          <element name="name">
-            <a:documentation>Proposal name</a:documentation>
-            <text/>
-          </element>
-        </optional>
-        <optional>
-          <element name="presentation_order">
-            <a:documentation>Presentation order in the current proposal (integer).
+      <choice>
+        <group>
+          <ref name="MAP"/>
+          <interleave>
+            <optional>
+              <element name="name">
+                <a:documentation>Proposal name</a:documentation>
+                <ref name="STRING"/>
+              </element>
+            </optional>
+            <optional>
+              <element name="presentation_order">
+                <a:documentation>Presentation order in the current proposal (integer).
 Lower numbers first.</a:documentation>
-            <text/>
-          </element>
-        </optional>
-        <optional>
-          <!-- proposal writable -->
-          <element name="read_only">
-            <a:documentation>Read only flag - if "hard" the proposal cannot be changed (clicked) by user,
+                <ref name="STRING"/>
+              </element>
+            </optional>
+            <optional>
+              <!-- proposal writable -->
+              <element name="read_only">
+                <a:documentation>Read only flag - if "hard" the proposal cannot be changed (clicked) by user,
 if "soft" the proposal can be changed in case of error. By default is every</a:documentation>
-            <text/>
-          </element>
-        </optional>
-        <optional>
-          <text>
-            <a:documentation>Inexplicit proposal name if not explicitely defined by 'name' and 'presentation_order'</a:documentation>
-          </text>
-        </optional>
-      </interleave>
+                <ref name="STRING"/>
+              </element>
+            </optional>
+          </interleave>
+        </group>
+        <ref name="STRING">
+          <a:documentation>Inexplicit proposal name if not explicitely defined by 'name' and 'presentation_order'</a:documentation>
+        </ref>
+      </choice>
     </element>
   </define>
   <define name="proposal">
@@ -1774,15 +1814,16 @@ inside. Proposal modules usually depend on each other so the order does
 matter. If you want to list proposal modules in a different order, use
 'presentation' order attribute.</a:documentation>
     <element name="proposal">
+      <ref name="MAP"/>
       <interleave>
         <element name="unique_id">
           <a:documentation>Unique ID of the proposal</a:documentation>
-          <text/>
+          <ref name="STRING"/>
         </element>
         <optional>
           <element name="label">
             <a:documentation/>
-            <text/>
+            <ref name="STRING"/>
           </element>
         </optional>
         <optional>
@@ -1792,7 +1833,7 @@ Comma-separated list of architectures as seen in
 /usr/share/YaST2/modules/Arch.ycp
 Valid for all architectures if not explicitely defined.
 See Arch::arch_short</a:documentation>
-            <text/>
+            <ref name="STRING"/>
           </element>
         </optional>
         <optional>
@@ -1801,7 +1842,7 @@ See Arch::arch_short</a:documentation>
 Comma-separated list of modes as seen in
 /usr/share/YaST2/modules/Mode.ycp
 Valid for all modes if not explicitely defined.</a:documentation>
-            <text/>
+            <ref name="STRING"/>
           </element>
         </optional>
         <element name="stage">
@@ -1809,17 +1850,17 @@ Valid for all modes if not explicitely defined.</a:documentation>
 Comma-separated list of stages as seen in
 /usr/share/YaST2/modules/Stage.ycp
 Valid for all stages if not explicitely defined.</a:documentation>
-          <text/>
+          <ref name="STRING"/>
         </element>
         <optional>
           <element name="name">
             <a:documentation>Proposal name used later to define which proposal to use</a:documentation>
-            <text/>
+            <ref name="STRING"/>
           </element>
         </optional>
         <optional>
           <element name="type">
-            <text/>
+            <ref name="STRING"/>
           </element>
         </optional>
         <optional>
@@ -1847,10 +1888,11 @@ but its presentation_order ignored.</a:documentation>
             <oneOrMore>
               <element name="proposal_tab">
                 <a:documentation>Defines one tab in a proposal</a:documentation>
+                <ref name="MAP"/>
                 <interleave>
                   <element name="label">
                     <a:documentation>Label on the tab</a:documentation>
-                    <text/>
+                    <ref name="STRING"/>
                   </element>
                   <element name="proposal_modules">
                     <a:documentation>List of proposal modules</a:documentation>
@@ -1881,6 +1923,7 @@ but its presentation_order ignored.</a:documentation>
   <!-- Describes one step in a workflow -->
   <define name="module">
     <element name="module">
+      <ref name="MAP"/>
       <interleave>
         <optional>
           <element name="name">
@@ -1889,27 +1932,27 @@ Used as an identification for updating, removing etc. of steps.
 If 'execute' is not used, 'name' also defines name of a YCP script
 called by YaST. In installation or upgrade, all script have to match
 inst_(.*) regexp.</a:documentation>
-            <text/>
+            <ref name="STRING"/>
           </element>
         </optional>
         <optional>
           <element name="execute">
             <a:documentation>Defines exact name of a YCP script (without .ycp suffix)</a:documentation>
-            <text/>
+            <ref name="STRING"/>
           </element>
         </optional>
         <optional>
           <element name="label">
             <a:documentation>Defines a configuration step shown in workflow with steps.
 If empty, a label defined in closes step before is used.</a:documentation>
-            <text/>
+            <ref name="STRING"/>
           </element>
         </optional>
         <optional>
           <element name="heading">
             <a:documentation>Defines a heading step. Heading usually does not have any client
 to run and defines only the major step in workflow.</a:documentation>
-            <text/>
+            <ref name="STRING"/>
           </element>
         </optional>
         <optional>
@@ -1919,14 +1962,14 @@ Comma-separated list of architectures as seen in
 /usr/share/YaST2/modules/Arch.ycp
 Valid for all architectures if not explicitely defined.
 See Arch::arch_short</a:documentation>
-            <text/>
+            <ref name="STRING"/>
           </element>
         </optional>
         <optional>
           <element name="proposal">
             <a:documentation>Defines which proposal to call in this step.
 Proposal 'name' is used.</a:documentation>
-            <text/>
+            <ref name="STRING"/>
           </element>
         </optional>
         <optional>
@@ -1945,19 +1988,25 @@ Proposal 'name' is used.</a:documentation>
           <element name="arguments">
             <a:documentation>Additional module arguments</a:documentation>
             <choice>
-              <optional>
-                <element name="first_run">
-                  <ref name="YES_NO"/>
-                </element>
-              </optional>
-              <zeroOrMore>
-                <element>
-                  <anyName/>
-                  <text/>
-                </element>
-              </zeroOrMore>
+              <group>
+                <ref name="MAP"/>
+                <optional>
+                  <element name="first_run">
+                    <ref name="YES_NO"/>
+                  </element>
+                </optional>
+              </group>
+              <group>
+                <ref name="MAP"/>
+                <zeroOrMore>
+                  <element>
+                    <anyName/>
+                    <ref name="STRING"/>
+                  </element>
+                </zeroOrMore>
+              </group>
               <!-- used in autoyast -->
-              <text/>
+              <ref name="STRING"/>
             </choice>
           </element>
         </optional>
@@ -1983,18 +2032,19 @@ Default value is 'true'</a:documentation>
         <optional>
           <element name="prescript">
             <a:documentation>Script body called before the described step</a:documentation>
+            <ref name="MAP"/>
             <interleave>
               <element name="interpreter">
                 <a:documentation>@example
 shell</a:documentation>
-                <text/>
+                <ref name="STRING"/>
               </element>
               <element name="source">
                 <a:documentation>@example
 &lt;![CDATA[#!/bin/sh
 echo test &gt; /tmp/test
 ]]&gt;</a:documentation>
-                <text/>
+                <ref name="STRING"/>
               </element>
             </interleave>
           </element>
@@ -2002,12 +2052,13 @@ echo test &gt; /tmp/test
         <optional>
           <element name="postscript">
             <a:documentation>Script body called after the described step</a:documentation>
+            <ref name="MAP"/>
             <interleave>
               <element name="interpreter">
-                <text/>
+                <ref name="STRING"/>
               </element>
               <element name="source">
-                <text/>
+                <ref name="STRING"/>
               </element>
             </interleave>
           </element>
@@ -2018,17 +2069,18 @@ echo test &gt; /tmp/test
   <define name="workflow_defaults">
     <a:documentation>Defines the default workflow settings</a:documentation>
     <element name="defaults">
+      <ref name="MAP"/>
       <interleave>
         <optional>
           <element name="archs">
             <a:documentation>For which architectures is this default valid</a:documentation>
-            <text/>
+            <ref name="STRING"/>
           </element>
         </optional>
         <optional>
           <element name="arguments">
             <a:documentation>Special patemeters used by AutoYaST</a:documentation>
-            <text/>
+            <ref name="STRING"/>
           </element>
         </optional>
         <optional>
@@ -2051,6 +2103,7 @@ If not set, default values is 'yes'.</a:documentation>
   <define name="workflow">
     <a:documentation>Workflow, defines for instance, 'second stage installation'</a:documentation>
     <element name="workflow">
+      <ref name="MAP"/>
       <interleave>
         <optional>
           <ref name="workflow_defaults"/>
@@ -2058,7 +2111,7 @@ If not set, default values is 'yes'.</a:documentation>
         <optional>
           <element name="label">
             <a:documentation>Superstep name visible in UI</a:documentation>
-            <text/>
+            <ref name="STRING"/>
           </element>
         </optional>
         <element name="mode">
@@ -2066,14 +2119,14 @@ If not set, default values is 'yes'.</a:documentation>
 Comma-separated list of modes as seen in
 /usr/share/YaST2/modules/Mode.ycp
 Valid for all modes if not explicitely defined.</a:documentation>
-          <text/>
+          <ref name="STRING"/>
         </element>
         <element name="stage">
           <a:documentation>Defines for which stage is this workflow used.
 Comma-separated list of stages as seen in
 /usr/share/YaST2/modules/Stage.ycp
 Valid for all stages if not explicitely defined.</a:documentation>
-          <text/>
+          <ref name="STRING"/>
         </element>
         <element name="modules">
           <a:documentation>List of modules in workflow</a:documentation>
@@ -2101,15 +2154,16 @@ Valid for all stages if not explicitely defined.</a:documentation>
       <ref name="LIST"/>
       <oneOrMore>
         <element name="inst_finish_stage">
+          <ref name="MAP"/>
           <interleave>
             <element name="label">
-              <text/>
+              <ref name="STRING"/>
             </element>
             <element name="steps">
               <ref name="LIST"/>
               <oneOrMore>
                 <element name="step">
-                  <text/>
+                  <ref name="STRING"/>
                 </element>
               </oneOrMore>
             </element>
@@ -2122,20 +2176,21 @@ Valid for all stages if not explicitely defined.</a:documentation>
   <!-- update -->
   <define name="update_workflow">
     <element name="workflow">
+      <ref name="MAP"/>
       <interleave>
         <optional>
           <ref name="workflow_defaults"/>
         </optional>
         <optional>
           <element name="label">
-            <text/>
+            <ref name="STRING"/>
           </element>
         </optional>
         <element name="stage">
-          <text/>
+          <ref name="STRING"/>
         </element>
         <element name="mode">
-          <text/>
+          <ref name="STRING"/>
         </element>
         <optional>
           <element name="insert_modules">
@@ -2144,7 +2199,7 @@ Valid for all stages if not explicitely defined.</a:documentation>
               <element name="insert_module">
                 <interleave>
                   <element name="before">
-                    <text/>
+                    <ref name="STRING"/>
                   </element>
                   <element name="modules">
                     <ref name="LIST"/>
@@ -2170,7 +2225,7 @@ Valid for all stages if not explicitely defined.</a:documentation>
             <ref name="LIST"/>
             <oneOrMore>
               <element name="remove_module">
-                <text/>
+                <ref name="STRING"/>
               </element>
             </oneOrMore>
           </element>
@@ -2180,9 +2235,10 @@ Valid for all stages if not explicitely defined.</a:documentation>
             <ref name="LIST"/>
             <oneOrMore>
               <element name="replace_module">
+                <ref name="MAP"/>
                 <interleave>
                   <element name="replace">
-                    <text/>
+                    <ref name="STRING"/>
                   </element>
                   <element name="modules">
                     <ref name="LIST"/>
@@ -2200,20 +2256,21 @@ Valid for all stages if not explicitely defined.</a:documentation>
   </define>
   <define name="update_proposal">
     <element name="proposal">
+      <ref name="MAP"/>
       <interleave>
         <element name="stage">
-          <text/>
+          <ref name="STRING"/>
         </element>
         <element name="mode">
-          <text/>
+          <ref name="STRING"/>
         </element>
         <optional>
           <element name="label">
-            <text/>
+            <ref name="STRING"/>
           </element>
         </optional>
         <element name="name">
-          <text/>
+          <ref name="STRING"/>
         </element>
         <optional>
           <element name="enable_skip">
@@ -2225,7 +2282,7 @@ Valid for all stages if not explicitely defined.</a:documentation>
             <ref name="LIST"/>
             <oneOrMore>
               <element name="append_module">
-                <text/>
+                <ref name="STRING"/>
               </element>
             </oneOrMore>
           </element>
@@ -2235,7 +2292,7 @@ Valid for all stages if not explicitely defined.</a:documentation>
             <ref name="LIST"/>
             <oneOrMore>
               <element name="remove_module">
-                <text/>
+                <ref name="STRING"/>
               </element>
             </oneOrMore>
           </element>
@@ -2244,15 +2301,16 @@ Valid for all stages if not explicitely defined.</a:documentation>
           <element name="replace_modules">
             <ref name="LIST"/>
             <element name="replace_module">
+              <ref name="MAP"/>
               <interleave>
                 <element name="replace">
-                  <text/>
+                  <ref name="STRING"/>
                 </element>
                 <element name="new_modules">
                   <ref name="LIST"/>
                   <oneOrMore>
                     <element name="new_module">
-                      <text/>
+                      <ref name="STRING"/>
                     </element>
                   </oneOrMore>
                 </element>
@@ -2265,6 +2323,7 @@ Valid for all stages if not explicitely defined.</a:documentation>
   </define>
   <define name="update_system_roles">
     <element name="system_roles">
+      <ref name="MAP"/>
       <optional>
         <element name="insert_system_roles">
           <ref name="LIST"/>
@@ -2279,6 +2338,7 @@ Valid for all stages if not explicitely defined.</a:documentation>
   </define>
   <define name="update">
     <element name="update">
+      <ref name="MAP"/>
       <interleave>
         <optional>
           <element name="proposals">
@@ -2304,7 +2364,7 @@ Valid for all stages if not explicitely defined.</a:documentation>
                   <ref name="LIST"/>
                   <oneOrMore>
                     <element name="module">
-                      <text/>
+                      <ref name="STRING"/>
                     </element>
                   </oneOrMore>
                 </element>
@@ -2314,7 +2374,7 @@ Valid for all stages if not explicitely defined.</a:documentation>
                   <ref name="LIST"/>
                   <oneOrMore>
                     <element name="module">
-                      <text/>
+                      <ref name="STRING"/>
                     </element>
                   </oneOrMore>
                 </element>
@@ -2324,7 +2384,7 @@ Valid for all stages if not explicitely defined.</a:documentation>
                   <ref name="LIST"/>
                   <oneOrMore>
                     <element name="module">
-                      <text/>
+                      <ref name="STRING"/>
                     </element>
                   </oneOrMore>
                 </element>
@@ -2341,6 +2401,7 @@ Valid for all stages if not explicitely defined.</a:documentation>
   <!-- update -->
   <define name="configuration_management">
     <element name="configuration_management">
+      <ref name="MAP"/>
       <interleave>
         <!-- Configuration managment system to use -->
         <element name="type">
@@ -2352,7 +2413,7 @@ Valid for all stages if not explicitely defined.</a:documentation>
         <optional>
           <!-- Host name or IP address of the master server -->
           <element name="master">
-            <text/>
+            <ref name="STRING"/>
           </element>
         </optional>
         <optional>
@@ -2373,7 +2434,7 @@ Valid for all stages if not explicitely defined.</a:documentation>
             private/public keys to connect to the master server
           -->
           <element name="keys_url">
-            <text/>
+            <ref name="STRING"/>
           </element>
         </optional>
         <optional>
@@ -2386,13 +2447,13 @@ Valid for all stages if not explicitely defined.</a:documentation>
           <!-- Salt specific -->
           <!-- Path to write Pillar data -->
           <element name="pillar_root">
-            <text/>
+            <ref name="STRING"/>
           </element>
         </optional>
         <optional>
           <!-- URL to read Pillar data from -->
           <element name="pillar_url">
-            <text/>
+            <ref name="STRING"/>
           </element>
         </optional>
         <optional>
@@ -2401,7 +2462,7 @@ Valid for all stages if not explicitely defined.</a:documentation>
             <ref name="LIST"/>
             <oneOrMore>
               <element name="formulas_root">
-                <text/>
+                <ref name="STRING"/>
               </element>
             </oneOrMore>
           </element>
@@ -2412,7 +2473,7 @@ Valid for all stages if not explicitely defined.</a:documentation>
             <ref name="LIST"/>
             <oneOrMore>
               <element name="states_root">
-                <text/>
+                <ref name="STRING"/>
               </element>
             </oneOrMore>
           </element>
@@ -2420,7 +2481,7 @@ Valid for all stages if not explicitely defined.</a:documentation>
         <optional>
           <!-- URL to get states from -->
           <element name="states_url">
-            <text/>
+            <ref name="STRING"/>
           </element>
         </optional>
         <optional>
@@ -2429,7 +2490,7 @@ Valid for all stages if not explicitely defined.</a:documentation>
             <ref name="LIST"/>
             <oneOrMore>
               <element name="state">
-                <text/>
+                <ref name="STRING"/>
               </element>
             </oneOrMore>
           </element>
@@ -2438,7 +2499,7 @@ Valid for all stages if not explicitely defined.</a:documentation>
           <!-- Puppet specific -->
           <!-- URL to read Puppet modules from -->
           <element name="modules_url">
-            <text/>
+            <ref name="STRING"/>
           </element>
         </optional>
       </interleave>
