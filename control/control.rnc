@@ -44,7 +44,7 @@ MAP =
 
 DISKSIZE =
   (
-    attribute config:type { "string" }?,
+    attribute config:type { "string" | "disksize" }?,
     (
       "unlimited"
       | list {

@@ -53,7 +53,10 @@
   <define name="DISKSIZE">
     <optional>
       <attribute name="config:type">
-        <value>string</value>
+        <choice>
+          <value>string</value>
+          <value>disksize</value>
+        </choice>
       </attribute>
     </optional>
     <choice>
