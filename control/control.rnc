@@ -11,40 +11,46 @@ namespace a = "http://relaxng.org/ns/compatibility/annotations/1.0"
 namespace config = "http://www.suse.com/1.0/configns"
 datatypes xsd = "http://www.w3.org/2001/XMLSchema-datatypes"
 
+# Single hash comments #  become <!-- XML comments-->
+# Double hash comments ## are preserved in .rng as <a:documentation>
+
 ## Defined data-types
 
 BOOLEAN =
   (
-    attribute config:type { "boolean" },
+    ## Historically we used config:type
+    ## but it is unnecessarily long to type and read.
+    ## Shorter variants are allowed.
+    attribute ( t | type | config:type ) { "boolean" },
     ( "true" | "false" )
   )
 
 INTEGER =
   (
-    attribute config:type { "integer" },
+    attribute ( t | type | config:type ) { "integer" },
     xsd:integer
   )
 
 STRING =
   (
-    attribute config:type { "string" }?,
+    attribute ( t | type | config:type ) { "string" }?,
     text
   )
 
 SYMBOL =
   (
-    attribute config:type { "symbol" }
+    attribute ( t | type | config:type ) { "symbol" }
   )
 
 LIST =
-  attribute config:type { "list" }
+  attribute ( t | type | config:type ) { "list" }
 
 MAP =
-  attribute config:type { "map" }?
+  attribute ( t | type | config:type ) { "map" }?
 
 DISKSIZE =
   (
-    attribute config:type { "string" | "disksize" }?,
+    attribute ( t | type | config:type ) { "string" | "disksize" }?,
     (
       "unlimited"
       | list {
