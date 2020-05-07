@@ -11,31 +11,46 @@ namespace a = "http://relaxng.org/ns/compatibility/annotations/1.0"
 namespace config = "http://www.suse.com/1.0/configns"
 datatypes xsd = "http://www.w3.org/2001/XMLSchema-datatypes"
 
+# Single hash comments #  become <!-- XML comments-->
+# Double hash comments ## are preserved in .rng as <a:documentation>
+
 ## Defined data-types
 
 BOOLEAN =
   (
-    attribute config:type { "boolean" },
+    ## Historically we used config:type
+    ## but it is unnecessarily long to type and read.
+    ## Shorter variants are allowed.
+    attribute ( t | type | config:type ) { "boolean" },
     ( "true" | "false" )
   )
 
 INTEGER =
   (
-    attribute config:type { "integer" },
+    attribute ( t | type | config:type ) { "integer" },
     xsd:integer
+  )
+
+STRING =
+  (
+    attribute ( t | type | config:type ) { "string" }?,
+    text
   )
 
 SYMBOL =
   (
-    attribute config:type { "symbol" }
+    attribute ( t | type | config:type ) { "symbol" }
   )
 
 LIST =
-  attribute config:type { "list" }
+  attribute ( t | type | config:type ) { "list" }
+
+MAP =
+  attribute ( t | type | config:type ) { "map" }?
 
 DISKSIZE =
   (
-    attribute config:type { "disksize" },
+    attribute ( t | type | config:type ) { "string" | "disksize" }?,
     (
       "unlimited"
       | list {
@@ -51,7 +66,7 @@ DISKSIZE =
 
 ANY =
   (
-    BOOLEAN | INTEGER | SYMBOL | LIST | text
+    BOOLEAN | INTEGER | SYMBOL | LIST | STRING | MAP
   )
 
 YES_NO =
@@ -59,9 +74,12 @@ YES_NO =
     "yes" | "no"
   )
 
+
+
+
 # types
 
-textdomain = element textdomain { text }
+textdomain = element textdomain { STRING }
 
 # globals
 
@@ -124,36 +142,36 @@ globals_elements =
     | precise_time
 
 ## Default kernel parameters proposed by bootloader
-additional_kernel_parameters =		element additional_kernel_parameters { text }
+additional_kernel_parameters =		element additional_kernel_parameters { STRING }
 ## How much per cent is the minimum coverage of translations to consider
 ## it being 'complete'. Less are reported if user tries to switch to such
 ## language during installation / upgrade.
-incomplete_translation_treshold =	element incomplete_translation_treshold { text }
+incomplete_translation_treshold =	element incomplete_translation_treshold { STRING }
 ## Directory where the base-product (e.g., SLES) license files are stored
-base_product_license_directory =	element base_product_license_directory { text }
+base_product_license_directory =	element base_product_license_directory { STRING }
 ## Defines an UI mode used in some modules to differentiate between
 ## 'simple' and 'expert' (obsolete).
 ui_mode =				element ui_mode { "expert" | "simple" }
 ## Writes DISPLAYMANAGER_SHUTDOWN to /etc/sysconfig/displaymanager
 ## if set
-displaymanager_shutdown =		element displaymanager_shutdown { text }
+displaymanager_shutdown =		element displaymanager_shutdown { STRING }
 ## Writes POLKIT_DEFAULT_PRIVS to /etc/sysconfig/security
 ## if set
-polkit_default_privs =			element polkit_default_privs { text }
+polkit_default_privs =			element polkit_default_privs { STRING }
 ## Defines the default subworkflow name (smaller subworkflow
 ## created from another workflow).
 ## Used by Wagon.
-default_subworkflow =			element default_subworkflow { text }
+default_subworkflow =			element default_subworkflow { STRING }
 ## Default language
-language =				element language { text }
+language =				element language { STRING }
 ## Language cannot be changed by the user
 readonly_language =			element readonly_language { BOOLEAN }
 ## Default timezone
-timezone =				element timezone { text }
+timezone =				element timezone { STRING }
 ## Timezone cannot be changed by the user
 readonly_timezone =			element readonly_timezone { BOOLEAN }
 ## Default runlevel
-default_target =				element default_target { text }
+default_target =				element default_target { STRING }
 
 ## Debugging feature, makes workflow manaher to write
 ## more detailed log entries
@@ -220,10 +238,10 @@ show_drivers_info =			element show_drivers_info { BOOLEAN }
 ## here are two related keys for self update - URL and ID.
 ## The ID is used to ask SCC for update URL.
 ## The URL is used as fallback when SCC query failed.
-self_update_url =			element self_update_url { text }
+self_update_url =			element self_update_url { STRING }
 # Self-update id (bsc#1055556).
 ## It is an ID used to query SCC for the self update repo.
-self_update_id =			element self_update_id { text }
+self_update_id =			element self_update_id { STRING }
 # Installation UI (boo#1088785)
 ## Enables alternative look of installation with sidebar
 installation_ui =			element installation_ui { "sidebar" }
@@ -233,10 +251,10 @@ installation_ui =			element installation_ui { "sidebar" }
 cpu_mitigations =			element cpu_mitigations { "auto" | "nosmt" | "off" | "manual" }
 # Media name which contains ALL packages for an useful installation
 # full_system_download_url has also to be set in order to display it.
-full_system_media_name =		element full_system_media_name { text }
+full_system_media_name =		element full_system_media_name { STRING }
 # URL where the media described in full_system_download_url is located.
 # full_system_media_name has also to be set in order to display it.
-full_system_download_url =		element full_system_download_url { text }
+full_system_download_url =		element full_system_download_url { STRING }
 ## Defines if product needs precise time. It is short time workaround for bsc#1145193
 precise_time =		        	element precise_time { BOOLEAN }
 
@@ -245,43 +263,53 @@ precise_time =		        	element precise_time { BOOLEAN }
 save_instsys_content = element save_instsys_content {
     LIST,
     element save_instsys_item {
-	## Where to copy the installation-system file or directory
-	## Absolut path is required.
-	element system_directory { text } &
-	## Which file or directory to copy to installed system
-	## Absolut path is required.
-	element instsys_directory { text }
+        MAP,
+        (
+          ## Where to copy the installation-system file or directory
+          ## Absolut path is required.
+          element system_directory { STRING } &
+          ## Which file or directory to copy to installed system
+          ## Absolut path is required.
+          element instsys_directory { STRING }
+        )
     }+
 }
 
 services_proposal = element services_proposal {
     LIST,
     element service {
-	element label_id { text }? &
-	element service_names { text } &
-	element firewall_plugins { text }? &
-	element enabled_by_default { BOOLEAN }? &
-	element packages { text }?
+        MAP,
+        (
+          element label_id { STRING }? &
+          element service_names { STRING } &
+          element firewall_plugins { STRING }? &
+          element enabled_by_default { BOOLEAN }? &
+          element packages { STRING }?
+        )
     }+
 }
 
 subworkflows = element subworkflows {
     LIST,
     element subworkflow {
-	element name { text } &
-	element modules {
-	    LIST,
-	    element module { text }+
-	}? &
-	element proposals {
-	    LIST,
-	    element proposal { text }+
-	}?
+        MAP,
+        (
+          element name { STRING } &
+          element modules {
+              LIST,
+              element module { STRING }+
+          }? &
+          element proposals {
+              LIST,
+              element proposal { STRING }+
+          }?
+        )
     }+
 }
 
 ## Global variables
 globals = element globals {
+    MAP,
     globals_elements*
 }
 
@@ -323,7 +351,7 @@ software_elements =
 
 ## The name of the product which should be selected,
 ## useful to choose it without asking the user (bsc#1124590).
-select_product =	element select_product { text }
+select_product =	element select_product { STRING }
 ## Whether it is allowed to delete a package during upgrade
 ## *obsolete* without replacement
 delete_old_packages = element delete_old_packages { BOOLEAN }
@@ -333,65 +361,68 @@ disable_media_repo = element disable_media_repo { BOOLEAN }
 selection_type = element selection_type { SYMBOL, text }
 ## System scenario selected by default.
 ## Used in inst_scenarios client.
-default_system_scenario = element default_system_scenario { text }
+default_system_scenario = element default_system_scenario { STRING }
 ## Desktop selected by default
-default_desktop = element default_desktop { text }
+default_desktop = element default_desktop { STRING }
 display_support_status = element display_support_status { BOOLEAN }
 clone_install_recommended_default = element clone_install_recommended_default { BOOLEAN }
 silently_downgrade_packages = element silently_downgrade_packages { BOOLEAN }
 online_repos_preselected = element online_repos_preselected { BOOLEAN }
-external_sources_link = element external_sources_link { text }
+external_sources_link = element external_sources_link { STRING }
 ## Packages that should be removed by the upgrade.
 ## Comma and/or space-separated list of packages
-dropped_packages = element dropped_packages { text }
+dropped_packages = element dropped_packages { STRING }
 
-base_selection = element base_selection { text }
-software_base = element base { text }
+base_selection = element base_selection { STRING }
+software_base = element base { STRING }
 
 ## a client that is called to modifiy the list of selected kernel packages
-packages_transmogrify = element packages_transmogrify { text }
+packages_transmogrify = element packages_transmogrify { STRING }
 
 software_addons = element addons {
     LIST,
-    element addon { text }+
+    element addon { STRING }+
 }
 
 software_packages = element packages {
     LIST,
-    element package { text }+
+    element package { STRING }+
 }
 
 # the default preselected products (modules) for the base product, used only
 # in Full medium offline installation, see https://jira.suse.com/browse/SLE-8040
 software_default_modules = element default_modules {
     LIST,
-    element default_module { text }*
+    element default_module { STRING }*
 }
 
 kernel_packages = element kernel_packages {
     LIST,
-    element package { text }+
+    element package { STRING }+
 }
 
 ## *obsolete* without replacement
 delete_old_packages_reverse_list = element delete_old_packages_reverse_list {
     LIST,
-    element regexp_item { text }+
+    element regexp_item { STRING }+
 }
 
 supported_desktops = element supported_desktops {
     LIST,
     element one_supported_desktop {
-	element name { text } &
-	element desktop { text } &
-	element label_id { text }? &
-	element logon { text } &
-	element cursor { text } &
-	element packages { text }? &
-	element order { INTEGER }? &
-	element patterns { text } &
-	element icon { text }? &
-	element description_id { text }?
+        MAP,
+        (
+          element name { STRING } &
+          element desktop { STRING } &
+          element label_id { STRING }? &
+          element logon { STRING } &
+          element cursor { STRING } &
+          element packages { STRING }? &
+          element order { INTEGER }? &
+          element patterns { STRING } &
+          element icon { STRING }? &
+          element description_id { STRING }?
+        )
     }+
 }
 
@@ -399,73 +430,81 @@ supported_desktops = element supported_desktops {
 products_supported_for_upgrade = element products_supported_for_upgrade {
     LIST,
     ## One regular expression to match a product to upgrade
-    element regexp_item { text }+
+    element regexp_item { STRING }+
 }
 
 silently_downgrade_packages_reverse_list = element silently_downgrade_packages_reverse_list {
     LIST,
-    element regexp_item { text }+
+    element regexp_item { STRING }+
 }
 
 extra_urls = element extra_urls {
     LIST,
     element extra_url {
-	element baseurl { text } &
-	element name { text }? &
-	element alias { text }? &
-	element prod_dir { text }? &
-	element enabled { BOOLEAN }? &
-	element autorefresh { BOOLEAN }? &
-	element priority { INTEGER }?
+        MAP,
+        (
+          element baseurl { STRING } &
+          element name { STRING }? &
+          element alias { STRING }? &
+          element prod_dir { STRING }? &
+          element enabled { BOOLEAN }? &
+          element autorefresh { BOOLEAN }? &
+          element priority { INTEGER }?
+        )
     }+
 }
 
 packages_affecting_pkg_manager = element packages_affecting_pkg_manager {
     LIST,
-    element package { text }+
+    element package { STRING }+
 }
 
 ## Space-separated list of default patterns selected for installation.
 ## If such a pattern doesn't exist, error is reported. To omit reporting
 ## such error, use optional_default_patterns instead.
 ## These patterns are not selected in auto-installation.
-default_patterns = element default_patterns { text }
+default_patterns = element default_patterns { STRING }
 
 ## Space-separated list of (optional) default patterns for installation.
 ## These patterns will be selected only if they exist and thus it will
 ## never report any error if a pattern is not found. Use default_patterns
 ## for mandatory default patterns.
 ## These patterns are not selected in auto-installation.
-optional_default_patterns = element optional_default_patterns { text }
+optional_default_patterns = element optional_default_patterns { STRING }
 
 ## Defines behavior during upgrade
 upgrade = element upgrade {
+    MAP,
     ## Optional list of upgrade paths for default window manager set
     ## in /etc/sysconfig/windowmanager:DEFAULT_WM (not all cases need to be handled)
     element window_managers {
         LIST,
         element window_manager {
-          ## Windowmanager as found in /etc/sysconfig/windowmanager:DEFAULT_WM
-          ## This entry is mandatory
-          element sysconfig_wm { text } &
-          ## Space-separated list of packages to check whether the selected desktop
-          ## is really installed on the system
-          element check_packages { text }? &
-          ## Either install_patterns or install_packages (or both) must be defined
+          MAP,
           (
-              ## Optional list of space-separated patterns that should be
-              ## selected for installation
-              element install_patterns { text } |
-              ## Optional list of space-separated packages that should be
-              ## selected for installation
-              element install_packages { text }
-          )+
+            ## Windowmanager as found in /etc/sysconfig/windowmanager:DEFAULT_WM
+            ## This entry is mandatory
+            element sysconfig_wm { STRING } &
+            ## Space-separated list of packages to check whether the selected desktop
+            ## is really installed on the system
+            element check_packages { STRING }? &
+            ## Either install_patterns or install_packages (or both) must be defined
+            (
+                ## Optional list of space-separated patterns that should be
+                ## selected for installation
+                element install_patterns { STRING } |
+                ## Optional list of space-separated packages that should be
+                ## selected for installation
+                element install_packages { STRING }
+            )+
+          )
         }*
     }?
 }
 
 ## Software / Package-manager related variables
 software = element software {
+    MAP,
     software_elements*
 }
 
@@ -479,12 +518,15 @@ base_products = element base_products {
 }
 
 base_product = element base_product {
-    element special_product { BOOLEAN }? &
-    element display_name { text } &
-    element name { text } &
-    element version { text } &
-    element register_target { text } &
-    element archs { text }?
+    MAP,
+    (
+      element special_product { BOOLEAN }? &
+      element display_name { STRING } &
+      element name { STRING } &
+      element version { STRING } &
+      element register_target { STRING } &
+      element archs { STRING }?
+    )
 }
 
 # software
@@ -532,23 +574,23 @@ partitioning_elements =
 # legacy element definitions
 
 try_separate_home =		element try_separate_home { BOOLEAN }
-limit_try_home =		element limit_try_home { text }
-home_path =                     element home_path { text }
-home_fs =                       element home_fs { text }
-root_fs =                       element root_fs { text }
-root_space_percent =		element root_space_percent { text }
-root_base_size =		element root_base_size { text }
-root_max_size =			element root_max_size { text }
+limit_try_home =		element limit_try_home { STRING }
+home_path =                     element home_path { STRING }
+home_fs =                       element home_fs { STRING }
+root_fs =                       element root_fs { STRING }
+root_space_percent =		element root_space_percent { STRING }
+root_base_size =		element root_base_size { STRING }
+root_max_size =			element root_max_size { STRING }
 proposal_lvm =			element proposal_lvm { BOOLEAN }
-vm_desired_size =		element vm_desired_size { text }
-vm_home_max_size =		element vm_home_max_size { text }
+vm_desired_size =		element vm_desired_size { STRING }
+vm_home_max_size =		element vm_home_max_size { STRING }
 prefer_remove =			element prefer_remove { BOOLEAN }
 remove_special_partitions =	element remove_special_partitions { BOOLEAN }
 vm_keep_unpartitioned_region =	element vm_keep_unpartitioned_region { BOOLEAN }
 # used by HASI Add-On
 use_separate_multipath_module =	element use_separate_multipath_module { BOOLEAN }
 btrfs_increase_percentage =	element btrfs_increase_percentage { INTEGER }
-btrfs_default_subvolume =	element btrfs_default_subvolume { text }
+btrfs_default_subvolume =	element btrfs_default_subvolume { STRING }
 proposal_settings_editable =    element proposal_settings_editable { BOOLEAN }
 expert_partitioner_warning =    element expert_partitioner_warning { BOOLEAN }
 root_subvolume_read_only =      element root_subvolume_read_only { BOOLEAN }
@@ -561,18 +603,21 @@ subvolumes = element subvolumes {
 }?
 
 subvolume = element subvolume {
-    ## subvolume path without leading /
-    element path { text } &
+    MAP,
+    (
+      ## subvolume path without leading /
+      element path { STRING } &
 
-    ## Optional: COW; default: true
-    element copy_on_write { BOOLEAN }? &
+      ## Optional: COW; default: true
+      element copy_on_write { BOOLEAN }? &
 
-    ## Optional: comma-separated architectures (default: all)
-    ## Prepend ! to negate
-    ## Example 1: i386,x86_64
-    ## Example 2: ppc,!board_powernv
-    ## (i.e. on PPC, but not if it's a board_powernv machine
-    element archs { text }?
+      ## Optional: comma-separated architectures (default: all)
+      ## Prepend ! to negate
+      ## Example 1: i386,x86_64
+      ## Example 2: ppc,!board_powernv
+      ## (i.e. on PPC, but not if it's a board_powernv machine
+      element archs { STRING }?
+    )
 }
 
 # these have to be defined by Storage
@@ -588,7 +633,10 @@ partitions = element partitions {
 
 # ng element definitions
 
-partitioning_proposal = element proposal { partitioning_proposal_elements }
+partitioning_proposal = element proposal { 
+  MAP,
+  partitioning_proposal_elements
+}
 
 partitioning_proposal_elements =
     ng_lvm?
@@ -625,7 +673,10 @@ partitioning_volumes =  element volumes {
   partitioning_volume+
 }
 
-partitioning_volume = element volume { partitioning_volume_elements }
+partitioning_volume = element volume {
+  MAP,
+  partitioning_volume_elements
+}
 
 partitioning_volume_elements =
   ng_mount_point?
@@ -656,11 +707,11 @@ partitioning_volume_elements =
 
 ng_snapshots_size_or_percentage = ng_snapshots_size | ng_snapshots_percentage
 
-ng_mount_point = element mount_point { text }
+ng_mount_point = element mount_point { STRING }
 ng_proposed = element proposed { BOOLEAN }
 ng_proposed_configurable = element proposed_configurable { BOOLEAN }
-ng_fs_types = element fs_types { text }
-ng_fs_type = element fs_type { text }
+ng_fs_types = element fs_types { STRING }
+ng_fs_type = element fs_type { STRING }
 ng_desired_size = element desired_size { DISKSIZE }
 ng_min_size = element min_size { DISKSIZE }
 ng_max_size = element max_size { DISKSIZE }
@@ -668,23 +719,24 @@ ng_max_size_lvm = element max_size_lvm { DISKSIZE }
 ng_weight = element weight { INTEGER }
 ng_adjust_by_ram = element adjust_by_ram { BOOLEAN }
 ng_adjust_by_ram_configurable = element adjust_by_ram_configurable { BOOLEAN }
-ng_fallback_for_desired_size = element fallback_for_desired_size { text }
-ng_fallback_for_min_size = element fallback_for_min_size { text }
-ng_fallback_for_max_size = element fallback_for_max_size { text }
-ng_fallback_for_max_size_lvm = element fallback_for_max_size_lvm { text }
-ng_fallback_for_weight = element fallback_for_weight { text }
+ng_fallback_for_desired_size = element fallback_for_desired_size { STRING }
+ng_fallback_for_min_size = element fallback_for_min_size { STRING }
+ng_fallback_for_max_size = element fallback_for_max_size { STRING }
+ng_fallback_for_max_size_lvm = element fallback_for_max_size_lvm { STRING }
+ng_fallback_for_weight = element fallback_for_weight { STRING }
 ng_snapshots = element snapshots { BOOLEAN }
 ng_snapshots_configurable = element snapshots_configurable { BOOLEAN }
 ng_snapshots_size = element snapshots_size { DISKSIZE }
 ng_snapshots_percentage = element snapshots_percentage { INTEGER }
 ng_subvolumes = subvolumes
-ng_btrfs_default_subvolume = element btrfs_default_subvolume { text }
+ng_btrfs_default_subvolume = element btrfs_default_subvolume { STRING }
 ng_disable_order = element disable_order { INTEGER }
 ng_btrfs_read_only = element btrfs_read_only { BOOLEAN }
-ng_separate_vg_name = element separate_vg_name { text }
+ng_separate_vg_name = element separate_vg_name { STRING }
 
 ## Partitioning-related variables
 partitioning = element partitioning {
+    MAP,
     partitioning_elements
 }
 
@@ -698,11 +750,12 @@ network_elements =
     | startmode
 
 force_static_ip =	element force_static_ip { BOOLEAN }
-network_manager =	element network_manager { text }
-startmode =		element startmode { text }
+network_manager =	element network_manager { STRING }
+startmode =		element startmode { STRING }
 
 ## Network configuration-related variables
 network = element network {
+    MAP,
     network_elements*
 }
 
@@ -719,43 +772,46 @@ system_roles = element system_roles {
 }
 
 system_role = element system_role {
-    ## An identifier not visible to the user.
-    ## Used to identify the translated user visible strings in the
-    ## texts section: ${id} and ${id}_description.
-    element id { text } &
+    MAP,
+    (
+      ## An identifier not visible to the user.
+      ## Used to identify the translated user visible strings in the
+      ## texts section: ${id} and ${id}_description.
+      element id { STRING } &
 
-    ## option to not preselect any role, by default,
-    ## the first one (by sort order, see below) is preselected
-    ## Only the first (by sort order, see below) role should have this key, others are ignored.
-    element no_default { BOOLEAN }? &
+      ## option to not preselect any role, by default,
+      ## the first one (by sort order, see below) is preselected
+      ## Only the first (by sort order, see below) role should have this key, others are ignored.
+      element no_default { BOOLEAN }? &
 
-    ## Option for order of role. Roles are sorted by order, the smaller first. It can be negative.
-    ## If two roles have same order, then result is undefined, so try to avoid it.
-    element order { INTEGER } &
+      ## Option for order of role. Roles are sorted by order, the smaller first. It can be negative.
+      ## If two roles have same order, then result is undefined, so try to avoid it.
+      element order { INTEGER } &
 
-    ## Role specific overrides for Partitioning
-    partitioning? &
+      ## Role specific overrides for Partitioning
+      partitioning? &
 
-    ## Role specific overrides for Software
-    software? &
+      ## Role specific overrides for Software
+      software? &
 
-    ## Additional dialogs that are runned when given role is selected, comma separated
-    element additional_dialogs { text }? &
+      ## Additional dialogs that are runned when given role is selected, comma separated
+      element additional_dialogs { STRING }? &
 
-    ## Additional services configuration for given role
-    role_services? &
+      ## Additional services configuration for given role
+      role_services? &
 
-    ## Role specific overrides for Global
-    globals* &
+      ## Role specific overrides for Global
+      globals* &
 
-    ## Role specific overrides for Network
-    network* &
+      ## Role specific overrides for Network
+      network* &
 
-    ## Role specific overrides for Proposals
-    proposals* &
+      ## Role specific overrides for Proposals
+      proposals* &
 
-    ## Role specific overrides for Cloned modules
-    clone_modules*
+      ## Role specific overrides for Cloned modules
+      clone_modules*
+    )
 }
 
 role_services = element services {
@@ -765,7 +821,8 @@ role_services = element services {
 }
 
 role_service = element service {
-    element name { text }
+    MAP,
+    element name { STRING }
 }
 
 # clone_modules
@@ -773,7 +830,7 @@ role_service = element service {
 ## List of modules used by AutoYaST for cloning the configuration
 clone_modules = element clone_modules {
     LIST,
-    element clone_module { text }+
+    element clone_module { STRING }+
 }
 
 # clone_modules
@@ -782,8 +839,10 @@ clone_modules = element clone_modules {
 
 ## Control-file texts marked for translation
 texts = element texts {
+    MAP,
     element * {
-	element label { text }
+        MAP,
+	element label { STRING }
     }+
 }
 
@@ -797,17 +856,22 @@ texts = element texts {
 
 ## Proposal module with 'name' and 'presentation_order'
 proposal_module = element proposal_module {
-    ## Proposal name
-    element name { text }? &
-    ## Presentation order in the current proposal (integer).
-    ## Lower numbers first.
-    element presentation_order { text }? &
-    ## Read only flag - if "hard" the proposal cannot be changed (clicked) by user,
-    ## if "soft" the proposal can be changed in case of error. By default is every
-    # proposal writable
-    element read_only { text }? &
+    (
+      MAP,
+      (
+        ## Proposal name
+        element name { STRING }? &
+        ## Presentation order in the current proposal (integer).
+        ## Lower numbers first.
+        element presentation_order { STRING }? &
+        ## Read only flag - if "hard" the proposal cannot be changed (clicked) by user,
+        ## if "soft" the proposal can be changed in case of error. By default is every
+        # proposal writable
+        element read_only { STRING }?
+      )
+    ) |
     ## Inexplicit proposal name if not explicitely defined by 'name' and 'presentation_order'
-    text?
+    STRING
 }
 
 ## Proposal defines one configuration step with one or more proposal_modules
@@ -815,53 +879,59 @@ proposal_module = element proposal_module {
 ## matter. If you want to list proposal modules in a different order, use
 ## 'presentation' order attribute.
 proposal = element proposal {
-    ## Unique ID of the proposal
-    element unique_id { text } &
-    ##
-    element label { text }? &
-    ## Defines for which architectures is this proposal used.
-    ## Comma-separated list of architectures as seen in
-    ## /usr/share/YaST2/modules/Arch.ycp
-    ## Valid for all architectures if not explicitely defined.
-    ## See Arch::arch_short
-    element archs { text }? &
-    ## Defines for which mode is this proposal used.
-    ## Comma-separated list of modes as seen in
-    ## /usr/share/YaST2/modules/Mode.ycp
-    ## Valid for all modes if not explicitely defined.
-    element mode { text }? &
-    ## Defines for which stage is this proposal used.
-    ## Comma-separated list of stages as seen in
-    ## /usr/share/YaST2/modules/Stage.ycp
-    ## Valid for all stages if not explicitely defined.
-    element stage { text } &
-    ## Proposal name used later to define which proposal to use
-    element name { text }? &
-    element type { text }? &
-    ## Defines whether a proposal can be skipped
-    element enable_skip { YES_NO }? &
-    ## List of modules in proposal
-    element proposal_modules {
-	LIST,
-	proposal_module+
-    }? &
-    ## Defines how/whether tabs are used in proposal, e.g.,
-    ## Simple tab vs. Expert tab.
-    ## If tabs are used, 'proposal_modules' above is still used
-    ## but its presentation_order ignored.
-    element proposal_tabs {
-	LIST,
-	## Defines one tab in a proposal
-	element proposal_tab {
-	    ## Label on the tab
-	    element label { text } &
-	    ## List of proposal modules
-	    element proposal_modules {
-		LIST,
-		proposal_module+
-	    }
-	}+
-    }?
+    MAP,
+    (
+      ## Unique ID of the proposal
+      element unique_id { STRING } &
+      ##
+      element label { STRING }? &
+      ## Defines for which architectures is this proposal used.
+      ## Comma-separated list of architectures as seen in
+      ## /usr/share/YaST2/modules/Arch.ycp
+      ## Valid for all architectures if not explicitely defined.
+      ## See Arch::arch_short
+      element archs { STRING }? &
+      ## Defines for which mode is this proposal used.
+      ## Comma-separated list of modes as seen in
+      ## /usr/share/YaST2/modules/Mode.ycp
+      ## Valid for all modes if not explicitely defined.
+      element mode { STRING }? &
+      ## Defines for which stage is this proposal used.
+      ## Comma-separated list of stages as seen in
+      ## /usr/share/YaST2/modules/Stage.ycp
+      ## Valid for all stages if not explicitely defined.
+      element stage { STRING } &
+      ## Proposal name used later to define which proposal to use
+      element name { STRING }? &
+      element type { STRING }? &
+      ## Defines whether a proposal can be skipped
+      element enable_skip { YES_NO }? &
+      ## List of modules in proposal
+      element proposal_modules {
+          LIST,
+          proposal_module+
+      }? &
+      ## Defines how/whether tabs are used in proposal, e.g.,
+      ## Simple tab vs. Expert tab.
+      ## If tabs are used, 'proposal_modules' above is still used
+      ## but its presentation_order ignored.
+      element proposal_tabs {
+          LIST,
+          ## Defines one tab in a proposal
+          element proposal_tab {
+              MAP,
+              (
+                ## Label on the tab
+                element label { STRING } &
+                ## List of proposal modules
+                element proposal_modules {
+                    LIST,
+                    proposal_module+
+                }
+              )
+          }+
+      }?
+    )
 }
 
 # List of all proposals in control file
@@ -876,99 +946,120 @@ proposals = element proposals {
 
 # Describes one step in a workflow
 module = element module {
-    ## Name of a step.
-    ## Used as an identification for updating, removing etc. of steps.
-    ## If 'execute' is not used, 'name' also defines name of a YCP script
-    ## called by YaST. In installation or upgrade, all script have to match
-    ## inst_(.*) regexp.
-    element name { text }? &
-    ## Defines exact name of a YCP script (without .ycp suffix)
-    element execute { text }? &
-    ## Defines a configuration step shown in workflow with steps.
-    ## If empty, a label defined in closes step before is used.
-    element label { text }? &
-    ## Defines a heading step. Heading usually does not have any client
-    ## to run and defines only the major step in workflow.
-    element heading { text }? &
-    ## Defines for which architectures is this module used.
-    ## Comma-separated list of architectures as seen in
-    ## /usr/share/YaST2/modules/Arch.ycp
-    ## Valid for all architectures if not explicitely defined.
-    ## See Arch::arch_short
-    element archs { text }? &
-    ## Defines which proposal to call in this step.
-    ## Proposal 'name' is used.
-    element proposal { text }? &
-    ## Defines whether the [Back] button is enabled by default in this step.
-    element enable_back { YES_NO }? &
-    ## Defines whether the [Next] button is enabled by default in this step.
-    element enable_next { YES_NO }? &
-    ## Additional module arguments
-    element arguments {
-	element first_run { YES_NO }?
-	| element * { text }*
-	# used in autoyast
-	| text
-    }? &
-    ## Should YaST retranslate the whole screen after this client is called?
-    ## Default is 'true'.
-    element retranslate { BOOLEAN }? &
-    element update { BOOLEAN }? &
-    ## Defines whether a module is enabled by default.
-    ## Default value is 'true'
-    element enabled { BOOLEAN }? &
-    ## Script body called before the described step
-    element prescript {
-	## @example
-	## shell
-	element interpreter { text } &
-	## @example
-	## <![CDATA[#!/bin/sh
-	## echo test > /tmp/test
-	## ]]>
-	element source { text }
-    }? &
-    ## Script body called after the described step
-    element postscript {
-	element interpreter { text } &
-	element source { text }
-    }?
+    MAP,
+    (
+      ## Name of a step.
+      ## Used as an identification for updating, removing etc. of steps.
+      ## If 'execute' is not used, 'name' also defines name of a YCP script
+      ## called by YaST. In installation or upgrade, all script have to match
+      ## inst_(.*) regexp.
+      element name { STRING }? &
+      ## Defines exact name of a YCP script (without .ycp suffix)
+      element execute { STRING }? &
+      ## Defines a configuration step shown in workflow with steps.
+      ## If empty, a label defined in closes step before is used.
+      element label { STRING }? &
+      ## Defines a heading step. Heading usually does not have any client
+      ## to run and defines only the major step in workflow.
+      element heading { STRING }? &
+      ## Defines for which architectures is this module used.
+      ## Comma-separated list of architectures as seen in
+      ## /usr/share/YaST2/modules/Arch.ycp
+      ## Valid for all architectures if not explicitely defined.
+      ## See Arch::arch_short
+      element archs { STRING }? &
+      ## Defines which proposal to call in this step.
+      ## Proposal 'name' is used.
+      element proposal { STRING }? &
+      ## Defines whether the [Back] button is enabled by default in this step.
+      element enable_back { YES_NO }? &
+      ## Defines whether the [Next] button is enabled by default in this step.
+      element enable_next { YES_NO }? &
+      ## Additional module arguments
+      element arguments {
+          (
+            MAP,
+            element first_run { YES_NO }?
+          )
+          | (
+            MAP,
+            element * { STRING }*
+          )
+          # used in autoyast
+          | STRING
+      }? &
+      ## Should YaST retranslate the whole screen after this client is called?
+      ## Default is 'true'.
+      element retranslate { BOOLEAN }? &
+      element update { BOOLEAN }? &
+      ## Defines whether a module is enabled by default.
+      ## Default value is 'true'
+      element enabled { BOOLEAN }? &
+      ## Script body called before the described step
+      element prescript {
+          MAP,
+          (
+            ## @example
+            ## shell
+            element interpreter { STRING } &
+            ## @example
+            ## <![CDATA[#!/bin/sh
+            ## echo test > /tmp/test
+            ## ]]>
+            element source { STRING }
+          )
+      }? &
+      ## Script body called after the described step
+      element postscript {
+          MAP,
+          (
+            element interpreter { STRING } &
+            element source { STRING }
+          )
+      }?
+    )
 }
 
 ## Defines the default workflow settings
 workflow_defaults = element defaults {
-    ## For which architectures is this default valid
-    element archs { text }? &
-    ## Special patemeters used by AutoYaST
-    element arguments { text }? &
-    ## Is [Back] button enabled by default?
-    ## If not set, default values is 'yes'.
-    element enable_back { YES_NO }? &
-    ## Is [Next] button enabled by default?
-    ## If not set, default values is 'yes'.
-    element enable_next { YES_NO }?
+    MAP,
+    (
+      ## For which architectures is this default valid
+      element archs { STRING }? &
+      ## Special patemeters used by AutoYaST
+      element arguments { STRING }? &
+      ## Is [Back] button enabled by default?
+      ## If not set, default values is 'yes'.
+      element enable_back { YES_NO }? &
+      ## Is [Next] button enabled by default?
+      ## If not set, default values is 'yes'.
+      element enable_next { YES_NO }?
+    )
 }
 
 ## Workflow, defines for instance, 'second stage installation'
 workflow = element workflow {
-    workflow_defaults? &
-    ## Superstep name visible in UI
-    element label { text }? &
-    ## Defines for which mode is this proposal used.
-    ## Comma-separated list of modes as seen in
-    ## /usr/share/YaST2/modules/Mode.ycp
-    ## Valid for all modes if not explicitely defined.
-    element mode { text } &
-    ## Defines for which stage is this workflow used.
-    ## Comma-separated list of stages as seen in
-    ## /usr/share/YaST2/modules/Stage.ycp
-    ## Valid for all stages if not explicitely defined.
-    element stage { text } &
-    ## List of modules in workflow
-    element modules {
-	LIST,
-	module+
-    }
+    MAP,
+    (
+      workflow_defaults? &
+      ## Superstep name visible in UI
+      element label { STRING }? &
+      ## Defines for which mode is this proposal used.
+      ## Comma-separated list of modes as seen in
+      ## /usr/share/YaST2/modules/Mode.ycp
+      ## Valid for all modes if not explicitely defined.
+      element mode { STRING } &
+      ## Defines for which stage is this workflow used.
+      ## Comma-separated list of stages as seen in
+      ## /usr/share/YaST2/modules/Stage.ycp
+      ## Valid for all stages if not explicitely defined.
+      element stage { STRING } &
+      ## List of modules in workflow
+      element modules {
+          LIST,
+          module+
+      }
+    )
 }
 
 # List of all defined workflows
@@ -984,11 +1075,14 @@ workflows = element workflows {
 inst_finish_stages = element inst_finish_stages {
     LIST,
     element inst_finish_stage {
-	element label { text } &
-	element steps {
-	    LIST,
-	    element step { text }+
-	}
+        MAP,
+        (
+          element label { STRING } &
+          element steps {
+              LIST,
+              element step { STRING }+
+          }
+        )
     }+
 }
 
@@ -997,67 +1091,80 @@ inst_finish_stages = element inst_finish_stages {
 # update
 
 update_workflow = element workflow {
-    workflow_defaults? &
-    element label { text }? &
-    element stage { text } &
-    element mode { text } &
-    element insert_modules {
-        LIST,
-        element insert_module {
-            element before { text } &
-            element modules {
-                LIST,
-                module+
-            }
-        }+
-    }? &
-    element append_modules {
-        LIST,
-        module+
-    }? &
-    element remove_modules {
-        LIST,
-        element remove_module { text }+
-    }? &
-    element replace_modules {
-        LIST,
-        element replace_module {
-            element replace { text } &
-            element modules {
-                LIST,
-                module+
-            }
-        }+
-    }?
+    MAP,
+    (
+      workflow_defaults? &
+      element label { STRING }? &
+      element stage { STRING } &
+      element mode { STRING } &
+      element insert_modules {
+          LIST,
+          element insert_module {
+              element before { STRING } &
+              element modules {
+                  LIST,
+                  module+
+              }
+          }+
+      }? &
+      element append_modules {
+          LIST,
+          module+
+      }? &
+      element remove_modules {
+          LIST,
+          element remove_module { STRING }+
+      }? &
+      element replace_modules {
+          LIST,
+          element replace_module {
+              MAP,
+              (
+                element replace { STRING } &
+                element modules {
+                    LIST,
+                    module+
+                }
+              )
+          }+
+      }?
+    )
 }
 
 update_proposal = element proposal {
-    element stage { text } &
-    element mode { text } &
-    element label { text }? &
-    element name { text } &
-    element enable_skip { YES_NO }? &
-    element append_modules {
-	LIST,
-	element append_module { text }+
-    }? &
-    element remove_modules {
-	LIST,
-	element remove_module { text }+
-    }? &
-    element replace_modules {
-	LIST,
-	element replace_module {
-	    element replace { text } &
-	    element new_modules {
-		LIST,
-		element new_module { text }+
-	    }
-	}
-    }?
+    MAP,
+    (
+      element stage { STRING } &
+      element mode { STRING } &
+      element label { STRING }? &
+      element name { STRING } &
+      element enable_skip { YES_NO }? &
+      element append_modules {
+          LIST,
+          element append_module { STRING }+
+      }? &
+      element remove_modules {
+          LIST,
+          element remove_module { STRING }+
+      }? &
+      element replace_modules {
+          LIST,
+          element replace_module {
+              MAP,
+              (
+                element replace { STRING } &
+                element new_modules {
+                    LIST,
+                    element new_module { STRING }+
+                }
+              )
+          }
+      }?
+    )
 }
 
 update_system_roles = element system_roles {
+    MAP,
     element insert_system_roles {
         LIST,
         element insert_system_role { system_roles }+
@@ -1065,76 +1172,82 @@ update_system_roles = element system_roles {
 }
 
 update = element update {
-    element proposals {
-        LIST,
-        update_proposal+
-    }? &
-    element workflows {
-        LIST,
-        update_workflow+
-    }? &
-    element inst_finish {
-        element before_chroot {
-            LIST,
-            element module { text }+
-        }? &
-        element after_chroot {
-            LIST,
-            element module { text }+
-        }? &
-        element before_umount {
-            LIST,
-            element module { text }+
-        }?
-    }? &
-    update_system_roles?
+    MAP,
+    (
+      element proposals {
+          LIST,
+          update_proposal+
+      }? &
+      element workflows {
+          LIST,
+          update_workflow+
+      }? &
+      element inst_finish {
+          element before_chroot {
+              LIST,
+              element module { STRING }+
+          }? &
+          element after_chroot {
+              LIST,
+              element module { STRING }+
+          }? &
+          element before_umount {
+              LIST,
+              element module { STRING }+
+          }?
+      }? &
+      update_system_roles?
+    )
 }
 
 # update
 
 configuration_management = element configuration_management {
-    # Configuration managment system to use
-    element type { "salt" | "puppet" } &
-    # Host name or IP address of the master server
-    element master { text }? &
-    # Number of attempts when trying to connect to the master server
-    element auth_attempts { INTEGER }? &
-    # Time between attempts to connect to the master server
-    element auth_time_out { INTEGER }? &
-    # Path to an HTTTP(S) server, hard disk, USB driver or similar containing the
-    # private/public keys to connect to the master server
-    element keys_url { text }? &
-    # Enable the configuration management system services after the installation
-    element enable_services { BOOLEAN }? &
+    MAP,
+    (
+      # Configuration managment system to use
+      element type { "salt" | "puppet" } &
+      # Host name or IP address of the master server
+      element master { STRING }? &
+      # Number of attempts when trying to connect to the master server
+      element auth_attempts { INTEGER }? &
+      # Time between attempts to connect to the master server
+      element auth_time_out { INTEGER }? &
+      # Path to an HTTTP(S) server, hard disk, USB driver or similar containing the
+      # private/public keys to connect to the master server
+      element keys_url { STRING }? &
+      # Enable the configuration management system services after the installation
+      element enable_services { BOOLEAN }? &
 
-    # Salt specific
+      # Salt specific
 
-    # Path to write Pillar data
-    element pillar_root { text }? &
-    # URL to read Pillar data from
-    element pillar_url { text }? &
-    # Paths to search for formulas
-    element formulas_roots {
-      LIST,
-      element formulas_root { text }+
-    }? &
-    # Paths to search for states
-    element states_roots {
-      LIST,
-      element states_root { text }+
-    }? &
-    # URL to get states from
-    element states_url { text }? &
-    # List of states/formulas to enable
-    element enabled_states {
-      LIST,
-      element state { text }+
-    }? &
+      # Path to write Pillar data
+      element pillar_root { STRING }? &
+      # URL to read Pillar data from
+      element pillar_url { STRING }? &
+      # Paths to search for formulas
+      element formulas_roots {
+        LIST,
+        element formulas_root { STRING }+
+      }? &
+      # Paths to search for states
+      element states_roots {
+        LIST,
+        element states_root { STRING }+
+      }? &
+      # URL to get states from
+      element states_url { STRING }? &
+      # List of states/formulas to enable
+      element enabled_states {
+        LIST,
+        element state { STRING }+
+      }? &
 
-    # Puppet specific
+      # Puppet specific
 
-    # URL to read Puppet modules from
-    element modules_url { text }?
+      # URL to read Puppet modules from
+      element modules_url { STRING }?
+    )
 }
 
 # not more than one partitioning element
