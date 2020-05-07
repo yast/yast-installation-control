@@ -562,7 +562,6 @@ legacy_partitioning_elements =
     | partitions
     | btrfs_increase_percentage
     | btrfs_default_subvolume
-    | proposal_settings_editable
     | expert_partitioner_warning
     | root_subvolume_read_only
     | subvolumes
@@ -591,7 +590,6 @@ vm_keep_unpartitioned_region =	element vm_keep_unpartitioned_region { BOOLEAN }
 use_separate_multipath_module =	element use_separate_multipath_module { BOOLEAN }
 btrfs_increase_percentage =	element btrfs_increase_percentage { INTEGER }
 btrfs_default_subvolume =	element btrfs_default_subvolume { STRING }
-proposal_settings_editable =    element proposal_settings_editable { BOOLEAN }
 expert_partitioner_warning =    element expert_partitioner_warning { BOOLEAN }
 root_subvolume_read_only =      element root_subvolume_read_only { BOOLEAN }
 
@@ -650,7 +648,6 @@ partitioning_proposal_elements =
     & ng_delete_resize_configurable?
     & ng_allocate_volume_mode?
     & ng_multidisk_first?
-    & proposal_settings_editable?
 
 ng_lvm = element lvm { BOOLEAN }
 ng_separate_vgs = element separate_vgs { BOOLEAN }

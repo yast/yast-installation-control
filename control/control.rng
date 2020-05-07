@@ -1250,7 +1250,6 @@ selected for installation</a:documentation>
       <ref name="partitions"/>
       <ref name="btrfs_increase_percentage"/>
       <ref name="btrfs_default_subvolume"/>
-      <ref name="proposal_settings_editable"/>
       <ref name="expert_partitioner_warning"/>
       <ref name="root_subvolume_read_only"/>
       <ref name="subvolumes"/>
@@ -1367,12 +1366,6 @@ selected for installation</a:documentation>
     <element>
       <name ns="http://www.suse.com/1.0/yast2ns">btrfs_default_subvolume</name>
       <ref name="STRING"/>
-    </element>
-  </define>
-  <define name="proposal_settings_editable">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">proposal_settings_editable</name>
-      <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="expert_partitioner_warning">
@@ -1502,9 +1495,6 @@ Example 2: ppc,!board_powernv
       </optional>
       <optional>
         <ref name="ng_multidisk_first"/>
-      </optional>
-      <optional>
-        <ref name="proposal_settings_editable"/>
       </optional>
     </interleave>
   </define>
