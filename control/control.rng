@@ -8,98 +8,130 @@
   is a Java tool so it requires complete Java stack)
   
 -->
-<grammar ns="" xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns:config="http://www.suse.com/1.0/configns" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+<grammar ns="http://www.suse.com/1.0/yast2ns" xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns:config="http://www.suse.com/1.0/configns" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
   <!--
-    Single hash comments become <!- - XML comments- ->
+    Single hash comments #  become <!- - XML comments- ->
     Double hash comments ## are preserved in .rng as <a:documentation>
   -->
   <define name="BOOLEAN">
     <a:documentation>Defined data-types</a:documentation>
-    <attribute>
+    <!--
+      This could be expressed also as
+      'attribute ( t | type | config:type ) { "boolean" }'
+      but libxml2-2.9.7 xmllint considers it incorrect schema :-(
+    -->
+    <choice>
       <a:documentation>Historically we used config:type
 but it is unnecessarily long to type and read.
 Shorter variants are allowed.</a:documentation>
-      <choice>
-        <name>t</name>
-        <name>type</name>
-        <name>config:type</name>
-      </choice>
-      <value>boolean</value>
-    </attribute>
+      <attribute name="t">
+        <value>boolean</value>
+      </attribute>
+      <attribute name="type">
+        <value>boolean</value>
+      </attribute>
+      <attribute name="config:type">
+        <value>boolean</value>
+      </attribute>
+    </choice>
     <choice>
       <value>true</value>
       <value>false</value>
     </choice>
   </define>
   <define name="INTEGER">
-    <attribute>
-      <choice>
-        <name>t</name>
-        <name>type</name>
-        <name>config:type</name>
-      </choice>
-      <value>integer</value>
-    </attribute>
+    <choice>
+      <attribute name="t">
+        <value>integer</value>
+      </attribute>
+      <attribute name="type">
+        <value>integer</value>
+      </attribute>
+      <attribute name="config:type">
+        <value>integer</value>
+      </attribute>
+    </choice>
     <data type="integer"/>
   </define>
   <define name="STRING">
     <optional>
-      <attribute>
-        <choice>
-          <name>t</name>
-          <name>type</name>
-          <name>config:type</name>
-        </choice>
-        <value>string</value>
-      </attribute>
+      <choice>
+        <attribute name="t">
+          <value>string</value>
+        </attribute>
+        <attribute name="type">
+          <value>string</value>
+        </attribute>
+        <attribute name="config:type">
+          <value>string</value>
+        </attribute>
+      </choice>
     </optional>
     <text/>
   </define>
   <define name="SYMBOL">
-    <attribute>
-      <choice>
-        <name>t</name>
-        <name>type</name>
-        <name>config:type</name>
-      </choice>
-      <value>symbol</value>
-    </attribute>
+    <choice>
+      <attribute name="t">
+        <value>symbol</value>
+      </attribute>
+      <attribute name="type">
+        <value>symbol</value>
+      </attribute>
+      <attribute name="config:type">
+        <value>symbol</value>
+      </attribute>
+    </choice>
   </define>
   <define name="LIST">
-    <attribute>
-      <choice>
-        <name>t</name>
-        <name>type</name>
-        <name>config:type</name>
-      </choice>
-      <value>list</value>
-    </attribute>
+    <choice>
+      <attribute name="t">
+        <value>list</value>
+      </attribute>
+      <attribute name="type">
+        <value>list</value>
+      </attribute>
+      <attribute name="config:type">
+        <value>list</value>
+      </attribute>
+    </choice>
   </define>
   <define name="MAP">
     <optional>
-      <attribute>
-        <choice>
-          <name>t</name>
-          <name>type</name>
-          <name>config:type</name>
-        </choice>
-        <value>map</value>
-      </attribute>
+      <choice>
+        <attribute name="t">
+          <value>map</value>
+        </attribute>
+        <attribute name="type">
+          <value>map</value>
+        </attribute>
+        <attribute name="config:type">
+          <value>map</value>
+        </attribute>
+      </choice>
     </optional>
   </define>
   <define name="DISKSIZE">
     <optional>
-      <attribute>
-        <choice>
-          <name>t</name>
-          <name>type</name>
-          <name>config:type</name>
-        </choice>
-        <choice>
-          <value>string</value>
-          <value>disksize</value>
-        </choice>
-      </attribute>
+      <choice>
+        <attribute name="t">
+          <choice>
+            <value>string</value>
+            <value>disksize</value>
+          </choice>
+        </attribute>
+        <attribute name="type">
+          <choice>
+            <value>string</value>
+            <value>disksize</value>
+          </choice>
+        </attribute>
+        <attribute name="config:type">
+          <choice>
+            <value>string</value>
+            <value>disksize</value>
+          </choice>
+        </attribute>
+      </choice>
     </optional>
     <choice>
       <value>unlimited</value>
@@ -145,8 +177,7 @@ Shorter variants are allowed.</a:documentation>
   </define>
   <!-- types -->
   <define name="textdomain">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">textdomain</name>
+    <element name="textdomain">
       <ref name="STRING"/>
     </element>
   </define>
@@ -213,8 +244,7 @@ Shorter variants are allowed.</a:documentation>
   </define>
   <define name="additional_kernel_parameters">
     <a:documentation>Default kernel parameters proposed by bootloader</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">additional_kernel_parameters</name>
+    <element name="additional_kernel_parameters">
       <ref name="STRING"/>
     </element>
   </define>
@@ -222,23 +252,20 @@ Shorter variants are allowed.</a:documentation>
     <a:documentation>How much per cent is the minimum coverage of translations to consider
 it being 'complete'. Less are reported if user tries to switch to such
 language during installation / upgrade.</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">incomplete_translation_treshold</name>
+    <element name="incomplete_translation_treshold">
       <ref name="STRING"/>
     </element>
   </define>
   <define name="base_product_license_directory">
     <a:documentation>Directory where the base-product (e.g., SLES) license files are stored</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">base_product_license_directory</name>
+    <element name="base_product_license_directory">
       <ref name="STRING"/>
     </element>
   </define>
   <define name="ui_mode">
     <a:documentation>Defines an UI mode used in some modules to differentiate between
 'simple' and 'expert' (obsolete).</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">ui_mode</name>
+    <element name="ui_mode">
       <choice>
         <value>expert</value>
         <value>simple</value>
@@ -248,16 +275,14 @@ language during installation / upgrade.</a:documentation>
   <define name="displaymanager_shutdown">
     <a:documentation>Writes DISPLAYMANAGER_SHUTDOWN to /etc/sysconfig/displaymanager
 if set</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">displaymanager_shutdown</name>
+    <element name="displaymanager_shutdown">
       <ref name="STRING"/>
     </element>
   </define>
   <define name="polkit_default_privs">
     <a:documentation>Writes POLKIT_DEFAULT_PRIVS to /etc/sysconfig/security
 if set</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">polkit_default_privs</name>
+    <element name="polkit_default_privs">
       <ref name="STRING"/>
     </element>
   </define>
@@ -265,93 +290,80 @@ if set</a:documentation>
     <a:documentation>Defines the default subworkflow name (smaller subworkflow
 created from another workflow).
 Used by Wagon.</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">default_subworkflow</name>
+    <element name="default_subworkflow">
       <ref name="STRING"/>
     </element>
   </define>
   <define name="language">
     <a:documentation>Default language</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">language</name>
+    <element name="language">
       <ref name="STRING"/>
     </element>
   </define>
   <define name="readonly_language">
     <a:documentation>Language cannot be changed by the user</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">readonly_language</name>
+    <element name="readonly_language">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="timezone">
     <a:documentation>Default timezone</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">timezone</name>
+    <element name="timezone">
       <ref name="STRING"/>
     </element>
   </define>
   <define name="readonly_timezone">
     <a:documentation>Timezone cannot be changed by the user</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">readonly_timezone</name>
+    <element name="readonly_timezone">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="default_target">
     <a:documentation>Default runlevel</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">default_target</name>
+    <element name="default_target">
       <ref name="STRING"/>
     </element>
   </define>
   <define name="debug_workflow">
     <a:documentation>Debugging feature, makes workflow manaher to write
 more detailed log entries</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">debug_workflow</name>
+    <element name="debug_workflow">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="enable_autologin">
     <a:documentation>Default value for autologin</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">enable_autologin</name>
+    <element name="enable_autologin">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="enable_firewall">
     <a:documentation>Default value for firewall</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">enable_firewall</name>
+    <element name="enable_firewall">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="firewall_enable_ssh">
     <a:documentation>Default value for opening port for SSH in firewall</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">firewall_enable_ssh</name>
+    <element name="firewall_enable_ssh">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="enable_sshd">
     <a:documentation>Default value for SSHD service</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">enable_sshd</name>
+    <element name="enable_sshd">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="write_hostname_to_hosts">
     <a:documentation>Default value whether to write a system hostname to /etc/hosts</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">write_hostname_to_hosts</name>
+    <element name="write_hostname_to_hosts">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="dhclient_set_hostname">
     <a:documentation>Default value whether to change hostname via DHCP</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">dhclient_set_hostname</name>
+    <element name="dhclient_set_hostname">
       <ref name="BOOLEAN"/>
     </element>
   </define>
@@ -359,27 +371,23 @@ more detailed log entries</a:documentation>
     <a:documentation>Defines whether startup scripts should run in a parallel mode.
 This speeds the starting up but it is worse for debugging.
 *obsolete* without replacement</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">run_init_scripts_in_parallel</name>
+    <element name="run_init_scripts_in_parallel">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="inform_about_suboptimal_distribution">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">inform_about_suboptimal_distribution</name>
+    <element name="inform_about_suboptimal_distribution">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="skip_language_dialog">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">skip_language_dialog</name>
+    <element name="skip_language_dialog">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="enable_clone">
     <a:documentation>Defines whether an AytoYaST cloning feature should be enabled</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">enable_clone</name>
+    <element name="enable_clone">
       <ref name="BOOLEAN"/>
     </element>
   </define>
@@ -387,141 +395,120 @@ This speeds the starting up but it is worse for debugging.
     <a:documentation>Defines if YaST logs are collected after finishing the installation/update
 Default is true.
 The TAR file will be stored in /var/log/YaST2/yast-installation-logs.tar.xz.</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">save_y2logs</name>
+    <element name="save_y2logs">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="enable_register_hwdata">
     <a:documentation>Default value for 'send hardware data' with registration
 *obsolete* without replacement</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">enable_register_hwdata</name>
+    <element name="enable_register_hwdata">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="enable_register_optional">
     <a:documentation>Default value for 'send optional system data' with registration
 *obsolete* without replacement</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">enable_register_optional</name>
+    <element name="enable_register_optional">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="disable_os_prober">
     <a:documentation>Defines if by default os probing should be disabled see. Default is false. (bnc#884007)</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">disable_os_prober</name>
+    <element name="disable_os_prober">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="display_register_forcereg">
     <a:documentation>*obsolete* without replacement</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">display_register_forcereg</name>
+    <element name="display_register_forcereg">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="disable_register_w3m">
     <a:documentation>*obsolete* without replacement</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">disable_register_w3m</name>
+    <element name="disable_register_w3m">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="register_monthly">
     <a:documentation>*obsolete* without replacement</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">register_monthly</name>
+    <element name="register_monthly">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="manual_online_update">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">manual_online_update</name>
+    <element name="manual_online_update">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="root_password_as_first_user">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">root_password_as_first_user</name>
+    <element name="root_password_as_first_user">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="root_password_ca_check">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">root_password_ca_check</name>
+    <element name="root_password_ca_check">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="enable_local_users">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">enable_local_users</name>
+    <element name="enable_local_users">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="show_online_repositories">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">show_online_repositories</name>
+    <element name="show_online_repositories">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="online_repositories_default">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">online_repositories_default</name>
+    <element name="online_repositories_default">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="show_addons">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">show_addons</name>
+    <element name="show_addons">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="addons_default">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">addons_default</name>
+    <element name="addons_default">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="kexec_reboot">
     <a:documentation>Defines whether kexec is the preferred mode instead of rebooting
 between the first and the second stage of installation</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">kexec_reboot</name>
+    <element name="kexec_reboot">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="rle_offer_rulevel_4">
     <a:documentation>Defines whether a special runlevel 4 should be offered
 *obsolete* without replacement</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">rle_offer_rulevel_4</name>
+    <element name="rle_offer_rulevel_4">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="default_ntp_setup">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">default_ntp_setup</name>
+    <element name="default_ntp_setup">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="enable_kdump">
     <a:documentation>Defines whether kdump is enabled by default</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">enable_kdump</name>
+    <element name="enable_kdump">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="require_registration">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">require_registration</name>
+    <element name="require_registration">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="show_drivers_info">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">show_drivers_info</name>
+    <element name="show_drivers_info">
       <ref name="BOOLEAN"/>
     </element>
   </define>
@@ -531,24 +518,21 @@ between the first and the second stage of installation</a:documentation>
 here are two related keys for self update - URL and ID.
 The ID is used to ask SCC for update URL.
 The URL is used as fallback when SCC query failed.</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">self_update_url</name>
+    <element name="self_update_url">
       <ref name="STRING"/>
     </element>
   </define>
   <!-- Self-update id (bsc#1055556). -->
   <define name="self_update_id">
     <a:documentation>It is an ID used to query SCC for the self update repo.</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">self_update_id</name>
+    <element name="self_update_id">
       <ref name="STRING"/>
     </element>
   </define>
   <!-- Installation UI (boo#1088785) -->
   <define name="installation_ui">
     <a:documentation>Enables alternative look of installation with sidebar</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">installation_ui</name>
+    <element name="installation_ui">
       <value>sidebar</value>
     </element>
   </define>
@@ -556,8 +540,7 @@ The URL is used as fallback when SCC query failed.</a:documentation>
   <define name="cpu_mitigations">
     <a:documentation>possible values are same as for autoyast and in UI - auto, nosmt, off, manual
 see ::Bootloader::CpuMitigations.from_string</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">cpu_mitigations</name>
+    <element name="cpu_mitigations">
       <choice>
         <value>auto</value>
         <value>nosmt</value>
@@ -571,8 +554,7 @@ see ::Bootloader::CpuMitigations.from_string</a:documentation>
     full_system_download_url has also to be set in order to display it.
   -->
   <define name="full_system_media_name">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">full_system_media_name</name>
+    <element name="full_system_media_name">
       <ref name="STRING"/>
     </element>
   </define>
@@ -581,39 +563,33 @@ see ::Bootloader::CpuMitigations.from_string</a:documentation>
     full_system_media_name has also to be set in order to display it.
   -->
   <define name="full_system_download_url">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">full_system_download_url</name>
+    <element name="full_system_download_url">
       <ref name="STRING"/>
     </element>
   </define>
   <define name="precise_time">
     <a:documentation>Defines if product needs precise time. It is short time workaround for bsc#1145193</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">precise_time</name>
+    <element name="precise_time">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="save_instsys_content">
     <a:documentation>Defines which pieces of installation system should be copied to
 the installed system before rebooting to second stage.</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">save_instsys_content</name>
+    <element name="save_instsys_content">
       <ref name="LIST"/>
       <oneOrMore>
-        <element>
-          <name ns="http://www.suse.com/1.0/yast2ns">save_instsys_item</name>
+        <element name="save_instsys_item">
           <ref name="MAP"/>
           <interleave>
-            <element>
+            <element name="system_directory">
               <a:documentation>Where to copy the installation-system file or directory
 Absolut path is required.</a:documentation>
-              <name ns="http://www.suse.com/1.0/yast2ns">system_directory</name>
               <ref name="STRING"/>
             </element>
-            <element>
+            <element name="instsys_directory">
               <a:documentation>Which file or directory to copy to installed system
 Absolut path is required.</a:documentation>
-              <name ns="http://www.suse.com/1.0/yast2ns">instsys_directory</name>
               <ref name="STRING"/>
             </element>
           </interleave>
@@ -622,39 +598,32 @@ Absolut path is required.</a:documentation>
     </element>
   </define>
   <define name="services_proposal">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">services_proposal</name>
+    <element name="services_proposal">
       <ref name="LIST"/>
       <oneOrMore>
-        <element>
-          <name ns="http://www.suse.com/1.0/yast2ns">service</name>
+        <element name="service">
           <ref name="MAP"/>
           <interleave>
             <optional>
-              <element>
-                <name ns="http://www.suse.com/1.0/yast2ns">label_id</name>
+              <element name="label_id">
                 <ref name="STRING"/>
               </element>
             </optional>
-            <element>
-              <name ns="http://www.suse.com/1.0/yast2ns">service_names</name>
+            <element name="service_names">
               <ref name="STRING"/>
             </element>
             <optional>
-              <element>
-                <name ns="http://www.suse.com/1.0/yast2ns">firewall_plugins</name>
+              <element name="firewall_plugins">
                 <ref name="STRING"/>
               </element>
             </optional>
             <optional>
-              <element>
-                <name ns="http://www.suse.com/1.0/yast2ns">enabled_by_default</name>
+              <element name="enabled_by_default">
                 <ref name="BOOLEAN"/>
               </element>
             </optional>
             <optional>
-              <element>
-                <name ns="http://www.suse.com/1.0/yast2ns">packages</name>
+              <element name="packages">
                 <ref name="STRING"/>
               </element>
             </optional>
@@ -664,37 +633,30 @@ Absolut path is required.</a:documentation>
     </element>
   </define>
   <define name="subworkflows">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">subworkflows</name>
+    <element name="subworkflows">
       <ref name="LIST"/>
       <oneOrMore>
-        <element>
-          <name ns="http://www.suse.com/1.0/yast2ns">subworkflow</name>
+        <element name="subworkflow">
           <ref name="MAP"/>
           <interleave>
-            <element>
-              <name ns="http://www.suse.com/1.0/yast2ns">name</name>
+            <element name="name">
               <ref name="STRING"/>
             </element>
             <optional>
-              <element>
-                <name ns="http://www.suse.com/1.0/yast2ns">modules</name>
+              <element name="modules">
                 <ref name="LIST"/>
                 <oneOrMore>
-                  <element>
-                    <name ns="http://www.suse.com/1.0/yast2ns">module</name>
+                  <element name="module">
                     <ref name="STRING"/>
                   </element>
                 </oneOrMore>
               </element>
             </optional>
             <optional>
-              <element>
-                <name ns="http://www.suse.com/1.0/yast2ns">proposals</name>
+              <element name="proposals">
                 <ref name="LIST"/>
                 <oneOrMore>
-                  <element>
-                    <name ns="http://www.suse.com/1.0/yast2ns">proposal</name>
+                  <element name="proposal">
                     <ref name="STRING"/>
                   </element>
                 </oneOrMore>
@@ -707,8 +669,7 @@ Absolut path is required.</a:documentation>
   </define>
   <define name="globals">
     <a:documentation>Global variables</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">globals</name>
+    <element name="globals">
       <ref name="MAP"/>
       <zeroOrMore>
         <ref name="globals_elements"/>
@@ -754,30 +715,26 @@ Absolut path is required.</a:documentation>
   <define name="select_product">
     <a:documentation>The name of the product which should be selected,
 useful to choose it without asking the user (bsc#1124590).</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">select_product</name>
+    <element name="select_product">
       <ref name="STRING"/>
     </element>
   </define>
   <define name="delete_old_packages">
     <a:documentation>Whether it is allowed to delete a package during upgrade
 *obsolete* without replacement</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">delete_old_packages</name>
+    <element name="delete_old_packages">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="disable_media_repo">
     <a:documentation>Used in packager to distinguish whether cd / dvd repositories
 should be disabled after installation or not.</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">disable_media_repo</name>
+    <element name="disable_media_repo">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="selection_type">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">selection_type</name>
+    <element name="selection_type">
       <ref name="SYMBOL"/>
       <text/>
     </element>
@@ -785,94 +742,79 @@ should be disabled after installation or not.</a:documentation>
   <define name="default_system_scenario">
     <a:documentation>System scenario selected by default.
 Used in inst_scenarios client.</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">default_system_scenario</name>
+    <element name="default_system_scenario">
       <ref name="STRING"/>
     </element>
   </define>
   <define name="default_desktop">
     <a:documentation>Desktop selected by default</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">default_desktop</name>
+    <element name="default_desktop">
       <ref name="STRING"/>
     </element>
   </define>
   <define name="display_support_status">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">display_support_status</name>
+    <element name="display_support_status">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="clone_install_recommended_default">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">clone_install_recommended_default</name>
+    <element name="clone_install_recommended_default">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="silently_downgrade_packages">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">silently_downgrade_packages</name>
+    <element name="silently_downgrade_packages">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="online_repos_preselected">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">online_repos_preselected</name>
+    <element name="online_repos_preselected">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="external_sources_link">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">external_sources_link</name>
+    <element name="external_sources_link">
       <ref name="STRING"/>
     </element>
   </define>
   <define name="dropped_packages">
     <a:documentation>Packages that should be removed by the upgrade.
 Comma and/or space-separated list of packages</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">dropped_packages</name>
+    <element name="dropped_packages">
       <ref name="STRING"/>
     </element>
   </define>
   <define name="base_selection">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">base_selection</name>
+    <element name="base_selection">
       <ref name="STRING"/>
     </element>
   </define>
   <define name="software_base">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">base</name>
+    <element name="base">
       <ref name="STRING"/>
     </element>
   </define>
   <define name="packages_transmogrify">
     <a:documentation>a client that is called to modifiy the list of selected kernel packages</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">packages_transmogrify</name>
+    <element name="packages_transmogrify">
       <ref name="STRING"/>
     </element>
   </define>
   <define name="software_addons">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">addons</name>
+    <element name="addons">
       <ref name="LIST"/>
       <oneOrMore>
-        <element>
-          <name ns="http://www.suse.com/1.0/yast2ns">addon</name>
+        <element name="addon">
           <ref name="STRING"/>
         </element>
       </oneOrMore>
     </element>
   </define>
   <define name="software_packages">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">packages</name>
+    <element name="packages">
       <ref name="LIST"/>
       <oneOrMore>
-        <element>
-          <name ns="http://www.suse.com/1.0/yast2ns">package</name>
+        <element name="package">
           <ref name="STRING"/>
         </element>
       </oneOrMore>
@@ -883,24 +825,20 @@ Comma and/or space-separated list of packages</a:documentation>
     in Full medium offline installation, see https://jira.suse.com/browse/SLE-8040
   -->
   <define name="software_default_modules">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">default_modules</name>
+    <element name="default_modules">
       <ref name="LIST"/>
       <zeroOrMore>
-        <element>
-          <name ns="http://www.suse.com/1.0/yast2ns">default_module</name>
+        <element name="default_module">
           <ref name="STRING"/>
         </element>
       </zeroOrMore>
     </element>
   </define>
   <define name="kernel_packages">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">kernel_packages</name>
+    <element name="kernel_packages">
       <ref name="LIST"/>
       <oneOrMore>
-        <element>
-          <name ns="http://www.suse.com/1.0/yast2ns">package</name>
+        <element name="package">
           <ref name="STRING"/>
         </element>
       </oneOrMore>
@@ -908,73 +846,59 @@ Comma and/or space-separated list of packages</a:documentation>
   </define>
   <define name="delete_old_packages_reverse_list">
     <a:documentation>*obsolete* without replacement</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">delete_old_packages_reverse_list</name>
+    <element name="delete_old_packages_reverse_list">
       <ref name="LIST"/>
       <oneOrMore>
-        <element>
-          <name ns="http://www.suse.com/1.0/yast2ns">regexp_item</name>
+        <element name="regexp_item">
           <ref name="STRING"/>
         </element>
       </oneOrMore>
     </element>
   </define>
   <define name="supported_desktops">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">supported_desktops</name>
+    <element name="supported_desktops">
       <ref name="LIST"/>
       <oneOrMore>
-        <element>
-          <name ns="http://www.suse.com/1.0/yast2ns">one_supported_desktop</name>
+        <element name="one_supported_desktop">
           <ref name="MAP"/>
           <interleave>
-            <element>
-              <name ns="http://www.suse.com/1.0/yast2ns">name</name>
+            <element name="name">
               <ref name="STRING"/>
             </element>
-            <element>
-              <name ns="http://www.suse.com/1.0/yast2ns">desktop</name>
+            <element name="desktop">
               <ref name="STRING"/>
             </element>
             <optional>
-              <element>
-                <name ns="http://www.suse.com/1.0/yast2ns">label_id</name>
+              <element name="label_id">
                 <ref name="STRING"/>
               </element>
             </optional>
-            <element>
-              <name ns="http://www.suse.com/1.0/yast2ns">logon</name>
+            <element name="logon">
               <ref name="STRING"/>
             </element>
-            <element>
-              <name ns="http://www.suse.com/1.0/yast2ns">cursor</name>
+            <element name="cursor">
               <ref name="STRING"/>
             </element>
             <optional>
-              <element>
-                <name ns="http://www.suse.com/1.0/yast2ns">packages</name>
+              <element name="packages">
                 <ref name="STRING"/>
               </element>
             </optional>
             <optional>
-              <element>
-                <name ns="http://www.suse.com/1.0/yast2ns">order</name>
+              <element name="order">
                 <ref name="INTEGER"/>
               </element>
             </optional>
-            <element>
-              <name ns="http://www.suse.com/1.0/yast2ns">patterns</name>
+            <element name="patterns">
               <ref name="STRING"/>
             </element>
             <optional>
-              <element>
-                <name ns="http://www.suse.com/1.0/yast2ns">icon</name>
+              <element name="icon">
                 <ref name="STRING"/>
               </element>
             </optional>
             <optional>
-              <element>
-                <name ns="http://www.suse.com/1.0/yast2ns">description_id</name>
+              <element name="description_id">
                 <ref name="STRING"/>
               </element>
             </optional>
@@ -985,76 +909,63 @@ Comma and/or space-separated list of packages</a:documentation>
   </define>
   <define name="products_supported_for_upgrade">
     <a:documentation>List of products supported to be upgraded by this product</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">products_supported_for_upgrade</name>
+    <element name="products_supported_for_upgrade">
       <ref name="LIST"/>
       <oneOrMore>
-        <element>
+        <element name="regexp_item">
           <a:documentation>One regular expression to match a product to upgrade</a:documentation>
-          <name ns="http://www.suse.com/1.0/yast2ns">regexp_item</name>
           <ref name="STRING"/>
         </element>
       </oneOrMore>
     </element>
   </define>
   <define name="silently_downgrade_packages_reverse_list">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">silently_downgrade_packages_reverse_list</name>
+    <element name="silently_downgrade_packages_reverse_list">
       <ref name="LIST"/>
       <oneOrMore>
-        <element>
-          <name ns="http://www.suse.com/1.0/yast2ns">regexp_item</name>
+        <element name="regexp_item">
           <ref name="STRING"/>
         </element>
       </oneOrMore>
     </element>
   </define>
   <define name="extra_urls">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">extra_urls</name>
+    <element name="extra_urls">
       <ref name="LIST"/>
       <oneOrMore>
-        <element>
-          <name ns="http://www.suse.com/1.0/yast2ns">extra_url</name>
+        <element name="extra_url">
           <ref name="MAP"/>
           <interleave>
-            <element>
-              <name ns="http://www.suse.com/1.0/yast2ns">baseurl</name>
+            <element name="baseurl">
               <ref name="STRING"/>
             </element>
             <optional>
-              <element>
-                <name ns="http://www.suse.com/1.0/yast2ns">name</name>
+              <element name="name">
                 <ref name="STRING"/>
               </element>
             </optional>
             <optional>
-              <element>
-                <name ns="http://www.suse.com/1.0/yast2ns">alias</name>
+              <element name="alias">
                 <ref name="STRING"/>
               </element>
             </optional>
             <optional>
-              <element>
-                <name ns="http://www.suse.com/1.0/yast2ns">prod_dir</name>
+              <element name="prod_dir">
                 <ref name="STRING"/>
               </element>
             </optional>
             <optional>
-              <element>
-                <name ns="http://www.suse.com/1.0/yast2ns">enabled</name>
+              <element name="enabled">
                 <ref name="BOOLEAN"/>
               </element>
             </optional>
             <optional>
-              <element>
-                <name ns="http://www.suse.com/1.0/yast2ns">autorefresh</name>
+              <element name="autorefresh">
                 <ref name="BOOLEAN"/>
               </element>
             </optional>
             <optional>
-              <element>
-                <name ns="http://www.suse.com/1.0/yast2ns">priority</name>
+              <element name="priority">
                 <ref name="INTEGER"/>
               </element>
             </optional>
@@ -1064,12 +975,10 @@ Comma and/or space-separated list of packages</a:documentation>
     </element>
   </define>
   <define name="packages_affecting_pkg_manager">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">packages_affecting_pkg_manager</name>
+    <element name="packages_affecting_pkg_manager">
       <ref name="LIST"/>
       <oneOrMore>
-        <element>
-          <name ns="http://www.suse.com/1.0/yast2ns">package</name>
+        <element name="package">
           <ref name="STRING"/>
         </element>
       </oneOrMore>
@@ -1080,8 +989,7 @@ Comma and/or space-separated list of packages</a:documentation>
 If such a pattern doesn't exist, error is reported. To omit reporting
 such error, use optional_default_patterns instead.
 These patterns are not selected in auto-installation.</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">default_patterns</name>
+    <element name="default_patterns">
       <ref name="STRING"/>
     </element>
   </define>
@@ -1091,54 +999,46 @@ These patterns will be selected only if they exist and thus it will
 never report any error if a pattern is not found. Use default_patterns
 for mandatory default patterns.
 These patterns are not selected in auto-installation.</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">optional_default_patterns</name>
+    <element name="optional_default_patterns">
       <ref name="STRING"/>
     </element>
   </define>
   <define name="upgrade">
     <a:documentation>Defines behavior during upgrade</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">upgrade</name>
+    <element name="upgrade">
       <ref name="MAP"/>
       <optional>
-        <element>
+        <element name="window_managers">
           <a:documentation>Optional list of upgrade paths for default window manager set
 in /etc/sysconfig/windowmanager:DEFAULT_WM (not all cases need to be handled)</a:documentation>
-          <name ns="http://www.suse.com/1.0/yast2ns">window_managers</name>
           <ref name="LIST"/>
           <zeroOrMore>
-            <element>
-              <name ns="http://www.suse.com/1.0/yast2ns">window_manager</name>
+            <element name="window_manager">
               <ref name="MAP"/>
               <interleave>
-                <element>
+                <element name="sysconfig_wm">
                   <a:documentation>Windowmanager as found in /etc/sysconfig/windowmanager:DEFAULT_WM
 This entry is mandatory</a:documentation>
-                  <name ns="http://www.suse.com/1.0/yast2ns">sysconfig_wm</name>
                   <ref name="STRING"/>
                 </element>
                 <optional>
-                  <element>
+                  <element name="check_packages">
                     <a:documentation>Space-separated list of packages to check whether the selected desktop
 is really installed on the system</a:documentation>
-                    <name ns="http://www.suse.com/1.0/yast2ns">check_packages</name>
                     <ref name="STRING"/>
                   </element>
                 </optional>
                 <oneOrMore>
                   <choice>
                     <a:documentation>Either install_patterns or install_packages (or both) must be defined</a:documentation>
-                    <element>
+                    <element name="install_patterns">
                       <a:documentation>Optional list of space-separated patterns that should be
 selected for installation</a:documentation>
-                      <name ns="http://www.suse.com/1.0/yast2ns">install_patterns</name>
                       <ref name="STRING"/>
                     </element>
-                    <element>
+                    <element name="install_packages">
                       <a:documentation>Optional list of space-separated packages that should be
 selected for installation</a:documentation>
-                      <name ns="http://www.suse.com/1.0/yast2ns">install_packages</name>
                       <ref name="STRING"/>
                     </element>
                   </choice>
@@ -1152,8 +1052,7 @@ selected for installation</a:documentation>
   </define>
   <define name="software">
     <a:documentation>Software / Package-manager related variables</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">software</name>
+    <element name="software">
       <ref name="MAP"/>
       <zeroOrMore>
         <ref name="software_elements"/>
@@ -1162,15 +1061,13 @@ selected for installation</a:documentation>
   </define>
   <define name="minimalistic_libzypp_config">
     <a:documentation>Minimalistic libzypp configuration (only requires, no documentation and no multiversion)</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">minimalistic_libzypp_config</name>
+    <element name="minimalistic_libzypp_config">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <!-- the base products for the SCC (Online medium only) -->
   <define name="base_products">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">base_products</name>
+    <element name="base_products">
       <ref name="LIST"/>
       <oneOrMore>
         <ref name="base_product"/>
@@ -1178,35 +1075,28 @@ selected for installation</a:documentation>
     </element>
   </define>
   <define name="base_product">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">base_product</name>
+    <element name="base_product">
       <ref name="MAP"/>
       <interleave>
         <optional>
-          <element>
-            <name ns="http://www.suse.com/1.0/yast2ns">special_product</name>
+          <element name="special_product">
             <ref name="BOOLEAN"/>
           </element>
         </optional>
-        <element>
-          <name ns="http://www.suse.com/1.0/yast2ns">display_name</name>
+        <element name="display_name">
           <ref name="STRING"/>
         </element>
-        <element>
-          <name ns="http://www.suse.com/1.0/yast2ns">name</name>
+        <element name="name">
           <ref name="STRING"/>
         </element>
-        <element>
-          <name ns="http://www.suse.com/1.0/yast2ns">version</name>
+        <element name="version">
           <ref name="STRING"/>
         </element>
-        <element>
-          <name ns="http://www.suse.com/1.0/yast2ns">register_target</name>
+        <element name="register_target">
           <ref name="STRING"/>
         </element>
         <optional>
-          <element>
-            <name ns="http://www.suse.com/1.0/yast2ns">archs</name>
+          <element name="archs">
             <ref name="STRING"/>
           </element>
         </optional>
@@ -1266,117 +1156,98 @@ selected for installation</a:documentation>
   </define>
   <!-- legacy element definitions -->
   <define name="try_separate_home">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">try_separate_home</name>
+    <element name="try_separate_home">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="limit_try_home">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">limit_try_home</name>
+    <element name="limit_try_home">
       <ref name="STRING"/>
     </element>
   </define>
   <define name="home_path">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">home_path</name>
+    <element name="home_path">
       <ref name="STRING"/>
     </element>
   </define>
   <define name="home_fs">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">home_fs</name>
+    <element name="home_fs">
       <ref name="STRING"/>
     </element>
   </define>
   <define name="root_fs">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">root_fs</name>
+    <element name="root_fs">
       <ref name="STRING"/>
     </element>
   </define>
   <define name="root_space_percent">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">root_space_percent</name>
+    <element name="root_space_percent">
       <ref name="STRING"/>
     </element>
   </define>
   <define name="root_base_size">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">root_base_size</name>
+    <element name="root_base_size">
       <ref name="STRING"/>
     </element>
   </define>
   <define name="root_max_size">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">root_max_size</name>
+    <element name="root_max_size">
       <ref name="STRING"/>
     </element>
   </define>
   <define name="proposal_lvm">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">proposal_lvm</name>
+    <element name="proposal_lvm">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="vm_desired_size">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">vm_desired_size</name>
+    <element name="vm_desired_size">
       <ref name="STRING"/>
     </element>
   </define>
   <define name="vm_home_max_size">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">vm_home_max_size</name>
+    <element name="vm_home_max_size">
       <ref name="STRING"/>
     </element>
   </define>
   <define name="prefer_remove">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">prefer_remove</name>
+    <element name="prefer_remove">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="remove_special_partitions">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">remove_special_partitions</name>
+    <element name="remove_special_partitions">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="vm_keep_unpartitioned_region">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">vm_keep_unpartitioned_region</name>
+    <element name="vm_keep_unpartitioned_region">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <!-- used by HASI Add-On -->
   <define name="use_separate_multipath_module">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">use_separate_multipath_module</name>
+    <element name="use_separate_multipath_module">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="btrfs_increase_percentage">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">btrfs_increase_percentage</name>
+    <element name="btrfs_increase_percentage">
       <ref name="INTEGER"/>
     </element>
   </define>
   <define name="btrfs_default_subvolume">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">btrfs_default_subvolume</name>
+    <element name="btrfs_default_subvolume">
       <ref name="STRING"/>
     </element>
   </define>
   <define name="expert_partitioner_warning">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">expert_partitioner_warning</name>
+    <element name="expert_partitioner_warning">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="root_subvolume_read_only">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">root_subvolume_read_only</name>
+    <element name="root_subvolume_read_only">
       <ref name="BOOLEAN"/>
     </element>
   </define>
@@ -1384,8 +1255,7 @@ selected for installation</a:documentation>
     <a:documentation>Optional, but if this element appears (even if it's empty),
 the internal fallback list is not used</a:documentation>
     <optional>
-      <element>
-        <name ns="http://www.suse.com/1.0/yast2ns">subvolumes</name>
+      <element name="subvolumes">
         <ref name="LIST"/>
         <zeroOrMore>
           <ref name="subvolume"/>
@@ -1394,30 +1264,26 @@ the internal fallback list is not used</a:documentation>
     </optional>
   </define>
   <define name="subvolume">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">subvolume</name>
+    <element name="subvolume">
       <ref name="MAP"/>
       <interleave>
-        <element>
+        <element name="path">
           <a:documentation>subvolume path without leading /</a:documentation>
-          <name ns="http://www.suse.com/1.0/yast2ns">path</name>
           <ref name="STRING"/>
         </element>
         <optional>
-          <element>
+          <element name="copy_on_write">
             <a:documentation>Optional: COW; default: true</a:documentation>
-            <name ns="http://www.suse.com/1.0/yast2ns">copy_on_write</name>
             <ref name="BOOLEAN"/>
           </element>
         </optional>
         <optional>
-          <element>
+          <element name="archs">
             <a:documentation>Optional: comma-separated architectures (default: all)
 Prepend ! to negate
 Example 1: i386,x86_64
 Example 2: ppc,!board_powernv
 (i.e. on PPC, but not if it's a board_powernv machine</a:documentation>
-            <name ns="http://www.suse.com/1.0/yast2ns">archs</name>
             <ref name="STRING"/>
           </element>
         </optional>
@@ -1426,12 +1292,10 @@ Example 2: ppc,!board_powernv
   </define>
   <!-- these have to be defined by Storage -->
   <define name="partitions">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">partitions</name>
+    <element name="partitions">
       <ref name="LIST"/>
       <zeroOrMore>
-        <element>
-          <name ns="http://www.suse.com/1.0/yast2ns">listentry</name>
+        <element name="listentry">
           <zeroOrMore>
             <element>
               <anyName/>
@@ -1441,8 +1305,7 @@ Example 2: ppc,!board_powernv
         </element>
       </zeroOrMore>
       <zeroOrMore>
-        <element>
-          <name ns="http://www.suse.com/1.0/yast2ns">partition</name>
+        <element name="partition">
           <zeroOrMore>
             <element>
               <anyName/>
@@ -1455,8 +1318,7 @@ Example 2: ppc,!board_powernv
   </define>
   <!-- ng element definitions -->
   <define name="partitioning_proposal">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">proposal</name>
+    <element name="proposal">
       <ref name="MAP"/>
       <ref name="partitioning_proposal_elements"/>
     </element>
@@ -1499,73 +1361,62 @@ Example 2: ppc,!board_powernv
     </interleave>
   </define>
   <define name="ng_lvm">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">lvm</name>
+    <element name="lvm">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="ng_separate_vgs">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">separate_vgs</name>
+    <element name="separate_vgs">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="ng_resize_windows">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">resize_windows</name>
+    <element name="resize_windows">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="ng_windows_delete_mode">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">windows_delete_mode</name>
+    <element name="windows_delete_mode">
       <ref name="SYMBOL"/>
       <ref name="ng_delete_mode_enum"/>
     </element>
   </define>
   <define name="ng_linux_delete_mode">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">linux_delete_mode</name>
+    <element name="linux_delete_mode">
       <ref name="SYMBOL"/>
       <ref name="ng_delete_mode_enum"/>
     </element>
   </define>
   <define name="ng_other_delete_mode">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">other_delete_mode</name>
+    <element name="other_delete_mode">
       <ref name="SYMBOL"/>
       <ref name="ng_delete_mode_enum"/>
     </element>
   </define>
   <define name="ng_lvm_vg_strategy">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">lvm_vg_strategy</name>
+    <element name="lvm_vg_strategy">
       <ref name="SYMBOL"/>
       <ref name="ng_lvm_vg_strategy_enum"/>
     </element>
   </define>
   <define name="ng_lvm_vg_size">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">lvm_vg_size</name>
+    <element name="lvm_vg_size">
       <ref name="DISKSIZE"/>
     </element>
   </define>
   <define name="ng_delete_resize_configurable">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">delete_resize_configurable</name>
+    <element name="delete_resize_configurable">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="ng_allocate_volume_mode">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">allocate_volume_mode</name>
+    <element name="allocate_volume_mode">
       <ref name="SYMBOL"/>
       <ref name="ng_allocate_volume_mode_enum"/>
     </element>
   </define>
   <define name="ng_multidisk_first">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">multidisk_first</name>
+    <element name="multidisk_first">
       <ref name="BOOLEAN"/>
     </element>
   </define>
@@ -1590,8 +1441,7 @@ Example 2: ppc,!board_powernv
     </choice>
   </define>
   <define name="partitioning_volumes">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">volumes</name>
+    <element name="volumes">
       <ref name="LIST"/>
       <oneOrMore>
         <ref name="partitioning_volume"/>
@@ -1599,8 +1449,7 @@ Example 2: ppc,!board_powernv
     </element>
   </define>
   <define name="partitioning_volume">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">volume</name>
+    <element name="volume">
       <ref name="MAP"/>
       <ref name="partitioning_volume_elements"/>
     </element>
@@ -1691,128 +1540,107 @@ Example 2: ppc,!board_powernv
     </choice>
   </define>
   <define name="ng_mount_point">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">mount_point</name>
+    <element name="mount_point">
       <ref name="STRING"/>
     </element>
   </define>
   <define name="ng_proposed">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">proposed</name>
+    <element name="proposed">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="ng_proposed_configurable">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">proposed_configurable</name>
+    <element name="proposed_configurable">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="ng_fs_types">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">fs_types</name>
+    <element name="fs_types">
       <ref name="STRING"/>
     </element>
   </define>
   <define name="ng_fs_type">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">fs_type</name>
+    <element name="fs_type">
       <ref name="STRING"/>
     </element>
   </define>
   <define name="ng_desired_size">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">desired_size</name>
+    <element name="desired_size">
       <ref name="DISKSIZE"/>
     </element>
   </define>
   <define name="ng_min_size">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">min_size</name>
+    <element name="min_size">
       <ref name="DISKSIZE"/>
     </element>
   </define>
   <define name="ng_max_size">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">max_size</name>
+    <element name="max_size">
       <ref name="DISKSIZE"/>
     </element>
   </define>
   <define name="ng_max_size_lvm">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">max_size_lvm</name>
+    <element name="max_size_lvm">
       <ref name="DISKSIZE"/>
     </element>
   </define>
   <define name="ng_weight">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">weight</name>
+    <element name="weight">
       <ref name="INTEGER"/>
     </element>
   </define>
   <define name="ng_adjust_by_ram">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">adjust_by_ram</name>
+    <element name="adjust_by_ram">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="ng_adjust_by_ram_configurable">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">adjust_by_ram_configurable</name>
+    <element name="adjust_by_ram_configurable">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="ng_fallback_for_desired_size">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">fallback_for_desired_size</name>
+    <element name="fallback_for_desired_size">
       <ref name="STRING"/>
     </element>
   </define>
   <define name="ng_fallback_for_min_size">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">fallback_for_min_size</name>
+    <element name="fallback_for_min_size">
       <ref name="STRING"/>
     </element>
   </define>
   <define name="ng_fallback_for_max_size">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">fallback_for_max_size</name>
+    <element name="fallback_for_max_size">
       <ref name="STRING"/>
     </element>
   </define>
   <define name="ng_fallback_for_max_size_lvm">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">fallback_for_max_size_lvm</name>
+    <element name="fallback_for_max_size_lvm">
       <ref name="STRING"/>
     </element>
   </define>
   <define name="ng_fallback_for_weight">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">fallback_for_weight</name>
+    <element name="fallback_for_weight">
       <ref name="STRING"/>
     </element>
   </define>
   <define name="ng_snapshots">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">snapshots</name>
+    <element name="snapshots">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="ng_snapshots_configurable">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">snapshots_configurable</name>
+    <element name="snapshots_configurable">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="ng_snapshots_size">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">snapshots_size</name>
+    <element name="snapshots_size">
       <ref name="DISKSIZE"/>
     </element>
   </define>
   <define name="ng_snapshots_percentage">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">snapshots_percentage</name>
+    <element name="snapshots_percentage">
       <ref name="INTEGER"/>
     </element>
   </define>
@@ -1820,33 +1648,28 @@ Example 2: ppc,!board_powernv
     <ref name="subvolumes"/>
   </define>
   <define name="ng_btrfs_default_subvolume">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">btrfs_default_subvolume</name>
+    <element name="btrfs_default_subvolume">
       <ref name="STRING"/>
     </element>
   </define>
   <define name="ng_disable_order">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">disable_order</name>
+    <element name="disable_order">
       <ref name="INTEGER"/>
     </element>
   </define>
   <define name="ng_btrfs_read_only">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">btrfs_read_only</name>
+    <element name="btrfs_read_only">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="ng_separate_vg_name">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">separate_vg_name</name>
+    <element name="separate_vg_name">
       <ref name="STRING"/>
     </element>
   </define>
   <define name="partitioning">
     <a:documentation>Partitioning-related variables</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">partitioning</name>
+    <element name="partitioning">
       <ref name="MAP"/>
       <ref name="partitioning_elements"/>
     </element>
@@ -1861,27 +1684,23 @@ Example 2: ppc,!board_powernv
     </choice>
   </define>
   <define name="force_static_ip">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">force_static_ip</name>
+    <element name="force_static_ip">
       <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="network_manager">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">network_manager</name>
+    <element name="network_manager">
       <ref name="STRING"/>
     </element>
   </define>
   <define name="startmode">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">startmode</name>
+    <element name="startmode">
       <ref name="STRING"/>
     </element>
   </define>
   <define name="network">
     <a:documentation>Network configuration-related variables</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">network</name>
+    <element name="network">
       <ref name="MAP"/>
       <zeroOrMore>
         <ref name="network_elements"/>
@@ -1892,8 +1711,7 @@ Example 2: ppc,!board_powernv
   <!-- system_roles -->
   <define name="system_roles">
     <a:documentation>System Roles, FATE#317481</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">system_roles</name>
+    <element name="system_roles">
       <ref name="LIST"/>
       <zeroOrMore>
         <ref name="system_role">
@@ -1904,30 +1722,26 @@ If empty, the dialog is skipped.</a:documentation>
     </element>
   </define>
   <define name="system_role">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">system_role</name>
+    <element name="system_role">
       <ref name="MAP"/>
       <interleave>
-        <element>
+        <element name="id">
           <a:documentation>An identifier not visible to the user.
 Used to identify the translated user visible strings in the
 texts section: ${id} and ${id}_description.</a:documentation>
-          <name ns="http://www.suse.com/1.0/yast2ns">id</name>
           <ref name="STRING"/>
         </element>
         <optional>
-          <element>
+          <element name="no_default">
             <a:documentation>option to not preselect any role, by default,
 the first one (by sort order, see below) is preselected
 Only the first (by sort order, see below) role should have this key, others are ignored.</a:documentation>
-            <name ns="http://www.suse.com/1.0/yast2ns">no_default</name>
             <ref name="BOOLEAN"/>
           </element>
         </optional>
-        <element>
+        <element name="order">
           <a:documentation>Option for order of role. Roles are sorted by order, the smaller first. It can be negative.
 If two roles have same order, then result is undefined, so try to avoid it.</a:documentation>
-          <name ns="http://www.suse.com/1.0/yast2ns">order</name>
           <ref name="INTEGER"/>
         </element>
         <optional>
@@ -1941,9 +1755,8 @@ If two roles have same order, then result is undefined, so try to avoid it.</a:d
           </ref>
         </optional>
         <optional>
-          <element>
+          <element name="additional_dialogs">
             <a:documentation>Additional dialogs that are runned when given role is selected, comma separated</a:documentation>
-            <name ns="http://www.suse.com/1.0/yast2ns">additional_dialogs</name>
             <ref name="STRING"/>
           </element>
         </optional>
@@ -1976,8 +1789,7 @@ If two roles have same order, then result is undefined, so try to avoid it.</a:d
     </element>
   </define>
   <define name="role_services">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">services</name>
+    <element name="services">
       <ref name="LIST"/>
       <zeroOrMore>
         <ref name="role_service">
@@ -1987,11 +1799,9 @@ If two roles have same order, then result is undefined, so try to avoid it.</a:d
     </element>
   </define>
   <define name="role_service">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">service</name>
+    <element name="service">
       <ref name="MAP"/>
-      <element>
-        <name ns="http://www.suse.com/1.0/yast2ns">name</name>
+      <element name="name">
         <ref name="STRING"/>
       </element>
     </element>
@@ -1999,12 +1809,10 @@ If two roles have same order, then result is undefined, so try to avoid it.</a:d
   <!-- clone_modules -->
   <define name="clone_modules">
     <a:documentation>List of modules used by AutoYaST for cloning the configuration</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">clone_modules</name>
+    <element name="clone_modules">
       <ref name="LIST"/>
       <oneOrMore>
-        <element>
-          <name ns="http://www.suse.com/1.0/yast2ns">clone_module</name>
+        <element name="clone_module">
           <ref name="STRING"/>
         </element>
       </oneOrMore>
@@ -2014,15 +1822,13 @@ If two roles have same order, then result is undefined, so try to avoid it.</a:d
   <!-- texts -->
   <define name="texts">
     <a:documentation>Control-file texts marked for translation</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">texts</name>
+    <element name="texts">
       <ref name="MAP"/>
       <oneOrMore>
         <element>
           <anyName/>
           <ref name="MAP"/>
-          <element>
-            <name ns="http://www.suse.com/1.0/yast2ns">label</name>
+          <element name="label">
             <ref name="STRING"/>
           </element>
         </element>
@@ -2036,33 +1842,29 @@ If two roles have same order, then result is undefined, so try to avoid it.</a:d
  1.) proposal_modules with attributes 'name' and 'presentation_order'
  2.) proposal_modules with inexplicit 'name'</a:documentation>
     <a:documentation>Proposal module with 'name' and 'presentation_order'</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">proposal_module</name>
+    <element name="proposal_module">
       <choice>
         <group>
           <ref name="MAP"/>
           <interleave>
             <optional>
-              <element>
+              <element name="name">
                 <a:documentation>Proposal name</a:documentation>
-                <name ns="http://www.suse.com/1.0/yast2ns">name</name>
                 <ref name="STRING"/>
               </element>
             </optional>
             <optional>
-              <element>
+              <element name="presentation_order">
                 <a:documentation>Presentation order in the current proposal (integer).
 Lower numbers first.</a:documentation>
-                <name ns="http://www.suse.com/1.0/yast2ns">presentation_order</name>
                 <ref name="STRING"/>
               </element>
             </optional>
             <optional>
               <!-- proposal writable -->
-              <element>
+              <element name="read_only">
                 <a:documentation>Read only flag - if "hard" the proposal cannot be changed (clicked) by user,
 if "soft" the proposal can be changed in case of error. By default is every</a:documentation>
-                <name ns="http://www.suse.com/1.0/yast2ns">read_only</name>
                 <ref name="STRING"/>
               </element>
             </optional>
@@ -2079,75 +1881,65 @@ if "soft" the proposal can be changed in case of error. By default is every</a:d
 inside. Proposal modules usually depend on each other so the order does
 matter. If you want to list proposal modules in a different order, use
 'presentation' order attribute.</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">proposal</name>
+    <element name="proposal">
       <ref name="MAP"/>
       <interleave>
-        <element>
+        <element name="unique_id">
           <a:documentation>Unique ID of the proposal</a:documentation>
-          <name ns="http://www.suse.com/1.0/yast2ns">unique_id</name>
           <ref name="STRING"/>
         </element>
         <optional>
-          <element>
+          <element name="label">
             <a:documentation/>
-            <name ns="http://www.suse.com/1.0/yast2ns">label</name>
             <ref name="STRING"/>
           </element>
         </optional>
         <optional>
-          <element>
+          <element name="archs">
             <a:documentation>Defines for which architectures is this proposal used.
 Comma-separated list of architectures as seen in
 /usr/share/YaST2/modules/Arch.ycp
 Valid for all architectures if not explicitely defined.
 See Arch::arch_short</a:documentation>
-            <name ns="http://www.suse.com/1.0/yast2ns">archs</name>
             <ref name="STRING"/>
           </element>
         </optional>
         <optional>
-          <element>
+          <element name="mode">
             <a:documentation>Defines for which mode is this proposal used.
 Comma-separated list of modes as seen in
 /usr/share/YaST2/modules/Mode.ycp
 Valid for all modes if not explicitely defined.</a:documentation>
-            <name ns="http://www.suse.com/1.0/yast2ns">mode</name>
             <ref name="STRING"/>
           </element>
         </optional>
-        <element>
+        <element name="stage">
           <a:documentation>Defines for which stage is this proposal used.
 Comma-separated list of stages as seen in
 /usr/share/YaST2/modules/Stage.ycp
 Valid for all stages if not explicitely defined.</a:documentation>
-          <name ns="http://www.suse.com/1.0/yast2ns">stage</name>
           <ref name="STRING"/>
         </element>
         <optional>
-          <element>
+          <element name="name">
             <a:documentation>Proposal name used later to define which proposal to use</a:documentation>
-            <name ns="http://www.suse.com/1.0/yast2ns">name</name>
             <ref name="STRING"/>
           </element>
         </optional>
         <optional>
-          <element>
-            <name ns="http://www.suse.com/1.0/yast2ns">type</name>
+          <element name="type">
             <ref name="STRING"/>
           </element>
         </optional>
         <optional>
-          <element>
+          <element name="enable_skip">
             <a:documentation>Defines whether a proposal can be skipped</a:documentation>
-            <name ns="http://www.suse.com/1.0/yast2ns">enable_skip</name>
             <ref name="YES_NO"/>
           </element>
         </optional>
         <optional>
-          <element>
+          <element name="proposal_modules">
             <a:documentation>List of modules in proposal</a:documentation>
-            <name ns="http://www.suse.com/1.0/yast2ns">proposal_modules</name>
             <ref name="LIST"/>
             <oneOrMore>
               <ref name="proposal_module"/>
@@ -2155,27 +1947,23 @@ Valid for all stages if not explicitely defined.</a:documentation>
           </element>
         </optional>
         <optional>
-          <element>
+          <element name="proposal_tabs">
             <a:documentation>Defines how/whether tabs are used in proposal, e.g.,
 Simple tab vs. Expert tab.
 If tabs are used, 'proposal_modules' above is still used
 but its presentation_order ignored.</a:documentation>
-            <name ns="http://www.suse.com/1.0/yast2ns">proposal_tabs</name>
             <ref name="LIST"/>
             <oneOrMore>
-              <element>
+              <element name="proposal_tab">
                 <a:documentation>Defines one tab in a proposal</a:documentation>
-                <name ns="http://www.suse.com/1.0/yast2ns">proposal_tab</name>
                 <ref name="MAP"/>
                 <interleave>
-                  <element>
+                  <element name="label">
                     <a:documentation>Label on the tab</a:documentation>
-                    <name ns="http://www.suse.com/1.0/yast2ns">label</name>
                     <ref name="STRING"/>
                   </element>
-                  <element>
+                  <element name="proposal_modules">
                     <a:documentation>List of proposal modules</a:documentation>
-                    <name ns="http://www.suse.com/1.0/yast2ns">proposal_modules</name>
                     <ref name="LIST"/>
                     <oneOrMore>
                       <ref name="proposal_module"/>
@@ -2191,8 +1979,7 @@ but its presentation_order ignored.</a:documentation>
   </define>
   <!-- List of all proposals in control file -->
   <define name="proposals">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">proposals</name>
+    <element name="proposals">
       <ref name="LIST"/>
       <oneOrMore>
         <ref name="proposal"/>
@@ -2203,87 +1990,76 @@ but its presentation_order ignored.</a:documentation>
   <!-- workflows -->
   <!-- Describes one step in a workflow -->
   <define name="module">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">module</name>
+    <element name="module">
       <ref name="MAP"/>
       <interleave>
         <optional>
-          <element>
+          <element name="name">
             <a:documentation>Name of a step.
 Used as an identification for updating, removing etc. of steps.
 If 'execute' is not used, 'name' also defines name of a YCP script
 called by YaST. In installation or upgrade, all script have to match
 inst_(.*) regexp.</a:documentation>
-            <name ns="http://www.suse.com/1.0/yast2ns">name</name>
             <ref name="STRING"/>
           </element>
         </optional>
         <optional>
-          <element>
+          <element name="execute">
             <a:documentation>Defines exact name of a YCP script (without .ycp suffix)</a:documentation>
-            <name ns="http://www.suse.com/1.0/yast2ns">execute</name>
             <ref name="STRING"/>
           </element>
         </optional>
         <optional>
-          <element>
+          <element name="label">
             <a:documentation>Defines a configuration step shown in workflow with steps.
 If empty, a label defined in closes step before is used.</a:documentation>
-            <name ns="http://www.suse.com/1.0/yast2ns">label</name>
             <ref name="STRING"/>
           </element>
         </optional>
         <optional>
-          <element>
+          <element name="heading">
             <a:documentation>Defines a heading step. Heading usually does not have any client
 to run and defines only the major step in workflow.</a:documentation>
-            <name ns="http://www.suse.com/1.0/yast2ns">heading</name>
             <ref name="STRING"/>
           </element>
         </optional>
         <optional>
-          <element>
+          <element name="archs">
             <a:documentation>Defines for which architectures is this module used.
 Comma-separated list of architectures as seen in
 /usr/share/YaST2/modules/Arch.ycp
 Valid for all architectures if not explicitely defined.
 See Arch::arch_short</a:documentation>
-            <name ns="http://www.suse.com/1.0/yast2ns">archs</name>
             <ref name="STRING"/>
           </element>
         </optional>
         <optional>
-          <element>
+          <element name="proposal">
             <a:documentation>Defines which proposal to call in this step.
 Proposal 'name' is used.</a:documentation>
-            <name ns="http://www.suse.com/1.0/yast2ns">proposal</name>
             <ref name="STRING"/>
           </element>
         </optional>
         <optional>
-          <element>
+          <element name="enable_back">
             <a:documentation>Defines whether the [Back] button is enabled by default in this step.</a:documentation>
-            <name ns="http://www.suse.com/1.0/yast2ns">enable_back</name>
             <ref name="YES_NO"/>
           </element>
         </optional>
         <optional>
-          <element>
+          <element name="enable_next">
             <a:documentation>Defines whether the [Next] button is enabled by default in this step.</a:documentation>
-            <name ns="http://www.suse.com/1.0/yast2ns">enable_next</name>
             <ref name="YES_NO"/>
           </element>
         </optional>
         <optional>
-          <element>
+          <element name="arguments">
             <a:documentation>Additional module arguments</a:documentation>
-            <name ns="http://www.suse.com/1.0/yast2ns">arguments</name>
             <choice>
               <group>
                 <ref name="MAP"/>
                 <optional>
-                  <element>
-                    <name ns="http://www.suse.com/1.0/yast2ns">first_run</name>
+                  <element name="first_run">
                     <ref name="YES_NO"/>
                   </element>
                 </optional>
@@ -2303,62 +2079,53 @@ Proposal 'name' is used.</a:documentation>
           </element>
         </optional>
         <optional>
-          <element>
+          <element name="retranslate">
             <a:documentation>Should YaST retranslate the whole screen after this client is called?
 Default is 'true'.</a:documentation>
-            <name ns="http://www.suse.com/1.0/yast2ns">retranslate</name>
             <ref name="BOOLEAN"/>
           </element>
         </optional>
         <optional>
-          <element>
-            <name ns="http://www.suse.com/1.0/yast2ns">update</name>
+          <element name="update">
             <ref name="BOOLEAN"/>
           </element>
         </optional>
         <optional>
-          <element>
+          <element name="enabled">
             <a:documentation>Defines whether a module is enabled by default.
 Default value is 'true'</a:documentation>
-            <name ns="http://www.suse.com/1.0/yast2ns">enabled</name>
             <ref name="BOOLEAN"/>
           </element>
         </optional>
         <optional>
-          <element>
+          <element name="prescript">
             <a:documentation>Script body called before the described step</a:documentation>
-            <name ns="http://www.suse.com/1.0/yast2ns">prescript</name>
             <ref name="MAP"/>
             <interleave>
-              <element>
+              <element name="interpreter">
                 <a:documentation>@example
 shell</a:documentation>
-                <name ns="http://www.suse.com/1.0/yast2ns">interpreter</name>
                 <ref name="STRING"/>
               </element>
-              <element>
+              <element name="source">
                 <a:documentation>@example
 &lt;![CDATA[#!/bin/sh
 echo test &gt; /tmp/test
 ]]&gt;</a:documentation>
-                <name ns="http://www.suse.com/1.0/yast2ns">source</name>
                 <ref name="STRING"/>
               </element>
             </interleave>
           </element>
         </optional>
         <optional>
-          <element>
+          <element name="postscript">
             <a:documentation>Script body called after the described step</a:documentation>
-            <name ns="http://www.suse.com/1.0/yast2ns">postscript</name>
             <ref name="MAP"/>
             <interleave>
-              <element>
-                <name ns="http://www.suse.com/1.0/yast2ns">interpreter</name>
+              <element name="interpreter">
                 <ref name="STRING"/>
               </element>
-              <element>
-                <name ns="http://www.suse.com/1.0/yast2ns">source</name>
+              <element name="source">
                 <ref name="STRING"/>
               </element>
             </interleave>
@@ -2369,37 +2136,32 @@ echo test &gt; /tmp/test
   </define>
   <define name="workflow_defaults">
     <a:documentation>Defines the default workflow settings</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">defaults</name>
+    <element name="defaults">
       <ref name="MAP"/>
       <interleave>
         <optional>
-          <element>
+          <element name="archs">
             <a:documentation>For which architectures is this default valid</a:documentation>
-            <name ns="http://www.suse.com/1.0/yast2ns">archs</name>
             <ref name="STRING"/>
           </element>
         </optional>
         <optional>
-          <element>
+          <element name="arguments">
             <a:documentation>Special patemeters used by AutoYaST</a:documentation>
-            <name ns="http://www.suse.com/1.0/yast2ns">arguments</name>
             <ref name="STRING"/>
           </element>
         </optional>
         <optional>
-          <element>
+          <element name="enable_back">
             <a:documentation>Is [Back] button enabled by default?
 If not set, default values is 'yes'.</a:documentation>
-            <name ns="http://www.suse.com/1.0/yast2ns">enable_back</name>
             <ref name="YES_NO"/>
           </element>
         </optional>
         <optional>
-          <element>
+          <element name="enable_next">
             <a:documentation>Is [Next] button enabled by default?
 If not set, default values is 'yes'.</a:documentation>
-            <name ns="http://www.suse.com/1.0/yast2ns">enable_next</name>
             <ref name="YES_NO"/>
           </element>
         </optional>
@@ -2408,39 +2170,34 @@ If not set, default values is 'yes'.</a:documentation>
   </define>
   <define name="workflow">
     <a:documentation>Workflow, defines for instance, 'second stage installation'</a:documentation>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">workflow</name>
+    <element name="workflow">
       <ref name="MAP"/>
       <interleave>
         <optional>
           <ref name="workflow_defaults"/>
         </optional>
         <optional>
-          <element>
+          <element name="label">
             <a:documentation>Superstep name visible in UI</a:documentation>
-            <name ns="http://www.suse.com/1.0/yast2ns">label</name>
             <ref name="STRING"/>
           </element>
         </optional>
-        <element>
+        <element name="mode">
           <a:documentation>Defines for which mode is this proposal used.
 Comma-separated list of modes as seen in
 /usr/share/YaST2/modules/Mode.ycp
 Valid for all modes if not explicitely defined.</a:documentation>
-          <name ns="http://www.suse.com/1.0/yast2ns">mode</name>
           <ref name="STRING"/>
         </element>
-        <element>
+        <element name="stage">
           <a:documentation>Defines for which stage is this workflow used.
 Comma-separated list of stages as seen in
 /usr/share/YaST2/modules/Stage.ycp
 Valid for all stages if not explicitely defined.</a:documentation>
-          <name ns="http://www.suse.com/1.0/yast2ns">stage</name>
           <ref name="STRING"/>
         </element>
-        <element>
+        <element name="modules">
           <a:documentation>List of modules in workflow</a:documentation>
-          <name ns="http://www.suse.com/1.0/yast2ns">modules</name>
           <ref name="LIST"/>
           <oneOrMore>
             <ref name="module"/>
@@ -2451,8 +2208,7 @@ Valid for all stages if not explicitely defined.</a:documentation>
   </define>
   <!-- List of all defined workflows -->
   <define name="workflows">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">workflows</name>
+    <element name="workflows">
       <ref name="LIST"/>
       <oneOrMore>
         <ref name="workflow"/>
@@ -2462,24 +2218,19 @@ Valid for all stages if not explicitely defined.</a:documentation>
   <!-- workflows -->
   <!-- inst_finish_stages -->
   <define name="inst_finish_stages">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">inst_finish_stages</name>
+    <element name="inst_finish_stages">
       <ref name="LIST"/>
       <oneOrMore>
-        <element>
-          <name ns="http://www.suse.com/1.0/yast2ns">inst_finish_stage</name>
+        <element name="inst_finish_stage">
           <ref name="MAP"/>
           <interleave>
-            <element>
-              <name ns="http://www.suse.com/1.0/yast2ns">label</name>
+            <element name="label">
               <ref name="STRING"/>
             </element>
-            <element>
-              <name ns="http://www.suse.com/1.0/yast2ns">steps</name>
+            <element name="steps">
               <ref name="LIST"/>
               <oneOrMore>
-                <element>
-                  <name ns="http://www.suse.com/1.0/yast2ns">step</name>
+                <element name="step">
                   <ref name="STRING"/>
                 </element>
               </oneOrMore>
@@ -2492,41 +2243,33 @@ Valid for all stages if not explicitely defined.</a:documentation>
   <!-- inst_finish_stages -->
   <!-- update -->
   <define name="update_workflow">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">workflow</name>
+    <element name="workflow">
       <ref name="MAP"/>
       <interleave>
         <optional>
           <ref name="workflow_defaults"/>
         </optional>
         <optional>
-          <element>
-            <name ns="http://www.suse.com/1.0/yast2ns">label</name>
+          <element name="label">
             <ref name="STRING"/>
           </element>
         </optional>
-        <element>
-          <name ns="http://www.suse.com/1.0/yast2ns">stage</name>
+        <element name="stage">
           <ref name="STRING"/>
         </element>
-        <element>
-          <name ns="http://www.suse.com/1.0/yast2ns">mode</name>
+        <element name="mode">
           <ref name="STRING"/>
         </element>
         <optional>
-          <element>
-            <name ns="http://www.suse.com/1.0/yast2ns">insert_modules</name>
+          <element name="insert_modules">
             <ref name="LIST"/>
             <oneOrMore>
-              <element>
-                <name ns="http://www.suse.com/1.0/yast2ns">insert_module</name>
+              <element name="insert_module">
                 <interleave>
-                  <element>
-                    <name ns="http://www.suse.com/1.0/yast2ns">before</name>
+                  <element name="before">
                     <ref name="STRING"/>
                   </element>
-                  <element>
-                    <name ns="http://www.suse.com/1.0/yast2ns">modules</name>
+                  <element name="modules">
                     <ref name="LIST"/>
                     <oneOrMore>
                       <ref name="module"/>
@@ -2538,8 +2281,7 @@ Valid for all stages if not explicitely defined.</a:documentation>
           </element>
         </optional>
         <optional>
-          <element>
-            <name ns="http://www.suse.com/1.0/yast2ns">append_modules</name>
+          <element name="append_modules">
             <ref name="LIST"/>
             <oneOrMore>
               <ref name="module"/>
@@ -2547,32 +2289,26 @@ Valid for all stages if not explicitely defined.</a:documentation>
           </element>
         </optional>
         <optional>
-          <element>
-            <name ns="http://www.suse.com/1.0/yast2ns">remove_modules</name>
+          <element name="remove_modules">
             <ref name="LIST"/>
             <oneOrMore>
-              <element>
-                <name ns="http://www.suse.com/1.0/yast2ns">remove_module</name>
+              <element name="remove_module">
                 <ref name="STRING"/>
               </element>
             </oneOrMore>
           </element>
         </optional>
         <optional>
-          <element>
-            <name ns="http://www.suse.com/1.0/yast2ns">replace_modules</name>
+          <element name="replace_modules">
             <ref name="LIST"/>
             <oneOrMore>
-              <element>
-                <name ns="http://www.suse.com/1.0/yast2ns">replace_module</name>
+              <element name="replace_module">
                 <ref name="MAP"/>
                 <interleave>
-                  <element>
-                    <name ns="http://www.suse.com/1.0/yast2ns">replace</name>
+                  <element name="replace">
                     <ref name="STRING"/>
                   </element>
-                  <element>
-                    <name ns="http://www.suse.com/1.0/yast2ns">modules</name>
+                  <element name="modules">
                     <ref name="LIST"/>
                     <oneOrMore>
                       <ref name="module"/>
@@ -2587,76 +2323,61 @@ Valid for all stages if not explicitely defined.</a:documentation>
     </element>
   </define>
   <define name="update_proposal">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">proposal</name>
+    <element name="proposal">
       <ref name="MAP"/>
       <interleave>
-        <element>
-          <name ns="http://www.suse.com/1.0/yast2ns">stage</name>
+        <element name="stage">
           <ref name="STRING"/>
         </element>
-        <element>
-          <name ns="http://www.suse.com/1.0/yast2ns">mode</name>
+        <element name="mode">
           <ref name="STRING"/>
         </element>
         <optional>
-          <element>
-            <name ns="http://www.suse.com/1.0/yast2ns">label</name>
+          <element name="label">
             <ref name="STRING"/>
           </element>
         </optional>
-        <element>
-          <name ns="http://www.suse.com/1.0/yast2ns">name</name>
+        <element name="name">
           <ref name="STRING"/>
         </element>
         <optional>
-          <element>
-            <name ns="http://www.suse.com/1.0/yast2ns">enable_skip</name>
+          <element name="enable_skip">
             <ref name="YES_NO"/>
           </element>
         </optional>
         <optional>
-          <element>
-            <name ns="http://www.suse.com/1.0/yast2ns">append_modules</name>
+          <element name="append_modules">
             <ref name="LIST"/>
             <oneOrMore>
-              <element>
-                <name ns="http://www.suse.com/1.0/yast2ns">append_module</name>
+              <element name="append_module">
                 <ref name="STRING"/>
               </element>
             </oneOrMore>
           </element>
         </optional>
         <optional>
-          <element>
-            <name ns="http://www.suse.com/1.0/yast2ns">remove_modules</name>
+          <element name="remove_modules">
             <ref name="LIST"/>
             <oneOrMore>
-              <element>
-                <name ns="http://www.suse.com/1.0/yast2ns">remove_module</name>
+              <element name="remove_module">
                 <ref name="STRING"/>
               </element>
             </oneOrMore>
           </element>
         </optional>
         <optional>
-          <element>
-            <name ns="http://www.suse.com/1.0/yast2ns">replace_modules</name>
+          <element name="replace_modules">
             <ref name="LIST"/>
-            <element>
-              <name ns="http://www.suse.com/1.0/yast2ns">replace_module</name>
+            <element name="replace_module">
               <ref name="MAP"/>
               <interleave>
-                <element>
-                  <name ns="http://www.suse.com/1.0/yast2ns">replace</name>
+                <element name="replace">
                   <ref name="STRING"/>
                 </element>
-                <element>
-                  <name ns="http://www.suse.com/1.0/yast2ns">new_modules</name>
+                <element name="new_modules">
                   <ref name="LIST"/>
                   <oneOrMore>
-                    <element>
-                      <name ns="http://www.suse.com/1.0/yast2ns">new_module</name>
+                    <element name="new_module">
                       <ref name="STRING"/>
                     </element>
                   </oneOrMore>
@@ -2669,16 +2390,13 @@ Valid for all stages if not explicitely defined.</a:documentation>
     </element>
   </define>
   <define name="update_system_roles">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">system_roles</name>
+    <element name="system_roles">
       <ref name="MAP"/>
       <optional>
-        <element>
-          <name ns="http://www.suse.com/1.0/yast2ns">insert_system_roles</name>
+        <element name="insert_system_roles">
           <ref name="LIST"/>
           <oneOrMore>
-            <element>
-              <name ns="http://www.suse.com/1.0/yast2ns">insert_system_role</name>
+            <element name="insert_system_role">
               <ref name="system_roles"/>
             </element>
           </oneOrMore>
@@ -2687,13 +2405,11 @@ Valid for all stages if not explicitely defined.</a:documentation>
     </element>
   </define>
   <define name="update">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">update</name>
+    <element name="update">
       <ref name="MAP"/>
       <interleave>
         <optional>
-          <element>
-            <name ns="http://www.suse.com/1.0/yast2ns">proposals</name>
+          <element name="proposals">
             <ref name="LIST"/>
             <oneOrMore>
               <ref name="update_proposal"/>
@@ -2701,8 +2417,7 @@ Valid for all stages if not explicitely defined.</a:documentation>
           </element>
         </optional>
         <optional>
-          <element>
-            <name ns="http://www.suse.com/1.0/yast2ns">workflows</name>
+          <element name="workflows">
             <ref name="LIST"/>
             <oneOrMore>
               <ref name="update_workflow"/>
@@ -2710,40 +2425,33 @@ Valid for all stages if not explicitely defined.</a:documentation>
           </element>
         </optional>
         <optional>
-          <element>
-            <name ns="http://www.suse.com/1.0/yast2ns">inst_finish</name>
+          <element name="inst_finish">
             <interleave>
               <optional>
-                <element>
-                  <name ns="http://www.suse.com/1.0/yast2ns">before_chroot</name>
+                <element name="before_chroot">
                   <ref name="LIST"/>
                   <oneOrMore>
-                    <element>
-                      <name ns="http://www.suse.com/1.0/yast2ns">module</name>
+                    <element name="module">
                       <ref name="STRING"/>
                     </element>
                   </oneOrMore>
                 </element>
               </optional>
               <optional>
-                <element>
-                  <name ns="http://www.suse.com/1.0/yast2ns">after_chroot</name>
+                <element name="after_chroot">
                   <ref name="LIST"/>
                   <oneOrMore>
-                    <element>
-                      <name ns="http://www.suse.com/1.0/yast2ns">module</name>
+                    <element name="module">
                       <ref name="STRING"/>
                     </element>
                   </oneOrMore>
                 </element>
               </optional>
               <optional>
-                <element>
-                  <name ns="http://www.suse.com/1.0/yast2ns">before_umount</name>
+                <element name="before_umount">
                   <ref name="LIST"/>
                   <oneOrMore>
-                    <element>
-                      <name ns="http://www.suse.com/1.0/yast2ns">module</name>
+                    <element name="module">
                       <ref name="STRING"/>
                     </element>
                   </oneOrMore>
@@ -2760,13 +2468,11 @@ Valid for all stages if not explicitely defined.</a:documentation>
   </define>
   <!-- update -->
   <define name="configuration_management">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">configuration_management</name>
+    <element name="configuration_management">
       <ref name="MAP"/>
       <interleave>
         <!-- Configuration managment system to use -->
-        <element>
-          <name ns="http://www.suse.com/1.0/yast2ns">type</name>
+        <element name="type">
           <choice>
             <value>salt</value>
             <value>puppet</value>
@@ -2774,22 +2480,19 @@ Valid for all stages if not explicitely defined.</a:documentation>
         </element>
         <optional>
           <!-- Host name or IP address of the master server -->
-          <element>
-            <name ns="http://www.suse.com/1.0/yast2ns">master</name>
+          <element name="master">
             <ref name="STRING"/>
           </element>
         </optional>
         <optional>
           <!-- Number of attempts when trying to connect to the master server -->
-          <element>
-            <name ns="http://www.suse.com/1.0/yast2ns">auth_attempts</name>
+          <element name="auth_attempts">
             <ref name="INTEGER"/>
           </element>
         </optional>
         <optional>
           <!-- Time between attempts to connect to the master server -->
-          <element>
-            <name ns="http://www.suse.com/1.0/yast2ns">auth_time_out</name>
+          <element name="auth_time_out">
             <ref name="INTEGER"/>
           </element>
         </optional>
@@ -2798,41 +2501,35 @@ Valid for all stages if not explicitely defined.</a:documentation>
             Path to an HTTTP(S) server, hard disk, USB driver or similar containing the
             private/public keys to connect to the master server
           -->
-          <element>
-            <name ns="http://www.suse.com/1.0/yast2ns">keys_url</name>
+          <element name="keys_url">
             <ref name="STRING"/>
           </element>
         </optional>
         <optional>
           <!-- Enable the configuration management system services after the installation -->
-          <element>
-            <name ns="http://www.suse.com/1.0/yast2ns">enable_services</name>
+          <element name="enable_services">
             <ref name="BOOLEAN"/>
           </element>
         </optional>
         <optional>
           <!-- Salt specific -->
           <!-- Path to write Pillar data -->
-          <element>
-            <name ns="http://www.suse.com/1.0/yast2ns">pillar_root</name>
+          <element name="pillar_root">
             <ref name="STRING"/>
           </element>
         </optional>
         <optional>
           <!-- URL to read Pillar data from -->
-          <element>
-            <name ns="http://www.suse.com/1.0/yast2ns">pillar_url</name>
+          <element name="pillar_url">
             <ref name="STRING"/>
           </element>
         </optional>
         <optional>
           <!-- Paths to search for formulas -->
-          <element>
-            <name ns="http://www.suse.com/1.0/yast2ns">formulas_roots</name>
+          <element name="formulas_roots">
             <ref name="LIST"/>
             <oneOrMore>
-              <element>
-                <name ns="http://www.suse.com/1.0/yast2ns">formulas_root</name>
+              <element name="formulas_root">
                 <ref name="STRING"/>
               </element>
             </oneOrMore>
@@ -2840,12 +2537,10 @@ Valid for all stages if not explicitely defined.</a:documentation>
         </optional>
         <optional>
           <!-- Paths to search for states -->
-          <element>
-            <name ns="http://www.suse.com/1.0/yast2ns">states_roots</name>
+          <element name="states_roots">
             <ref name="LIST"/>
             <oneOrMore>
-              <element>
-                <name ns="http://www.suse.com/1.0/yast2ns">states_root</name>
+              <element name="states_root">
                 <ref name="STRING"/>
               </element>
             </oneOrMore>
@@ -2853,19 +2548,16 @@ Valid for all stages if not explicitely defined.</a:documentation>
         </optional>
         <optional>
           <!-- URL to get states from -->
-          <element>
-            <name ns="http://www.suse.com/1.0/yast2ns">states_url</name>
+          <element name="states_url">
             <ref name="STRING"/>
           </element>
         </optional>
         <optional>
           <!-- List of states/formulas to enable -->
-          <element>
-            <name ns="http://www.suse.com/1.0/yast2ns">enabled_states</name>
+          <element name="enabled_states">
             <ref name="LIST"/>
             <oneOrMore>
-              <element>
-                <name ns="http://www.suse.com/1.0/yast2ns">state</name>
+              <element name="state">
                 <ref name="STRING"/>
               </element>
             </oneOrMore>
@@ -2874,8 +2566,7 @@ Valid for all stages if not explicitely defined.</a:documentation>
         <optional>
           <!-- Puppet specific -->
           <!-- URL to read Puppet modules from -->
-          <element>
-            <name ns="http://www.suse.com/1.0/yast2ns">modules_url</name>
+          <element name="modules_url">
             <ref name="STRING"/>
           </element>
         </optional>
@@ -2927,14 +2618,12 @@ Valid for all stages if not explicitely defined.</a:documentation>
     </interleave>
   </define>
   <start>
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">productDefines</name>
+    <element name="productDefines">
       <ref name="productDefines_elements"/>
     </element>
   </start>
   <define name="debug_deploying">
-    <element>
-      <name ns="http://www.suse.com/1.0/yast2ns">debug_deploying</name>
+    <element name="debug_deploying">
       <ref name="BOOLEAN"/>
     </element>
   </define>
