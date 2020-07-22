@@ -157,6 +157,7 @@ globals_elements =
     | self_update_url
     | self_update_id
     | installation_ui
+    | installation_layout
     | cpu_mitigations
     | full_system_media_name
     | full_system_download_url
@@ -264,8 +265,19 @@ self_update_url =			element self_update_url { STRING }
 ## It is an ID used to query SCC for the self update repo.
 self_update_id =			element self_update_id { STRING }
 # Installation UI (boo#1088785)
-## Enables alternative look of installation with sidebar
+## Enables alternative look of installation with sidebar.
+## This options is deprecated if favor of installation_layout.
 installation_ui =			element installation_ui { "sidebar" }
+## Configures the installation UI layout.
+installation_layout = element installation_layout {
+  MAP,
+  (
+    ## General layout mode
+    element mode { "steps" | "title-on-left" | "title-on-top" }? &
+    ## Top banner where logo is usually placed
+    element banner { BOOLEAN }?
+  )
+}
 # Default value for CPU Mitigation settings in bootloader
 ## possible values are same as for autoyast and in UI - auto, nosmt, off, manual
 ## see ::Bootloader::CpuMitigations.from_string
@@ -652,7 +664,7 @@ partitions = element partitions {
 
 # ng element definitions
 
-partitioning_proposal = element proposal { 
+partitioning_proposal = element proposal {
   MAP,
   partitioning_proposal_elements
 }

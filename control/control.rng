@@ -236,6 +236,7 @@ Shorter variants are allowed.</a:documentation>
       <ref name="self_update_url"/>
       <ref name="self_update_id"/>
       <ref name="installation_ui"/>
+      <ref name="installation_layout"/>
       <ref name="cpu_mitigations"/>
       <ref name="full_system_media_name"/>
       <ref name="full_system_download_url"/>
@@ -531,9 +532,34 @@ The URL is used as fallback when SCC query failed.</a:documentation>
   </define>
   <!-- Installation UI (boo#1088785) -->
   <define name="installation_ui">
-    <a:documentation>Enables alternative look of installation with sidebar</a:documentation>
+    <a:documentation>Enables alternative look of installation with sidebar.
+This options is deprecated if favor of installation_layout.</a:documentation>
     <element name="installation_ui">
       <value>sidebar</value>
+    </element>
+  </define>
+  <define name="installation_layout">
+    <a:documentation>Configures the installation UI layout.</a:documentation>
+    <element name="installation_layout">
+      <ref name="MAP"/>
+      <interleave>
+        <optional>
+          <element name="mode">
+            <a:documentation>General layout mode</a:documentation>
+            <choice>
+              <value>steps</value>
+              <value>title-on-left</value>
+              <value>title-on-top</value>
+            </choice>
+          </element>
+        </optional>
+        <optional>
+          <element name="banner">
+            <a:documentation>Top banner where logo is usually placed</a:documentation>
+            <ref name="BOOLEAN"/>
+          </element>
+        </optional>
+      </interleave>
     </element>
   </define>
   <!-- Default value for CPU Mitigation settings in bootloader -->
