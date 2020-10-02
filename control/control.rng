@@ -1033,47 +1033,57 @@ These patterns are not selected in auto-installation.</a:documentation>
     <a:documentation>Defines behavior during upgrade</a:documentation>
     <element name="upgrade">
       <ref name="MAP"/>
-      <optional>
-        <element name="window_managers">
-          <a:documentation>Optional list of upgrade paths for default window manager set
+      <interleave>
+        <optional>
+          <element name="window_managers">
+            <a:documentation>Optional list of upgrade paths for default window manager set
 in /etc/sysconfig/windowmanager:DEFAULT_WM (not all cases need to be handled)</a:documentation>
-          <ref name="LIST"/>
-          <zeroOrMore>
-            <element name="window_manager">
-              <ref name="MAP"/>
-              <interleave>
-                <element name="sysconfig_wm">
-                  <a:documentation>Windowmanager as found in /etc/sysconfig/windowmanager:DEFAULT_WM
+            <ref name="LIST"/>
+            <zeroOrMore>
+              <element name="window_manager">
+                <ref name="MAP"/>
+                <interleave>
+                  <element name="sysconfig_wm">
+                    <a:documentation>Windowmanager as found in /etc/sysconfig/windowmanager:DEFAULT_WM
 This entry is mandatory</a:documentation>
-                  <ref name="STRING"/>
-                </element>
-                <optional>
-                  <element name="check_packages">
-                    <a:documentation>Space-separated list of packages to check whether the selected desktop
-is really installed on the system</a:documentation>
                     <ref name="STRING"/>
                   </element>
-                </optional>
-                <oneOrMore>
-                  <choice>
-                    <a:documentation>Either install_patterns or install_packages (or both) must be defined</a:documentation>
-                    <element name="install_patterns">
-                      <a:documentation>Optional list of space-separated patterns that should be
-selected for installation</a:documentation>
+                  <optional>
+                    <element name="check_packages">
+                      <a:documentation>Space-separated list of packages to check whether the selected desktop
+is really installed on the system</a:documentation>
                       <ref name="STRING"/>
                     </element>
-                    <element name="install_packages">
-                      <a:documentation>Optional list of space-separated packages that should be
+                  </optional>
+                  <oneOrMore>
+                    <choice>
+                      <a:documentation>Either install_patterns or install_packages (or both) must be defined</a:documentation>
+                      <element name="install_patterns">
+                        <a:documentation>Optional list of space-separated patterns that should be
 selected for installation</a:documentation>
-                      <ref name="STRING"/>
-                    </element>
-                  </choice>
-                </oneOrMore>
-              </interleave>
+                        <ref name="STRING"/>
+                      </element>
+                      <element name="install_packages">
+                        <a:documentation>Optional list of space-separated packages that should be
+selected for installation</a:documentation>
+                        <ref name="STRING"/>
+                      </element>
+                    </choice>
+                  </oneOrMore>
+                </interleave>
+              </element>
+            </zeroOrMore>
+          </element>
+        </optional>
+        <element name="compatible_vendors">
+          <ref name="LIST"/>
+          <zeroOrMore>
+            <element name="compatible_vendor">
+              <ref name="STRING"/>
             </element>
           </zeroOrMore>
         </element>
-      </optional>
+      </interleave>
     </element>
   </define>
   <define name="software">
