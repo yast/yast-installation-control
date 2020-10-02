@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Fri Oct  2 09:30:19 CEST 2020 - schubi@suse.de
+
+- Upgrade openSUSE->SUSE LLC. Allow vendor change without asking
+  the user. Tag "compatible_vendors" in software/upgrade.
+  (jsc#SLE-15184)
+- 4.3.4
+
+-------------------------------------------------------------------
 Wed Jul 22 11:01:03 UTC 2020 - José Iván López González <jlopez@suse.com>
 
 - Add options to configure the installation layout.
