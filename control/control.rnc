@@ -534,9 +534,16 @@ upgrade = element upgrade {
             )
           }*
       }? &
-      element compatible_vendors {
-          LIST,
-          element compatible_vendor { STRING }*
+      element product_upgrade {
+          MAP,
+	  (
+            element from { STRING } &
+            element to { STRING } &
+            element compatible_vendors {
+              LIST,
+              element compatible_vendor { STRING }*
+            }
+	  )
       }?
     )
 }
