@@ -1075,14 +1075,16 @@ selected for installation</a:documentation>
             </zeroOrMore>
           </element>
         </optional>
-        <element name="compatible_vendors">
-          <ref name="LIST"/>
-          <zeroOrMore>
-            <element name="compatible_vendor">
-              <ref name="STRING"/>
-            </element>
-          </zeroOrMore>
-        </element>
+        <optional>
+          <element name="compatible_vendors">
+            <ref name="LIST"/>
+            <zeroOrMore>
+              <element name="compatible_vendor">
+                <ref name="STRING"/>
+              </element>
+            </zeroOrMore>
+          </element>
+        </optional>
       </interleave>
     </element>
   </define>
