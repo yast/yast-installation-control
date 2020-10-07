@@ -440,28 +440,45 @@ optional_default_patterns = element optional_default_patterns { text }
 
 ## Defines behavior during upgrade
 upgrade = element upgrade {
-    ## Optional list of upgrade paths for default window manager set
-    ## in /etc/sysconfig/windowmanager:DEFAULT_WM (not all cases need to be handled)
-    element window_managers {
-        LIST,
-        element window_manager {
-          ## Windowmanager as found in /etc/sysconfig/windowmanager:DEFAULT_WM
-          ## This entry is mandatory
-          element sysconfig_wm { text } &
-          ## Space-separated list of packages to check whether the selected desktop
-          ## is really installed on the system
-          element check_packages { text }? &
-          ## Either install_patterns or install_packages (or both) must be defined
-          (
-              ## Optional list of space-separated patterns that should be
-              ## selected for installation
-              element install_patterns { text } |
-              ## Optional list of space-separated packages that should be
-              ## selected for installation
-              element install_packages { text }
-          )+
-        }*
-    }?
+    MAP,
+    (
+      ## Optional list of upgrade paths for default window manager set
+      ## in /etc/sysconfig/windowmanager:DEFAULT_WM (not all cases need to be handled)
+      element window_managers {
+          LIST,
+          element window_manager {
+            MAP,
+            (
+              ## Windowmanager as found in /etc/sysconfig/windowmanager:DEFAULT_WM
+              ## This entry is mandatory
+              element sysconfig_wm { STRING } &
+              ## Space-separated list of packages to check whether the selected desktop
+              ## is really installed on the system
+              element check_packages { STRING }? &
+              ## Either install_patterns or install_packages (or both) must be defined
+              (
+                  ## Optional list of space-separated patterns that should be
+                  ## selected for installation
+                  element install_patterns { STRING } |
+                  ## Optional list of space-separated packages that should be
+                  ## selected for installation
+                  element install_packages { STRING }
+              )+
+            )
+          }*
+      }? &
+      element product_upgrade {
+          MAP,
+	  (
+            element from { STRING } &
+            element to { STRING } &
+            element compatible_vendors {
+              LIST,
+              element compatible_vendor { STRING }*
+            }
+	  )
+      }?
+    )
 }
 
 ## Software / Package-manager related variables
