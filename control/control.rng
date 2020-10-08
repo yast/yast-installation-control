@@ -949,24 +949,29 @@ selected for installation</a:documentation>
           </element>
         </optional>
         <optional>
-          <element name="product_upgrade">
-            <ref name="MAP"/>
-            <interleave>
-              <element name="from">
-                <ref name="STRING"/>
-              </element>
-              <element name="to">
-                <ref name="STRING"/>
-              </element>
-              <element name="compatible_vendors">
-                <ref name="LIST"/>
-                <zeroOrMore>
-                  <element name="compatible_vendor">
+          <element name="product_upgrades">
+            <ref name="LIST"/>
+            <zeroOrMore>
+              <element name="product_upgrade">
+                <ref name="MAP"/>
+                <interleave>
+                  <element name="from">
                     <ref name="STRING"/>
                   </element>
-                </zeroOrMore>
+                  <element name="to">
+                    <ref name="STRING"/>
+                  </element>
+                  <element name="compatible_vendors">
+                    <ref name="LIST"/>
+                    <zeroOrMore>
+                      <element name="compatible_vendor">
+                        <ref name="STRING"/>
+                      </element>
+                    </zeroOrMore>
+                  </element>
+                </interleave>
               </element>
-            </interleave>
+            </zeroOrMore>
           </element>
         </optional>
       </interleave>
