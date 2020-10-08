@@ -3,13 +3,13 @@ Wed Oct  7 17:11:29 CEST 2020 - schubi@suse.de
 
 - Upgrade openSUSE->Jump. Allow vendor change without asking
   the user. Added "product_upgrade" tag in software/upgrade.
-  (jsc#SLE-15184)
+  (jsc#SLE-14807)
 - 4.3.6
 
 -------------------------------------------------------------------
 Wed Oct  7 07:39:24 UTC 2020 - schubi <schubi@localhost>
 
-- Making compatible_vendors optional (jsc#SLE-15184).
+- Making compatible_vendors optional (jsc#SLE-14807).
 - 4.3.5
 
 -------------------------------------------------------------------
@@ -17,7 +17,7 @@ Fri Oct  2 09:30:19 CEST 2020 - schubi@suse.de
 
 - Upgrade openSUSE->SUSE LLC. Allow vendor change without asking
   the user. Tag "compatible_vendors" in software/upgrade.
-  (jsc#SLE-15184)
+  (jsc#SLE-14807)
 - 4.3.4
 
 -------------------------------------------------------------------
