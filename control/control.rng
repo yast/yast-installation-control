@@ -1076,11 +1076,27 @@ selected for installation</a:documentation>
           </element>
         </optional>
         <optional>
-          <element name="compatible_vendors">
+          <element name="product_upgrades">
             <ref name="LIST"/>
             <zeroOrMore>
-              <element name="compatible_vendor">
-                <ref name="STRING"/>
+              <element name="product_upgrade">
+                <ref name="MAP"/>
+                <interleave>
+                  <element name="from">
+                    <ref name="STRING"/>
+                  </element>
+                  <element name="to">
+                    <ref name="STRING"/>
+                  </element>
+                  <element name="compatible_vendors">
+                    <ref name="LIST"/>
+                    <zeroOrMore>
+                      <element name="compatible_vendor">
+                        <ref name="STRING"/>
+                      </element>
+                    </zeroOrMore>
+                  </element>
+                </interleave>
               </element>
             </zeroOrMore>
           </element>
