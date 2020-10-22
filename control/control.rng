@@ -25,6 +25,22 @@
     </attribute>
     <data type="integer"/>
   </define>
+  <define name="STRING">
+    <optional>
+      <choice>
+        <attribute name="t">
+          <value>string</value>
+        </attribute>
+        <attribute name="type">
+          <value>string</value>
+        </attribute>
+        <attribute name="config:type">
+          <value>string</value>
+        </attribute>
+      </choice>
+    </optional>
+    <text/>
+  </define>
   <define name="SYMBOL">
     <attribute name="config:type">
       <value>symbol</value>
@@ -34,6 +50,21 @@
     <attribute name="config:type">
       <value>list</value>
     </attribute>
+  </define>
+  <define name="MAP">
+    <optional>
+      <choice>
+        <attribute name="t">
+          <value>map</value>
+        </attribute>
+        <attribute name="type">
+          <value>map</value>
+        </attribute>
+        <attribute name="config:type">
+          <value>map</value>
+        </attribute>
+      </choice>
+    </optional>
   </define>
   <define name="DISKSIZE">
     <attribute name="config:type">
