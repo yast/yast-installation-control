@@ -25,6 +25,22 @@
     </attribute>
     <data type="integer"/>
   </define>
+  <define name="STRING">
+    <optional>
+      <choice>
+        <attribute name="t">
+          <value>string</value>
+        </attribute>
+        <attribute name="type">
+          <value>string</value>
+        </attribute>
+        <attribute name="config:type">
+          <value>string</value>
+        </attribute>
+      </choice>
+    </optional>
+    <text/>
+  </define>
   <define name="SYMBOL">
     <attribute name="config:type">
       <value>symbol</value>
@@ -34,6 +50,21 @@
     <attribute name="config:type">
       <value>list</value>
     </attribute>
+  </define>
+  <define name="MAP">
+    <optional>
+      <choice>
+        <attribute name="t">
+          <value>map</value>
+        </attribute>
+        <attribute name="type">
+          <value>map</value>
+        </attribute>
+        <attribute name="config:type">
+          <value>map</value>
+        </attribute>
+      </choice>
+    </optional>
   </define>
   <define name="DISKSIZE">
     <attribute name="config:type">
@@ -905,46 +936,76 @@ These patterns are not selected in auto-installation.</a:documentation>
   <define name="upgrade">
     <a:documentation>Defines behavior during upgrade</a:documentation>
     <element name="upgrade">
-      <optional>
-        <element name="window_managers">
-          <a:documentation>Optional list of upgrade paths for default window manager set
+      <ref name="MAP"/>
+      <interleave>
+        <optional>
+          <element name="window_managers">
+            <a:documentation>Optional list of upgrade paths for default window manager set
 in /etc/sysconfig/windowmanager:DEFAULT_WM (not all cases need to be handled)</a:documentation>
-          <ref name="LIST"/>
-          <zeroOrMore>
-            <element name="window_manager">
-              <interleave>
-                <element name="sysconfig_wm">
-                  <a:documentation>Windowmanager as found in /etc/sysconfig/windowmanager:DEFAULT_WM
+            <ref name="LIST"/>
+            <zeroOrMore>
+              <element name="window_manager">
+                <ref name="MAP"/>
+                <interleave>
+                  <element name="sysconfig_wm">
+                    <a:documentation>Windowmanager as found in /etc/sysconfig/windowmanager:DEFAULT_WM
 This entry is mandatory</a:documentation>
-                  <text/>
-                </element>
-                <optional>
-                  <element name="check_packages">
-                    <a:documentation>Space-separated list of packages to check whether the selected desktop
-is really installed on the system</a:documentation>
-                    <text/>
+                    <ref name="STRING"/>
                   </element>
-                </optional>
-                <oneOrMore>
-                  <choice>
-                    <a:documentation>Either install_patterns or install_packages (or both) must be defined</a:documentation>
-                    <element name="install_patterns">
-                      <a:documentation>Optional list of space-separated patterns that should be
-selected for installation</a:documentation>
-                      <text/>
+                  <optional>
+                    <element name="check_packages">
+                      <a:documentation>Space-separated list of packages to check whether the selected desktop
+is really installed on the system</a:documentation>
+                      <ref name="STRING"/>
                     </element>
-                    <element name="install_packages">
-                      <a:documentation>Optional list of space-separated packages that should be
+                  </optional>
+                  <oneOrMore>
+                    <choice>
+                      <a:documentation>Either install_patterns or install_packages (or both) must be defined</a:documentation>
+                      <element name="install_patterns">
+                        <a:documentation>Optional list of space-separated patterns that should be
 selected for installation</a:documentation>
-                      <text/>
-                    </element>
-                  </choice>
-                </oneOrMore>
-              </interleave>
-            </element>
-          </zeroOrMore>
-        </element>
-      </optional>
+                        <ref name="STRING"/>
+                      </element>
+                      <element name="install_packages">
+                        <a:documentation>Optional list of space-separated packages that should be
+selected for installation</a:documentation>
+                        <ref name="STRING"/>
+                      </element>
+                    </choice>
+                  </oneOrMore>
+                </interleave>
+              </element>
+            </zeroOrMore>
+          </element>
+        </optional>
+        <optional>
+          <element name="product_upgrades">
+            <ref name="LIST"/>
+            <zeroOrMore>
+              <element name="product_upgrade">
+                <ref name="MAP"/>
+                <interleave>
+                  <element name="from">
+                    <ref name="STRING"/>
+                  </element>
+                  <element name="to">
+                    <ref name="STRING"/>
+                  </element>
+                  <element name="compatible_vendors">
+                    <ref name="LIST"/>
+                    <zeroOrMore>
+                      <element name="compatible_vendor">
+                        <ref name="STRING"/>
+                      </element>
+                    </zeroOrMore>
+                  </element>
+                </interleave>
+              </element>
+            </zeroOrMore>
+          </element>
+        </optional>
+      </interleave>
     </element>
   </define>
   <define name="software">
