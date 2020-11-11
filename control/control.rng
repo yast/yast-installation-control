@@ -241,6 +241,7 @@ Shorter variants are allowed.</a:documentation>
       <ref name="full_system_media_name"/>
       <ref name="full_system_download_url"/>
       <ref name="precise_time"/>
+      <ref name="propose_hibernation"/>
     </choice>
   </define>
   <define name="additional_kernel_parameters">
@@ -596,6 +597,13 @@ see ::Bootloader::CpuMitigations.from_string</a:documentation>
   <define name="precise_time">
     <a:documentation>Defines if product needs precise time. It is short time workaround for bsc#1145193</a:documentation>
     <element name="precise_time">
+      <ref name="BOOLEAN"/>
+    </element>
+  </define>
+  <define name="propose_hibernation">
+    <a:documentation>Defines if makes sense for product to propose hibernation (jsc#SLE-12280)
+by default true</a:documentation>
+    <element name="propose_hibernation">
       <ref name="BOOLEAN"/>
     </element>
   </define>
