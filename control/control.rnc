@@ -162,6 +162,7 @@ globals_elements =
     | full_system_media_name
     | full_system_download_url
     | precise_time
+    | propose_hibernation
 
 ## Default kernel parameters proposed by bootloader
 additional_kernel_parameters =		element additional_kernel_parameters { STRING }
@@ -290,6 +291,9 @@ full_system_media_name =		element full_system_media_name { STRING }
 full_system_download_url =		element full_system_download_url { STRING }
 ## Defines if product needs precise time. It is short time workaround for bsc#1145193
 precise_time =		        	element precise_time { BOOLEAN }
+## Defines if makes sense for product to propose hibernation (jsc#SLE-12280)
+## by default true
+propose_hibernation =	        	element propose_hibernation { BOOLEAN }
 
 ## Defines which pieces of installation system should be copied to
 ## the installed system before rebooting to second stage.
