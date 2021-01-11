@@ -242,6 +242,7 @@ Shorter variants are allowed.</a:documentation>
       <ref name="full_system_download_url"/>
       <ref name="precise_time"/>
       <ref name="propose_hibernation"/>
+      <ref name="default_ntp_servers"/>
     </choice>
   </define>
   <define name="additional_kernel_parameters">
@@ -605,6 +606,16 @@ see ::Bootloader::CpuMitigations.from_string</a:documentation>
 by default true</a:documentation>
     <element name="propose_hibernation">
       <ref name="BOOLEAN"/>
+    </element>
+  </define>
+  <define name="default_ntp_servers">
+    <a:documentation>Defines list of default ntp servers from which product can pick.
+Used mainly to distinguish between opensuse and suse products. See bsc#1180699</a:documentation>
+    <element name="default_ntp_servers">
+      <ref name="LIST"/>
+      <element name="ntp_server">
+        <ref name="STRING"/>
+      </element>
     </element>
   </define>
   <define name="save_instsys_content">
