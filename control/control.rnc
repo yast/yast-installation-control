@@ -163,6 +163,7 @@ globals_elements =
     | full_system_download_url
     | precise_time
     | propose_hibernation
+    | default_ntp_servers
 
 ## Default kernel parameters proposed by bootloader
 additional_kernel_parameters =		element additional_kernel_parameters { STRING }
@@ -294,6 +295,12 @@ precise_time =		        	element precise_time { BOOLEAN }
 ## Defines if makes sense for product to propose hibernation (jsc#SLE-12280)
 ## by default true
 propose_hibernation =	        	element propose_hibernation { BOOLEAN }
+## Defines list of default ntp servers from which product can pick.
+## Used mainly to distinguish between openSUSE and SUSE products. See bsc#1180699
+default_ntp_servers = element default_ntp_servers {
+  LIST,
+  element ntp_server { STRING }
+}
 
 ## Defines which pieces of installation system should be copied to
 ## the installed system before rebooting to second stage.
