@@ -296,7 +296,7 @@ precise_time =		        	element precise_time { BOOLEAN }
 ## by default true
 propose_hibernation =	        	element propose_hibernation { BOOLEAN }
 ## Defines list of default ntp servers from which product can pick.
-## Used mainly to distinguish between opensuse and suse products. See bsc#1180699
+## Used mainly to distinguish between openSUSE and SUSE products. See bsc#1180699
 default_ntp_servers = element default_ntp_servers {
   LIST,
   element ntp_server { STRING }

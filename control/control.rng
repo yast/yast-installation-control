@@ -610,7 +610,7 @@ by default true</a:documentation>
   </define>
   <define name="default_ntp_servers">
     <a:documentation>Defines list of default ntp servers from which product can pick.
-Used mainly to distinguish between opensuse and suse products. See bsc#1180699</a:documentation>
+Used mainly to distinguish between openSUSE and SUSE products. See bsc#1180699</a:documentation>
     <element name="default_ntp_servers">
       <ref name="LIST"/>
       <element name="ntp_server">
