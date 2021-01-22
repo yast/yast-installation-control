@@ -1,7 +1,9 @@
 # YaST - The Control File Schema Definition #
 
-[![Travis Build](https://travis-ci.org/yast/yast-installation-control.svg?branch=master)](https://travis-ci.org/yast/yast-installation-control)
-[![Jenkins Build](http://img.shields.io/jenkins/s/https/ci.opensuse.org/yast-installation-control-master.svg)](https://ci.opensuse.org/view/Yast/job/yast-installation-control-master/)
+[[![Workflow Status](https://github.com/yast/yast-installation-control/workflows/CI/badge.svg?branch=master)](
+https://github.com/yast/yast-installation-control/actions?query=branch%3Amaster)
+[![Jenkins Status](https://ci.opensuse.org/buildStatus/icon?job=yast-yast-installation-control-master)](
+https://ci.opensuse.org/view/Yast/job/yast-yast-installation-control-master/)
 
 ## Notes
 
