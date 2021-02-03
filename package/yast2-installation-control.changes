@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Wed Feb  3 15:18:01 UTC 2021 - David Diaz <dgonzalez@suse.com>
+
+- Add 'selinux_mode' and 'selinux_configurable' variables to control
+  the SELinux configuration to be proposed (jsc#SLE-17427,
+  jsc#SLE-17307).
+- 4.2.11
+
+-------------------------------------------------------------------
 Wed Oct  7 17:11:29 CEST 2020 - schubi@suse.de
 
 - Upgrade openSUSE->Jump. Allow vendor change without asking
