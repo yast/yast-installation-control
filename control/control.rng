@@ -177,6 +177,7 @@
       <ref name="full_system_download_url"/>
       <ref name="precise_time"/>
       <ref name="selinux_mode"/>
+      <ref name="selinux_configurable"/>
     </choice>
   </define>
   <define name="additional_kernel_parameters">
@@ -518,6 +519,13 @@ see ::Bootloader::CpuMitigations.from_string</a:documentation>
         <value>permissive</value>
         <value>enforcing</value>
       </choice>
+    </element>
+  </define>
+  <define name="selinux_configurable">
+    <a:documentation>SELinux configurable: whether SELinux can be proposed/configured during installation
+(related to jsc#SLE-17427)</a:documentation>
+    <element name="selinux_configurable">
+      <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="save_instsys_content">
