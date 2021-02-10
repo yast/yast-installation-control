@@ -531,6 +531,12 @@ see ::Bootloader::CpuMitigations.from_string</a:documentation>
             <ref name="BOOLEAN"/>
           </element>
         </optional>
+        <optional>
+          <element name="patterns">
+            <a:documentation>Required/Suggested patterns when using SELinux</a:documentation>
+            <text/>
+          </element>
+        </optional>
       </interleave>
     </element>
   </define>
