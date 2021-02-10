@@ -9,8 +9,8 @@ Wed Feb 10 13:43:33 UTC 2021 - David Diaz <dgonzalez@suse.com>
 Wed Feb  3 15:18:01 UTC 2021 - David Diaz <dgonzalez@suse.com>
 
 - Add 'selinux_mode' and 'selinux_configurable' variables to control
-  the SELinux configuration to be proposed (jsc#SLE-17427,
-  jsc#SLE-17307).
+  the SELinux configuration to be proposed (jsc#SMO-20,
+  jsc#SLE-17342).
 - 4.2.11
 
 -------------------------------------------------------------------
