@@ -139,8 +139,7 @@ globals_elements =
     | full_system_media_name
     | full_system_download_url
     | precise_time
-    | selinux_mode
-    | selinux_configurable
+    | selinux
 
 ## Default kernel parameters proposed by bootloader
 additional_kernel_parameters =		element additional_kernel_parameters { text }
@@ -258,11 +257,18 @@ full_system_media_name =		element full_system_media_name { text }
 full_system_download_url =		element full_system_download_url { text }
 ## Defines if product needs precise time. It is short time workaround for bsc#1145193
 precise_time =		        	element precise_time { BOOLEAN }
-## SELinux mode: allows to choose the SELinux mode to be proposed (related to jsc#SLE-17427)
-selinux_mode = element selinux_mode { "disabled" | "permissive" | "enforcing" }
-## SELinux configurable: whether SELinux can be proposed/configured during installation
-## (related to jsc#SLE-17427)
-selinux_configurable = element selinux_configurable { BOOLEAN }
+## SELinux options
+selinux = element selinux {
+  MAP,
+    (
+      ## SELinux mode
+      element mode { "disabled" | "permissive" | "enforcing" }? &
+      ## Whether SELinux can be proposed/configured during installation
+      element configurable { BOOLEAN }? &
+      ## Space-separated list of required/suggested patterns when using SELinux
+      element patterns { text }?
+    )
+}
 
 ## Defines which pieces of installation system should be copied to
 ## the installed system before rebooting to second stage.
