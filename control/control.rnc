@@ -265,7 +265,7 @@ selinux = element selinux {
       element mode { "disabled" | "permissive" | "enforcing" }? &
       ## Whether SELinux can be proposed/configured during installation
       element configurable { BOOLEAN }? &
-      ## Required/Suggested patterns when using SELinux
+      ## Space-separated list of required/suggested patterns when using SELinux
       element patterns { text }?
     )
 }
