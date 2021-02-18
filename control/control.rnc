@@ -164,6 +164,7 @@ globals_elements =
     | precise_time
     | propose_hibernation
     | default_ntp_servers
+    | selinux
 
 ## Default kernel parameters proposed by bootloader
 additional_kernel_parameters =		element additional_kernel_parameters { STRING }
@@ -300,6 +301,18 @@ propose_hibernation =	        	element propose_hibernation { BOOLEAN }
 default_ntp_servers = element default_ntp_servers {
   LIST,
   element ntp_server { STRING }
+}
+## SELinux options
+selinux = element selinux {
+  MAP,
+    (
+      ## SELinux mode
+      element mode { "disabled" | "permissive" | "enforcing" }? &
+      ## Whether SELinux can be proposed/configured during installation
+      element configurable { BOOLEAN }? &
+      ## Space-separated list of required/suggested patterns when using SELinux
+      element patterns { text }?
+    )
 }
 
 ## Defines which pieces of installation system should be copied to
