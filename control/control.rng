@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  
+
   IMPORTANT!: After editing control.rnc run "make" to generate the
   RNG file and commit _both_ files to Git to keep them in sync!
-  
+
   We do not generate the RNG file at build time as it adds huge dependecy (it
   is a Java tool so it requires complete Java stack)
-  
+
 -->
 <grammar ns="http://www.suse.com/1.0/yast2ns" xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns:config="http://www.suse.com/1.0/configns" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
   <!--
@@ -243,6 +243,7 @@ Shorter variants are allowed.</a:documentation>
       <ref name="precise_time"/>
       <ref name="propose_hibernation"/>
       <ref name="default_ntp_servers"/>
+      <ref name="selinux"/>
     </choice>
   </define>
   <define name="additional_kernel_parameters">
@@ -616,6 +617,36 @@ Used mainly to distinguish between openSUSE and SUSE products. See bsc#1180699</
       <element name="ntp_server">
         <ref name="STRING"/>
       </element>
+    </element>
+  </define>
+  <define name="selinux">
+    <a:documentation>SELinux options</a:documentation>
+    <element name="selinux">
+      <ref name="MAP"/>
+      <interleave>
+        <optional>
+          <element name="mode">
+            <a:documentation>SELinux mode</a:documentation>
+            <choice>
+              <value>disabled</value>
+              <value>permissive</value>
+              <value>enforcing</value>
+            </choice>
+          </element>
+        </optional>
+        <optional>
+          <element name="configurable">
+            <a:documentation>Whether SELinux can be proposed/configured during installation</a:documentation>
+            <ref name="BOOLEAN"/>
+          </element>
+        </optional>
+        <optional>
+          <element name="patterns">
+            <a:documentation>Space-separated list of required/suggested patterns when using SELinux</a:documentation>
+            <text/>
+          </element>
+        </optional>
+      </interleave>
     </element>
   </define>
   <define name="save_instsys_content">
