@@ -1,7 +1,7 @@
 #
 # spec file for package yast2-installation-control
 #
-# Copyright (c) 2019 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2021 SUSE LLC
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,28 +17,23 @@
 
 
 Name:           yast2-installation-control
-Version:        4.4.0
+Version:        4.4.1
 Release:        0
-
-BuildRoot:      %{_tmppath}/%{name}-%{version}-build
-Source0:        %{name}-%{version}.tar.bz2
-
 Summary:        YaST2 - RNG schema for installation control files
 License:        GPL-2.0-only
 Group:          System/YaST
-Url:            https://github.com/yast/yast-installation-control
-
-BuildRequires:  yast2-devtools >= 3.1.10
+URL:            https://github.com/yast/yast-installation-control
+Source0:        %{name}-%{version}.tar.bz2
 # smoke test during build
 BuildRequires:  libxml2-tools
-
+BuildRequires:  yast2-devtools >= 4.4.0
 BuildArch:      noarch
 
 %description
 This package contains RNG schema for validating the installation control files.
 
 %prep
-%setup -n %{name}-%{version}
+%setup -q
 
 %build
 %yast_build
@@ -47,14 +42,11 @@ This package contains RNG schema for validating the installation control files.
 %yast_install
 
 %files
-%defattr(-,root,root)
+%license COPYING
 %dir %{yast_controldir}
 %{yast_controldir}/*.rng
 %{yast_controldir}/*.rnc
-%dir /etc/rpm
-/etc/rpm/macros.skelcd
-%license COPYING
-
-%doc %{yast_docdir}
+%dir %{_sysconfdir}/rpm
+%{_sysconfdir}/rpm/macros.skelcd
 
 %changelog
