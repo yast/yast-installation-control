@@ -818,10 +818,15 @@ network_elements =
     force_static_ip
     | network_manager
     | startmode
+    | ipv4_forward
+    | ipv6_forward
 
 force_static_ip =	element force_static_ip { BOOLEAN }
 network_manager =	element network_manager { STRING }
 startmode =		element startmode { STRING }
+ipv4_forward = element ipv4_forward { BOOLEAN }
+ipv6_forward = element ipv6_forward { BOOLEAN }
+
 
 ## Network configuration-related variables
 network = element network {

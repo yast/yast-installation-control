@@ -1785,6 +1785,8 @@ Example 2: ppc,!board_powernv
       <ref name="force_static_ip"/>
       <ref name="network_manager"/>
       <ref name="startmode"/>
+      <ref name="ipv4_forward"/>
+      <ref name="ipv6_forward"/>
     </choice>
   </define>
   <define name="force_static_ip">
@@ -1800,6 +1802,16 @@ Example 2: ppc,!board_powernv
   <define name="startmode">
     <element name="startmode">
       <ref name="STRING"/>
+    </element>
+  </define>
+  <define name="ipv4_forward">
+    <element name="ipv4_forward">
+      <ref name="BOOLEAN"/>
+    </element>
+  </define>
+  <define name="ipv6_forward">
+    <element name="ipv6_forward">
+      <ref name="BOOLEAN"/>
     </element>
   </define>
   <define name="network">
