@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-
+  
   IMPORTANT!: After editing control.rnc run "make" to generate the
   RNG file and commit _both_ files to Git to keep them in sync!
-
+  
   We do not generate the RNG file at build time as it adds huge dependecy (it
   is a Java tool so it requires complete Java stack)
-
+  
 -->
 <grammar ns="http://www.suse.com/1.0/yast2ns" xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns:config="http://www.suse.com/1.0/configns" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
   <!--
@@ -614,9 +614,11 @@ by default true</a:documentation>
 Used mainly to distinguish between openSUSE and SUSE products. See bsc#1180699</a:documentation>
     <element name="default_ntp_servers">
       <ref name="LIST"/>
-      <element name="ntp_server">
-        <ref name="STRING"/>
-      </element>
+      <zeroOrMore>
+        <element name="ntp_server">
+          <ref name="STRING"/>
+        </element>
+      </zeroOrMore>
     </element>
   </define>
   <define name="selinux">

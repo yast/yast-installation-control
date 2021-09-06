@@ -300,7 +300,7 @@ propose_hibernation =	        	element propose_hibernation { BOOLEAN }
 ## Used mainly to distinguish between openSUSE and SUSE products. See bsc#1180699
 default_ntp_servers = element default_ntp_servers {
   LIST,
-  element ntp_server { STRING }
+  element ntp_server { STRING }*
 }
 ## SELinux options
 selinux = element selinux {
