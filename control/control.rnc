@@ -606,65 +606,17 @@ base_product = element base_product {
 
 # partitioning
 
-# An overview of partitioning related settings can be found in
+# An overview of partitioning related settings can be found at
 # https://github.com/yast/yast-storage-ng/blob/master/doc/old_and_new_proposal.md
+# A more detailed explanation of each setting can be found at
+# https://github.com/yast/yast-installation/blob/master/doc/control-file.md#partitioning
 
-# ng: one proposal and one volume list
-ng_partitioning_elements =
+partitioning_elements =
     partitioning_proposal
     & partitioning_volumes
     & expert_partitioner_warning?
 
-# legacy: the old stuff, mixed together
-legacy_partitioning_elements =
-    try_separate_home
-    | limit_try_home
-    | home_path
-    | home_fs
-    | root_fs
-    | root_space_percent
-    | root_base_size
-    | root_max_size
-    | proposal_lvm
-    | vm_desired_size
-    | vm_home_max_size
-    | use_separate_multipath_module
-    | prefer_remove
-    | vm_keep_unpartitioned_region
-    | remove_special_partitions
-    | partitions
-    | btrfs_increase_percentage
-    | btrfs_default_subvolume
-    | expert_partitioner_warning
-    | root_subvolume_read_only
-    | subvolumes
-
-# you can either have the new 'ng' style elements or the old 'legacy' ones
-partitioning_elements =
-     ng_partitioning_elements | legacy_partitioning_elements*
-
-# legacy element definitions
-
-try_separate_home =		element try_separate_home { BOOLEAN }
-limit_try_home =		element limit_try_home { STRING }
-home_path =                     element home_path { STRING }
-home_fs =                       element home_fs { STRING }
-root_fs =                       element root_fs { STRING }
-root_space_percent =		element root_space_percent { STRING }
-root_base_size =		element root_base_size { STRING }
-root_max_size =			element root_max_size { STRING }
-proposal_lvm =			element proposal_lvm { BOOLEAN }
-vm_desired_size =		element vm_desired_size { STRING }
-vm_home_max_size =		element vm_home_max_size { STRING }
-prefer_remove =			element prefer_remove { BOOLEAN }
-remove_special_partitions =	element remove_special_partitions { BOOLEAN }
-vm_keep_unpartitioned_region =	element vm_keep_unpartitioned_region { BOOLEAN }
-# used by HASI Add-On
-use_separate_multipath_module =	element use_separate_multipath_module { BOOLEAN }
-btrfs_increase_percentage =	element btrfs_increase_percentage { INTEGER }
-btrfs_default_subvolume =	element btrfs_default_subvolume { STRING }
 expert_partitioner_warning =    element expert_partitioner_warning { BOOLEAN }
-root_subvolume_read_only =      element root_subvolume_read_only { BOOLEAN }
 
 ## Optional, but if this element appears (even if it's empty),
 ## the internal fallback list is not used
@@ -691,52 +643,39 @@ subvolume = element subvolume {
     )
 }
 
-# these have to be defined by Storage
-partitions = element partitions {
-    LIST,
-    element listentry {
-	element * { ANY }*
-    }*,
-    element partition {
-	element * { ANY }*
-    }*
-}
-
-# ng element definitions
-
 partitioning_proposal = element proposal {
   MAP,
   partitioning_proposal_elements
 }
 
 partitioning_proposal_elements =
-    ng_lvm?
-    & ng_separate_vgs?
-    & ng_resize_windows?
-    & ng_windows_delete_mode?
-    & ng_linux_delete_mode?
-    & ng_other_delete_mode?
-    & ng_lvm_vg_strategy?
-    & ng_lvm_vg_size?
-    & ng_delete_resize_configurable?
-    & ng_allocate_volume_mode?
-    & ng_multidisk_first?
+    lvm?
+    & separate_vgs?
+    & resize_windows?
+    & windows_delete_mode?
+    & linux_delete_mode?
+    & other_delete_mode?
+    & lvm_vg_strategy?
+    & lvm_vg_size?
+    & delete_resize_configurable?
+    & allocate_volume_mode?
+    & multidisk_first?
 
-ng_lvm = element lvm { BOOLEAN }
-ng_separate_vgs = element separate_vgs { BOOLEAN }
-ng_resize_windows = element resize_windows { BOOLEAN }
-ng_windows_delete_mode = element windows_delete_mode { SYMBOL, ng_delete_mode_enum }
-ng_linux_delete_mode = element linux_delete_mode { SYMBOL, ng_delete_mode_enum }
-ng_other_delete_mode = element other_delete_mode { SYMBOL, ng_delete_mode_enum }
-ng_lvm_vg_strategy = element lvm_vg_strategy { SYMBOL, ng_lvm_vg_strategy_enum }
-ng_lvm_vg_size = element lvm_vg_size { DISKSIZE }
-ng_delete_resize_configurable = element delete_resize_configurable { BOOLEAN }
-ng_allocate_volume_mode = element allocate_volume_mode { SYMBOL, ng_allocate_volume_mode_enum }
-ng_multidisk_first = element multidisk_first { BOOLEAN }
+lvm = element lvm { BOOLEAN }
+separate_vgs = element separate_vgs { BOOLEAN }
+resize_windows = element resize_windows { BOOLEAN }
+windows_delete_mode = element windows_delete_mode { SYMBOL, delete_mode_enum }
+linux_delete_mode = element linux_delete_mode { SYMBOL, delete_mode_enum }
+other_delete_mode = element other_delete_mode { SYMBOL, delete_mode_enum }
+lvm_vg_strategy = element lvm_vg_strategy { SYMBOL, lvm_vg_strategy_enum }
+lvm_vg_size = element lvm_vg_size { DISKSIZE }
+delete_resize_configurable = element delete_resize_configurable { BOOLEAN }
+allocate_volume_mode = element allocate_volume_mode { SYMBOL, allocate_volume_mode_enum }
+multidisk_first = element multidisk_first { BOOLEAN }
 
-ng_delete_mode_enum = "none" | "ondemand" | "all"
-ng_allocate_volume_mode_enum = "auto" | "device"
-ng_lvm_vg_strategy_enum = "use_available" | "use_needed" | "use_vg_size"
+delete_mode_enum = "none" | "ondemand" | "all"
+allocate_volume_mode_enum = "auto" | "device"
+lvm_vg_strategy_enum = "use_available" | "use_needed" | "use_vg_size"
 
 partitioning_volumes =  element volumes {
   LIST,
@@ -749,60 +688,59 @@ partitioning_volume = element volume {
 }
 
 partitioning_volume_elements =
-  ng_mount_point?
-  & ng_proposed?
-  & ng_proposed_configurable?
-  & ng_fs_types?
-  & ng_fs_type?
-  & ng_desired_size?
-  & ng_min_size?
-  & ng_max_size?
-  & ng_max_size_lvm?
-  & ng_weight?
-  & ng_adjust_by_ram?
-  & ng_adjust_by_ram_configurable?
-  & ng_fallback_for_desired_size?
-  & ng_fallback_for_min_size?
-  & ng_fallback_for_max_size?
-  & ng_fallback_for_max_size_lvm?
-  & ng_fallback_for_weight?
-  & ng_snapshots?
-  & ng_snapshots_configurable?
-  & ng_snapshots_size_or_percentage?
-  & ng_subvolumes?
-  & ng_btrfs_default_subvolume?
-  & ng_disable_order?
-  & ng_btrfs_read_only?
-  & ng_separate_vg_name?
+  mount_point?
+  & proposed?
+  & proposed_configurable?
+  & fs_types?
+  & fs_type?
+  & desired_size?
+  & min_size?
+  & max_size?
+  & max_size_lvm?
+  & weight?
+  & adjust_by_ram?
+  & adjust_by_ram_configurable?
+  & fallback_for_desired_size?
+  & fallback_for_min_size?
+  & fallback_for_max_size?
+  & fallback_for_max_size_lvm?
+  & fallback_for_weight?
+  & snapshots?
+  & snapshots_configurable?
+  & snapshots_size_or_percentage?
+  & subvolumes?
+  & btrfs_default_subvolume?
+  & disable_order?
+  & btrfs_read_only?
+  & separate_vg_name?
 
-ng_snapshots_size_or_percentage = ng_snapshots_size | ng_snapshots_percentage
+snapshots_size_or_percentage = snapshots_size | snapshots_percentage
 
-ng_mount_point = element mount_point { STRING }
-ng_proposed = element proposed { BOOLEAN }
-ng_proposed_configurable = element proposed_configurable { BOOLEAN }
-ng_fs_types = element fs_types { STRING }
-ng_fs_type = element fs_type { STRING }
-ng_desired_size = element desired_size { DISKSIZE }
-ng_min_size = element min_size { DISKSIZE }
-ng_max_size = element max_size { DISKSIZE }
-ng_max_size_lvm = element max_size_lvm { DISKSIZE }
-ng_weight = element weight { INTEGER }
-ng_adjust_by_ram = element adjust_by_ram { BOOLEAN }
-ng_adjust_by_ram_configurable = element adjust_by_ram_configurable { BOOLEAN }
-ng_fallback_for_desired_size = element fallback_for_desired_size { STRING }
-ng_fallback_for_min_size = element fallback_for_min_size { STRING }
-ng_fallback_for_max_size = element fallback_for_max_size { STRING }
-ng_fallback_for_max_size_lvm = element fallback_for_max_size_lvm { STRING }
-ng_fallback_for_weight = element fallback_for_weight { STRING }
-ng_snapshots = element snapshots { BOOLEAN }
-ng_snapshots_configurable = element snapshots_configurable { BOOLEAN }
-ng_snapshots_size = element snapshots_size { DISKSIZE }
-ng_snapshots_percentage = element snapshots_percentage { INTEGER }
-ng_subvolumes = subvolumes
-ng_btrfs_default_subvolume = element btrfs_default_subvolume { STRING }
-ng_disable_order = element disable_order { INTEGER }
-ng_btrfs_read_only = element btrfs_read_only { BOOLEAN }
-ng_separate_vg_name = element separate_vg_name { STRING }
+mount_point = element mount_point { STRING }
+proposed = element proposed { BOOLEAN }
+proposed_configurable = element proposed_configurable { BOOLEAN }
+fs_types = element fs_types { STRING }
+fs_type = element fs_type { STRING }
+desired_size = element desired_size { DISKSIZE }
+min_size = element min_size { DISKSIZE }
+max_size = element max_size { DISKSIZE }
+max_size_lvm = element max_size_lvm { DISKSIZE }
+weight = element weight { INTEGER }
+adjust_by_ram = element adjust_by_ram { BOOLEAN }
+adjust_by_ram_configurable = element adjust_by_ram_configurable { BOOLEAN }
+fallback_for_desired_size = element fallback_for_desired_size { STRING }
+fallback_for_min_size = element fallback_for_min_size { STRING }
+fallback_for_max_size = element fallback_for_max_size { STRING }
+fallback_for_max_size_lvm = element fallback_for_max_size_lvm { STRING }
+fallback_for_weight = element fallback_for_weight { STRING }
+snapshots = element snapshots { BOOLEAN }
+snapshots_configurable = element snapshots_configurable { BOOLEAN }
+snapshots_size = element snapshots_size { DISKSIZE }
+snapshots_percentage = element snapshots_percentage { INTEGER }
+btrfs_default_subvolume = element btrfs_default_subvolume { STRING }
+disable_order = element disable_order { INTEGER }
+btrfs_read_only = element btrfs_read_only { BOOLEAN }
+separate_vg_name = element separate_vg_name { STRING }
 
 ## Partitioning-related variables
 partitioning = element partitioning {
