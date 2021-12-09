@@ -235,6 +235,7 @@ Shorter variants are allowed.</a:documentation>
       <ref name="show_drivers_info"/>
       <ref name="self_update_url"/>
       <ref name="self_update_id"/>
+      <ref name="self_update_version"/>
       <ref name="installation_ui"/>
       <ref name="installation_layout"/>
       <ref name="cpu_mitigations"/>
@@ -530,6 +531,12 @@ The URL is used as fallback when SCC query failed.</a:documentation>
   <define name="self_update_id">
     <a:documentation>It is an ID used to query SCC for the self update repo.</a:documentation>
     <element name="self_update_id">
+      <ref name="STRING"/>
+    </element>
+  </define>
+  <define name="self_update_version">
+    <a:documentation>Optional version for the product ID</a:documentation>
+    <element name="self_update_version">
       <ref name="STRING"/>
     </element>
   </define>
