@@ -156,6 +156,7 @@ globals_elements =
     | show_drivers_info
     | self_update_url
     | self_update_id
+    | self_update_version
     | installation_ui
     | installation_layout
     | cpu_mitigations
@@ -267,6 +268,8 @@ self_update_url =			element self_update_url { STRING }
 # Self-update id (bsc#1055556).
 ## It is an ID used to query SCC for the self update repo.
 self_update_id =			element self_update_id { STRING }
+## Optional version for the product ID
+self_update_version =		element self_update_version { STRING }
 # Installation UI (boo#1088785)
 ## Enables alternative look of installation with sidebar.
 ## This options is deprecated if favor of installation_layout.

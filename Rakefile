@@ -17,6 +17,7 @@ task :check_rng_status do
   end
 end
 
+desc "Generate the RNG file from the RNC schema"
 task :generate_rng do
   unless system("which trang >/dev/null 2>&1")
     raise "Error: trang package is missing, please install it for proceeding with the conversion."
