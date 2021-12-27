@@ -165,7 +165,7 @@ globals_elements =
     | precise_time
     | propose_hibernation
     | default_ntp_servers
-    | selinux
+    | lsm
 
 ## Default kernel parameters proposed by bootloader
 additional_kernel_parameters =		element additional_kernel_parameters { STRING }
@@ -305,17 +305,45 @@ default_ntp_servers = element default_ntp_servers {
   LIST,
   element ntp_server { STRING }*
 }
+
+## Linux Security Module configuration ## 
+## Whether the module can be proposed/configured during installation
+lsm_configurable = element configurable  { BOOLEAN }
+## Whether the module can be selected during installation
+lsm_selectable = element selectable  { BOOLEAN }
+## Space-separated list of required/suggested patterns when using SELinux
+lsm_patterns =  element patterns { text }
+
+lsm = element lsm { MAP,
+  (
+    lsm_select? &
+    lsm_configurable? &
+    selinux? &
+    apparmor?
+  )
+}
+
+lsm_select = element select { STRING }
+lsm_module =
+  lsm_configurable
+  | lsm_selectable
+  | lsm_patterns
+
+## AppArmor options
+apparmor = element apparmor { MAP,
+  lsm_module*
+}
+
+## SELinux mode
+selinux_mode = element mode { "disabled" | "permissive" | "enforcing" }
+
 ## SELinux options
 selinux = element selinux {
   MAP,
     (
-      ## SELinux mode
-      element mode { "disabled" | "permissive" | "enforcing" }? &
-      ## Whether SELinux can be proposed/configured during installation
-      element configurable { BOOLEAN }? &
-      ## Space-separated list of required/suggested patterns when using SELinux
-      element patterns { text }?
-    )
+      lsm_module*
+      | selinux_mode?
+    )*
 }
 
 ## Defines which pieces of installation system should be copied to

@@ -244,7 +244,7 @@ Shorter variants are allowed.</a:documentation>
       <ref name="precise_time"/>
       <ref name="propose_hibernation"/>
       <ref name="default_ntp_servers"/>
-      <ref name="selinux"/>
+      <ref name="lsm"/>
     </choice>
   </define>
   <define name="additional_kernel_parameters">
@@ -628,34 +628,89 @@ Used mainly to distinguish between openSUSE and SUSE products. See bsc#1180699</
       </zeroOrMore>
     </element>
   </define>
+  <define name="lsm_configurable">
+    <a:documentation>Linux Security Module configuration ## 
+Whether the module can be proposed/configured during installation</a:documentation>
+    <element name="configurable">
+      <ref name="BOOLEAN"/>
+    </element>
+  </define>
+  <define name="lsm_selectable">
+    <a:documentation>Whether the module can be selected during installation</a:documentation>
+    <element name="selectable">
+      <ref name="BOOLEAN"/>
+    </element>
+  </define>
+  <define name="lsm_patterns">
+    <a:documentation>Space-separated list of required/suggested patterns when using SELinux</a:documentation>
+    <element name="patterns">
+      <text/>
+    </element>
+  </define>
+  <define name="lsm">
+    <element name="lsm">
+      <ref name="MAP"/>
+      <interleave>
+        <optional>
+          <ref name="lsm_select"/>
+        </optional>
+        <optional>
+          <ref name="lsm_configurable"/>
+        </optional>
+        <optional>
+          <ref name="selinux"/>
+        </optional>
+        <optional>
+          <ref name="apparmor"/>
+        </optional>
+      </interleave>
+    </element>
+  </define>
+  <define name="lsm_select">
+    <element name="select">
+      <ref name="STRING"/>
+    </element>
+  </define>
+  <define name="lsm_module">
+    <choice>
+      <ref name="lsm_configurable"/>
+      <ref name="lsm_selectable"/>
+      <ref name="lsm_patterns"/>
+    </choice>
+  </define>
+  <define name="apparmor">
+    <a:documentation>AppArmor options</a:documentation>
+    <element name="apparmor">
+      <ref name="MAP"/>
+      <zeroOrMore>
+        <ref name="lsm_module"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="selinux_mode">
+    <a:documentation>SELinux mode</a:documentation>
+    <element name="mode">
+      <choice>
+        <value>disabled</value>
+        <value>permissive</value>
+        <value>enforcing</value>
+      </choice>
+    </element>
+  </define>
   <define name="selinux">
     <a:documentation>SELinux options</a:documentation>
     <element name="selinux">
       <ref name="MAP"/>
-      <interleave>
-        <optional>
-          <element name="mode">
-            <a:documentation>SELinux mode</a:documentation>
-            <choice>
-              <value>disabled</value>
-              <value>permissive</value>
-              <value>enforcing</value>
-            </choice>
-          </element>
-        </optional>
-        <optional>
-          <element name="configurable">
-            <a:documentation>Whether SELinux can be proposed/configured during installation</a:documentation>
-            <ref name="BOOLEAN"/>
-          </element>
-        </optional>
-        <optional>
-          <element name="patterns">
-            <a:documentation>Space-separated list of required/suggested patterns when using SELinux</a:documentation>
-            <text/>
-          </element>
-        </optional>
-      </interleave>
+      <zeroOrMore>
+        <choice>
+          <zeroOrMore>
+            <ref name="lsm_module"/>
+          </zeroOrMore>
+          <optional>
+            <ref name="selinux_mode"/>
+          </optional>
+        </choice>
+      </zeroOrMore>
     </element>
   </define>
   <define name="save_instsys_content">
