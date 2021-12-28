@@ -323,7 +323,8 @@ lsm = element lsm { MAP,
   )
 }
 
-lsm_select = element select { STRING }
+# Linux Security Major Module to be activted after installation
+lsm_select = element select { "apparmor" | "selinux" | "none" }
 lsm_module =
   lsm_configurable
   | lsm_selectable
