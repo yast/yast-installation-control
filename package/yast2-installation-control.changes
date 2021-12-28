@@ -2,7 +2,7 @@
 Mon Dec 27 17:51:45 UTC 2021 - Knut Anderssen <kanderssen@suse.com>
 
 - Added "lsm" section for selecting and configuring the desired
-  Linux Security Module (jsc##SLE-22069)
+  Linux Security Module (jsc#SLE-22069)
 - 4.4.7
 
 -------------------------------------------------------------------
