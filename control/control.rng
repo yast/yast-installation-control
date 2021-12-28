@@ -666,9 +666,14 @@ Whether the module can be proposed/configured during installation</a:documentati
       </interleave>
     </element>
   </define>
+  <!-- Linux Security Major Module to be activted after installation -->
   <define name="lsm_select">
     <element name="select">
-      <ref name="STRING"/>
+      <choice>
+        <value>apparmor</value>
+        <value>selinux</value>
+        <value>none</value>
+      </choice>
     </element>
   </define>
   <define name="lsm_module">
