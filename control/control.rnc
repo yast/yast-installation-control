@@ -318,6 +318,7 @@ lsm = element lsm { MAP,
   (
     lsm_select? &
     lsm_configurable? &
+    lsm_selectable? &
     selinux? &
     apparmor?
   )
