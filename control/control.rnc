@@ -311,19 +311,20 @@ default_ntp_servers = element default_ntp_servers {
 lsm_configurable = element configurable  { BOOLEAN }
 ## Whether the module can be selected during installation
 lsm_selectable = element selectable  { BOOLEAN }
-## Space-separated list of required/suggested patterns when using SELinux
+## Space-separated list of required/suggested patterns for the module
 lsm_patterns =  element patterns { text }
 
 lsm = element lsm { MAP,
   (
     lsm_select? &
     lsm_configurable? &
+    lsm_selectable? &
     selinux? &
     apparmor?
   )
 }
 
-# Linux Security Major Module to be activted after installation
+# Linux Security Major Module to be activated after installation
 lsm_select = element select { "apparmor" | "selinux" | "none" }
 lsm_module =
   lsm_configurable
