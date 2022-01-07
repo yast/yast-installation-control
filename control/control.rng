@@ -245,6 +245,8 @@ Shorter variants are allowed.</a:documentation>
       <ref name="propose_hibernation"/>
       <ref name="default_ntp_servers"/>
       <ref name="lsm"/>
+      <!-- (deprecated) but make it backward compatible (bsc#1194403) -->
+      <ref name="selinux"/>
     </choice>
   </define>
   <define name="additional_kernel_parameters">
@@ -642,7 +644,7 @@ Whether the module can be proposed/configured during installation</a:documentati
     </element>
   </define>
   <define name="lsm_patterns">
-    <a:documentation>Space-separated list of required/suggested patterns when using SELinux</a:documentation>
+    <a:documentation>Space-separated list of required/suggested patterns for the module</a:documentation>
     <element name="patterns">
       <text/>
     </element>
@@ -658,6 +660,9 @@ Whether the module can be proposed/configured during installation</a:documentati
           <ref name="lsm_configurable"/>
         </optional>
         <optional>
+          <ref name="lsm_selectable"/>
+        </optional>
+        <optional>
           <ref name="selinux"/>
         </optional>
         <optional>
@@ -666,7 +671,7 @@ Whether the module can be proposed/configured during installation</a:documentati
       </interleave>
     </element>
   </define>
-  <!-- Linux Security Major Module to be activted after installation -->
+  <!-- Linux Security Major Module to be activated after installation -->
   <define name="lsm_select">
     <element name="select">
       <choice>
