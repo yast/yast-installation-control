@@ -166,6 +166,8 @@ globals_elements =
     | propose_hibernation
     | default_ntp_servers
     | lsm
+    # (deprecated) but make it backward compatible (bsc#1194403)
+    | selinux
 
 ## Default kernel parameters proposed by bootloader
 additional_kernel_parameters =		element additional_kernel_parameters { STRING }
