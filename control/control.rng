@@ -663,6 +663,9 @@ Whether the module can be proposed/configured during installation</a:documentati
           <ref name="lsm_selectable"/>
         </optional>
         <optional>
+          <ref name="none_module"/>
+        </optional>
+        <optional>
           <ref name="selinux"/>
         </optional>
         <optional>
@@ -695,6 +698,15 @@ Whether the module can be proposed/configured during installation</a:documentati
       <zeroOrMore>
         <ref name="lsm_module"/>
       </zeroOrMore>
+    </element>
+  </define>
+  <!-- None options -->
+  <define name="none_module">
+    <element name="none">
+      <ref name="MAP"/>
+      <optional>
+        <ref name="lsm_selectable"/>
+      </optional>
     </element>
   </define>
   <define name="selinux_mode">

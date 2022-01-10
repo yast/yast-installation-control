@@ -321,6 +321,7 @@ lsm = element lsm { MAP,
     lsm_select? &
     lsm_configurable? &
     lsm_selectable? &
+    none_module? &
     selinux? &
     apparmor?
   )
@@ -333,9 +334,15 @@ lsm_module =
   | lsm_selectable
   | lsm_patterns
 
+
 ## AppArmor options
 apparmor = element apparmor { MAP,
   lsm_module*
+}
+
+# None options
+none_module = element none { MAP,
+  lsm_selectable?
 }
 
 ## SELinux mode
