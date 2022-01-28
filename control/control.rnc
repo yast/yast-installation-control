@@ -105,69 +105,69 @@ textdomain = element textdomain { STRING }
 # globals
 
 globals_elements =
-    incomplete_translation_treshold
-    | additional_kernel_parameters
-    | ui_mode
+    additional_kernel_parameters
+    | addons_default
     | base_product_license_directory
-    | enable_autologin
-    | enable_firewall
-    | firewall_enable_ssh
-    | enable_sshd
-    | write_hostname_to_hosts
+    | cpu_mitigations
+    | debug_deploying
+    | debug_workflow
+    | default_ntp_servers
+    | default_ntp_setup
+    | default_subworkflow
+    | default_target
     | dhclient_set_hostname
-    | run_init_scripts_in_parallel
-    | inform_about_suboptimal_distribution
-    | skip_language_dialog
+    | disable_os_prober
+    | disable_register_w3m
+    | display_register_forcereg
+    | displaymanager_shutdown
+    | enable_autologin
+    | enable_autologin
     | enable_clone
-    | save_y2logs
+    | enable_firewall
+    | enable_kdump
+    | enable_local_users
     | enable_register_hwdata
     | enable_register_optional
-    | disable_os_prober
-    | display_register_forcereg
-    | disable_register_w3m
-    | register_monthly
-    | manual_online_update
-    | root_password_as_first_user
-    | root_password_ca_check
-    | enable_local_users
-    | show_online_repositories
-    | online_repositories_default
-    | show_addons
-    | addons_default
-    | kexec_reboot
-    | rle_offer_rulevel_4
-    | default_ntp_setup
-    | save_instsys_content
-    | displaymanager_shutdown
-    | enable_kdump
-    | polkit_default_privs
-    | debug_workflow
-    | subworkflows
-    | default_subworkflow
-    | language
-    | timezone
-    | readonly_language
-    | readonly_timezone
-    | enable_autologin
-    | default_target
-    | require_registration
-    | services_proposal
-    | debug_deploying
-    | show_drivers_info
-    | self_update_url
-    | self_update_id
-    | self_update_version
-    | installation_ui
-    | installation_layout
-    | cpu_mitigations
-    | full_system_media_name
+    | enable_sshd
+    | firewall_enable_ssh
     | full_system_download_url
+    | full_system_media_name
+    | incomplete_translation_treshold
+    | inform_about_suboptimal_distribution
+    | installation_layout
+    | installation_ui
+    | kexec_reboot
+    | language
+    | lsm
+    | manual_online_update
+    | online_repositories_default
+    | polkit_default_privs
     | precise_time
     | propose_hibernation
-    | default_ntp_servers
-    | lsm
+    | readonly_language
+    | readonly_timezone
+    | register_monthly
+    | require_registration
+    | rle_offer_rulevel_4
+    | root_password_as_first_user
+    | root_password_ca_check
+    | run_init_scripts_in_parallel
+    | save_instsys_content
+    | save_y2logs
+    | self_update_id
+    | self_update_url
+    | self_update_version
     # (deprecated) but make it backward compatible (bsc#1194403)
     | selinux
+    | services_proposal
+    | show_addons
+    | show_drivers_info
+    | show_online_repositories
+    | skip_language_dialog
+    | subworkflows
+    | timezone
+    | ui_mode
+    | write_hostname_to_hosts
 
 ## Default kernel parameters proposed by bootloader
 additional_kernel_parameters =		element additional_kernel_parameters { STRING }
