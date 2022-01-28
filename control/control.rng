@@ -184,69 +184,70 @@ Shorter variants are allowed.</a:documentation>
   <!-- globals -->
   <define name="globals_elements">
     <choice>
-      <ref name="incomplete_translation_treshold"/>
       <ref name="additional_kernel_parameters"/>
-      <ref name="ui_mode"/>
+      <ref name="addons_default"/>
       <ref name="base_product_license_directory"/>
-      <ref name="enable_autologin"/>
-      <ref name="enable_firewall"/>
-      <ref name="firewall_enable_ssh"/>
-      <ref name="enable_sshd"/>
-      <ref name="write_hostname_to_hosts"/>
+      <ref name="boot_timeout"/>
+      <ref name="cpu_mitigations"/>
+      <ref name="debug_deploying"/>
+      <ref name="debug_workflow"/>
+      <ref name="default_ntp_servers"/>
+      <ref name="default_ntp_setup"/>
+      <ref name="default_subworkflow"/>
+      <ref name="default_target"/>
       <ref name="dhclient_set_hostname"/>
-      <ref name="run_init_scripts_in_parallel"/>
-      <ref name="inform_about_suboptimal_distribution"/>
-      <ref name="skip_language_dialog"/>
+      <ref name="disable_os_prober"/>
+      <ref name="disable_register_w3m"/>
+      <ref name="display_register_forcereg"/>
+      <ref name="displaymanager_shutdown"/>
+      <ref name="enable_autologin"/>
+      <ref name="enable_autologin"/>
       <ref name="enable_clone"/>
-      <ref name="save_y2logs"/>
+      <ref name="enable_firewall"/>
+      <ref name="enable_kdump"/>
+      <ref name="enable_local_users"/>
       <ref name="enable_register_hwdata"/>
       <ref name="enable_register_optional"/>
-      <ref name="disable_os_prober"/>
-      <ref name="display_register_forcereg"/>
-      <ref name="disable_register_w3m"/>
-      <ref name="register_monthly"/>
-      <ref name="manual_online_update"/>
-      <ref name="root_password_as_first_user"/>
-      <ref name="root_password_ca_check"/>
-      <ref name="enable_local_users"/>
-      <ref name="show_online_repositories"/>
-      <ref name="online_repositories_default"/>
-      <ref name="show_addons"/>
-      <ref name="addons_default"/>
-      <ref name="kexec_reboot"/>
-      <ref name="rle_offer_rulevel_4"/>
-      <ref name="default_ntp_setup"/>
-      <ref name="save_instsys_content"/>
-      <ref name="displaymanager_shutdown"/>
-      <ref name="enable_kdump"/>
-      <ref name="polkit_default_privs"/>
-      <ref name="debug_workflow"/>
-      <ref name="subworkflows"/>
-      <ref name="default_subworkflow"/>
-      <ref name="language"/>
-      <ref name="timezone"/>
-      <ref name="readonly_language"/>
-      <ref name="readonly_timezone"/>
-      <ref name="enable_autologin"/>
-      <ref name="default_target"/>
-      <ref name="require_registration"/>
-      <ref name="services_proposal"/>
-      <ref name="debug_deploying"/>
-      <ref name="show_drivers_info"/>
-      <ref name="self_update_url"/>
-      <ref name="self_update_id"/>
-      <ref name="self_update_version"/>
-      <ref name="installation_ui"/>
-      <ref name="installation_layout"/>
-      <ref name="cpu_mitigations"/>
-      <ref name="full_system_media_name"/>
+      <ref name="enable_sshd"/>
+      <ref name="firewall_enable_ssh"/>
       <ref name="full_system_download_url"/>
+      <ref name="full_system_media_name"/>
+      <ref name="incomplete_translation_treshold"/>
+      <ref name="inform_about_suboptimal_distribution"/>
+      <ref name="installation_layout"/>
+      <ref name="installation_ui"/>
+      <ref name="kexec_reboot"/>
+      <ref name="language"/>
+      <ref name="lsm"/>
+      <ref name="manual_online_update"/>
+      <ref name="online_repositories_default"/>
+      <ref name="polkit_default_privs"/>
       <ref name="precise_time"/>
       <ref name="propose_hibernation"/>
-      <ref name="default_ntp_servers"/>
-      <ref name="lsm"/>
+      <ref name="readonly_language"/>
+      <ref name="readonly_timezone"/>
+      <ref name="register_monthly"/>
+      <ref name="require_registration"/>
+      <ref name="rle_offer_rulevel_4"/>
+      <ref name="root_password_as_first_user"/>
+      <ref name="root_password_ca_check"/>
+      <ref name="run_init_scripts_in_parallel"/>
+      <ref name="save_instsys_content"/>
+      <ref name="save_y2logs"/>
+      <ref name="self_update_id"/>
+      <ref name="self_update_url"/>
+      <ref name="self_update_version"/>
       <!-- (deprecated) but make it backward compatible (bsc#1194403) -->
       <ref name="selinux"/>
+      <ref name="services_proposal"/>
+      <ref name="show_addons"/>
+      <ref name="show_drivers_info"/>
+      <ref name="show_online_repositories"/>
+      <ref name="skip_language_dialog"/>
+      <ref name="subworkflows"/>
+      <ref name="timezone"/>
+      <ref name="ui_mode"/>
+      <ref name="write_hostname_to_hosts"/>
     </choice>
   </define>
   <define name="additional_kernel_parameters">
@@ -261,6 +262,12 @@ it being 'complete'. Less are reported if user tries to switch to such
 language during installation / upgrade.</a:documentation>
     <element name="incomplete_translation_treshold">
       <ref name="STRING"/>
+    </element>
+  </define>
+  <define name="boot_timeout">
+    <a:documentation>Default proposed timeout settings for bootloader (jsc#SLE-22667)</a:documentation>
+    <element name="boot_timeout">
+      <ref name="INTEGER"/>
     </element>
   </define>
   <define name="base_product_license_directory">
