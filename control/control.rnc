@@ -108,6 +108,7 @@ globals_elements =
     additional_kernel_parameters
     | addons_default
     | base_product_license_directory
+    | boot_timeout
     | cpu_mitigations
     | debug_deploying
     | debug_workflow
@@ -175,6 +176,8 @@ additional_kernel_parameters =		element additional_kernel_parameters { STRING }
 ## it being 'complete'. Less are reported if user tries to switch to such
 ## language during installation / upgrade.
 incomplete_translation_treshold =	element incomplete_translation_treshold { STRING }
+## Default proposed timeout settings for bootloader (jsc#SLE-22667)
+boot_timeout =                          element boot_timeout { INTEGER }
 ## Directory where the base-product (e.g., SLES) license files are stored
 base_product_license_directory =	element base_product_license_directory { STRING }
 ## Defines an UI mode used in some modules to differentiate between
