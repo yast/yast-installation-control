@@ -1,4 +1,4 @@
-rpmdir = /etc/rpm
+rpmdir = /usr/lib/rpm/macros.d
 
 rpm_DATA = macros.skelcd
 
