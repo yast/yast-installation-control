@@ -1,5 +1,5 @@
 -------------------------------------------------------------------
-Mon Feb 19 15:56:51 UTC 2024 - Stefan Schubert <schubi@localhost>
+Mon Feb 19 15:56:51 UTC 2024 - Stefan Schubert <schubi@suse.com>
 
 - Added prefered_bootloader (jsc#PED-1906)
   Install prefered bootloader if it fits to the system.
