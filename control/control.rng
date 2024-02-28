@@ -222,6 +222,7 @@ Shorter variants are allowed.</a:documentation>
       <ref name="manual_online_update"/>
       <ref name="online_repositories_default"/>
       <ref name="polkit_default_privs"/>
+      <ref name="prefered_bootloader"/>
       <ref name="precise_time"/>
       <ref name="propose_hibernation"/>
       <ref name="readonly_language"/>
@@ -298,6 +299,16 @@ if set</a:documentation>
 if set</a:documentation>
     <element name="polkit_default_privs">
       <ref name="STRING"/>
+    </element>
+  </define>
+  <define name="prefered_bootloader">
+    <a:documentation>Install prefered bootloader if it fits to the system
+'systemd-boot' or 'grub2'(default)</a:documentation>
+    <element name="prefered_bootloader">
+      <choice>
+        <value>systemd-boot</value>
+        <value>grub2</value>
+      </choice>
     </element>
   </define>
   <define name="default_subworkflow">
