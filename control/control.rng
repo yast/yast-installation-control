@@ -303,11 +303,10 @@ if set</a:documentation>
   </define>
   <define name="prefered_bootloader">
     <a:documentation>Install prefered bootloader if it fits to the system
-'systemd-boot', 'grub2-efi' or 'grub2'</a:documentation>
+'systemd-boot' or 'grub2'(default)</a:documentation>
     <element name="prefered_bootloader">
       <choice>
         <value>systemd-boot</value>
-        <value>grub2-efi</value>
         <value>grub2</value>
       </choice>
     </element>
