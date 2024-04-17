@@ -1379,6 +1379,12 @@ Example 2: ppc,!board_powernv
         <ref name="lvm"/>
       </optional>
       <optional>
+        <ref name="encryption_method"/>
+      </optional>
+      <optional>
+        <ref name="encryption_pbkdf"/>
+      </optional>
+      <optional>
         <ref name="separate_vgs"/>
       </optional>
       <optional>
@@ -1413,6 +1419,16 @@ Example 2: ppc,!board_powernv
   <define name="lvm">
     <element name="lvm">
       <ref name="BOOLEAN"/>
+    </element>
+  </define>
+  <define name="encryption_method">
+    <element name="encryption_method">
+      <ref name="STRING"/>
+    </element>
+  </define>
+  <define name="encryption_pbkdf">
+    <element name="encryption_pbkdf">
+      <ref name="STRING"/>
     </element>
   </define>
   <define name="separate_vgs">
