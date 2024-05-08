@@ -697,6 +697,8 @@ partitioning_proposal = element proposal {
 
 partitioning_proposal_elements =
     lvm?
+    & encryption_method?
+    & encryption_pbkdf?
     & separate_vgs?
     & resize_windows?
     & windows_delete_mode?
@@ -709,6 +711,8 @@ partitioning_proposal_elements =
     & multidisk_first?
 
 lvm = element lvm { BOOLEAN }
+encryption_method = element encryption_method { STRING }
+encryption_pbkdf = element encryption_pbkdf { STRING }
 separate_vgs = element separate_vgs { BOOLEAN }
 resize_windows = element resize_windows { BOOLEAN }
 windows_delete_mode = element windows_delete_mode { SYMBOL, delete_mode_enum }
