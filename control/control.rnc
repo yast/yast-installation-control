@@ -123,6 +123,7 @@ globals_elements =
     | displaymanager_shutdown
     | enable_autologin
     | enable_systemd_boot
+    | prefered_bootloader
     | enable_clone
     | enable_firewall
     | enable_kdump
@@ -211,6 +212,8 @@ debug_workflow =			element debug_workflow { BOOLEAN }
 enable_autologin =			element enable_autologin { BOOLEAN }
 ## systemd_boot can be selected if UEFI is available
 enable_systemd_boot =			element enable_systemd_boot { BOOLEAN }
+## Prefered bootloader
+prefered_bootloader =			element prefered_bootloader { STRING }
 ## Default value for firewall
 enable_firewall =			element enable_firewall { BOOLEAN }
 ## Default value for opening port for SSH in firewall

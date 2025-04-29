@@ -202,6 +202,7 @@ Shorter variants are allowed.</a:documentation>
       <ref name="displaymanager_shutdown"/>
       <ref name="enable_autologin"/>
       <ref name="enable_systemd_boot"/>
+      <ref name="prefered_bootloader"/>
       <ref name="enable_clone"/>
       <ref name="enable_firewall"/>
       <ref name="enable_kdump"/>
@@ -355,6 +356,12 @@ more detailed log entries</a:documentation>
     <a:documentation>systemd_boot can be selected if UEFI is available</a:documentation>
     <element name="enable_systemd_boot">
       <ref name="BOOLEAN"/>
+    </element>
+  </define>
+  <define name="prefered_bootloader">
+    <a:documentation>Prefered bootloader</a:documentation>
+    <element name="prefered_bootloader">
+      <ref name="STRING"/>
     </element>
   </define>
   <define name="enable_firewall">

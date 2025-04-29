@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Apr 29 16:17:14 UTC 2025 - Stefan Schubert <schubi@suse.de>
+
+- Added prefered_bootloader (jsc#PED-1906)
+- 5.0.2
+
+-------------------------------------------------------------------
 Wed Apr 17 15:19:17 UTC 2024 - Stefan Schubert <schubi@suse.com>
 
 - Added encryption_method and encryption_pbkdf in the product
