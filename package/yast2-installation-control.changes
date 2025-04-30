@@ -1,7 +1,7 @@
 -------------------------------------------------------------------
 Tue Apr 29 16:17:14 UTC 2025 - Stefan Schubert <schubi@suse.de>
 
-- Added prefered_bootloader (jsc#PED-1906)
+- Added preferred_bootloader (jsc#PED-1906)
 - 5.0.2
 
 -------------------------------------------------------------------
