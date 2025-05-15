@@ -1392,6 +1392,9 @@ Example 2: ppc,!board_powernv
         <ref name="encryption_pbkdf"/>
       </optional>
       <optional>
+        <ref name="encryption_authentication"/>
+      </optional>
+      <optional>
         <ref name="separate_vgs"/>
       </optional>
       <optional>
@@ -1435,6 +1438,11 @@ Example 2: ppc,!board_powernv
   </define>
   <define name="encryption_pbkdf">
     <element name="encryption_pbkdf">
+      <ref name="STRING"/>
+    </element>
+  </define>
+  <define name="encryption_authentication">
+    <element name="encryption_authentication">
       <ref name="STRING"/>
     </element>
   </define>
